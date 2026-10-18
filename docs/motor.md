@@ -3,7 +3,9 @@
 O motor é a única parte que decide. Todo o resto da API existe para
 entregar a ele, pronto, tudo que se sabe sobre um Pix, e para gravar o que
 ele respondeu. A especificação é o `4.2 - motor-pratica_claude.md` do repo
-de contexto; este documento diz onde cada parte dela mora no código.
+de contexto; este documento diz onde cada parte dela mora no código. O que
+cada regra, sinal, peso e custo significa está no
+[dicionário do motor](dicionario-motor.md).
 
 ```
 POST /pix/transaction
