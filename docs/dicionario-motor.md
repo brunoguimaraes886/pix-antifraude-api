@@ -379,7 +379,9 @@ Fora do motor, no controller, **depois** da decisão.
   `max_amount` ≥ valor + validade ≥ data do Pix → `approved`. Uso único;
   validade padrão de 1h. Grava o que foi desfeito (`overridden_status`,
   `overridden_reasons`).
-- Desfaz a **suspeita**, não a **obrigação**. Não liberáveis
+- O operador pode desfazer uma suspeita ("conferi, não é golpe"), mas não uma
+  regra que o banco é obrigado a cumprir. Se o Pix foi barrado por um destes
+  motivos, a liberação é ignorada e continua disponível
   (`NOT_RELEASABLE` em `reasons.py`): `limit_exceeded`, `dict_fraud_marker`,
   `sanctioned_party`, `betting_destination`, `destination_account_blocked`,
   `new_device_limit`, `new_device_structuring` (o limite do aparelho é do BC;

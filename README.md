@@ -149,11 +149,18 @@ curl -X POST http://localhost:3000/pix/transaction \
 
 ### 2.3 Liberação manual
 
-O cliente reclama de um Pix barrado (fora da API) e um operador libera
-**aquele** Pix: mesmo pagador, mesmo destino, até `max_amount`, até
-`expires_at` (1h por padrão), uso único. O controller aplica a liberação
-**depois** do motor, que continua puro, e grava os motivos que foram
-desfeitos.
+Serve para o falso positivo: o motor barrou um Pix legítimo e o cliente
+reclamou.
+
+1. O cliente fala com o banco (fora da API) e prova que o Pix é dele e que
+   ele sabe para quem está pagando.
+2. Um operador cria uma **liberação** (`POST /manual_release`): "este
+   pagador pode pagar este destino, até este valor (`max_amount`), até esta
+   hora (`expires_at`, 1h por padrão)".
+3. O cliente manda o Pix de novo. O motor analisa normalmente e, se barrar,
+   o controller encontra a liberação e troca a decisão para `approved`.
+4. A liberação vale **uma vez só**. Fica gravado quem liberou, por quê e o que
+   o motor tinha decidido sem ela.
 
 ```bash
 curl -X POST http://localhost:3000/manual_release \
@@ -164,10 +171,19 @@ curl -X POST http://localhost:3000/manual_release \
         "operator": "ana.risco", "reason": "Cliente confirmou por telefone" }'
 ```
 
-A liberação desfaz a **suspeita**, não a **obrigação**. Não são liberáveis:
-limite (`limit_exceeded`), marcação de fraude no DICT (`dict_fraud_marker`),
-sanções, apostas, destino bloqueado, as regras do aparelho não cadastrado (o
-caminho é cadastrar o aparelho) e `engine_error`.
+**O que ela não libera.** O operador pode dizer "conferi, não é golpe", mas
+não pode passar por cima de uma regra que o banco é obrigado a cumprir. Se o
+Pix foi barrado por um destes motivos, a liberação é ignorada (e continua
+disponível):
+
+| Motivo | Por que não dá para liberar |
+|---|---|
+| `limit_exceeded` | o limite é do cliente; o caminho é ele aumentar o limite |
+| `dict_fraud_marker` | o destino tem marcação de fraude recente no DICT |
+| `sanctioned_party`, `betting_destination` | a lei proíbe o Pix (sanção da ONU, apostas) |
+| `destination_account_blocked` | conta bloqueada não recebe |
+| `new_device_limit`, `new_device_structuring` | limite do BC para aparelho não cadastrado; o caminho é cadastrar o aparelho |
+| `engine_error` | o motor não chegou a decidir |
 
 ### 2.4 Códigos
 
