@@ -207,9 +207,52 @@ tem como acontecer, e não contam como "Pix rejeitado" no histórico):
 `unknown_account`, `account_owner_mismatch`, `unknown_destination_account`,
 `destination_owner_mismatch`, `account_blocked`, `insufficient_balance`.
 
-**Recusas do motor**: as regras duras e os sinais. A
-lista completa, com condição e motivo, está no
-[dicionário](docs/dicionario-motor.md).
+**Status** (`status`): `approved`, `two_factor_required` ou `rejected`.
+
+**Códigos do motor** (`metadata.reasons[].code`). Saem as regras duras que
+dispararam e os 3 sinais de maior peso. As mensagens estão em
+`src/engine/reasons.py`. A condição exata, os pontos e o porquê de cada um
+estão no [dicionário](docs/dicionario-motor.md).
+
+*Regras duras:*
+
+| Código | Efeito | Quando |
+|---|---|---|
+| `sanctioned_party` | `rejected` | pagador ou destino em lista de sanções (CSNU) |
+| `betting_destination` | `rejected` | destino é operadora de apostas |
+| `limit_exceeded` | `rejected` | passa do limite do período (diurno ou noturno) |
+| `repeat_after_fraud_rejection` | `rejected` | Pix para este destino recusado por suspeita nas últimas 24h |
+| `destination_account_blocked` | `rejected` | conta de destino (nossa) bloqueada |
+| `dict_fraud_marker` | `rejected` | marcação recente de laranja/golpista no DICT, com reforço |
+| `dict_marker` | piso 2FA | marcação no DICT que não virou rejeição |
+| `dict_unavailable` | piso 2FA | DICT fora do ar, sem consulta recente, e destino novo de outro banco |
+| `new_device_limit` | piso 2FA | aparelho não cadastrado acima de R$ 200 no Pix ou R$ 1.000 no dia |
+| `new_device_structuring` | piso 2FA | vários Pix logo abaixo do limite do aparelho não cadastrado |
+
+*Sinais do score*, por família (somam pontos; os negativos aliviam):
+
+| Família | Códigos |
+|---|---|
+| Identidade | `new_device`, `new_ip`, `shared_device`, `new_channel`, `far_from_last_location`, `impossible_travel` |
+| Magnitude | `amount_above_profile`, `balance_drain` |
+| Ritmo e acumulado | `velocity_spike`, `new_payee_burst`, `high_outflow_ratio`, `retry_after_block`, `split_payments` |
+| Relação | `first_payment_to_destination`, `own_account_new`, `escalating_payments`, `test_then_large`; mitigantes: `recurring_destination`, `received_from_destination`, `own_account_established` |
+| Destino | `dict_history`, `new_destination_account`, `destination_fan_in`, `destination_rejected_before`, `destination_pass_through`, `destination_inflow_jump`, `destination_dormant_awakened`, `destination_block_history` |
+| Pagador como laranja | `payer_pass_through`, `new_source_account`, `payer_inflow_jump`, `payer_dormant_awakened` |
+| Contexto | `unusual_night`, `source_risk_history`, `dict_unavailable`, `missing_geolocation` |
+| Assinaturas | `scam_drain_pattern`, `safe_account_pattern`, `refund_to_third_party`, `scam_ladder`, `takeover_cashout`, `night_coercion`, `fresh_mule`, `mule_cashout` |
+
+*Especiais:*
+
+| Código | Quando |
+|---|---|
+| `engine_error` | o motor falhou: `two_factor_required`, nunca aprova às cegas |
+| `risk_policy` | substitui na resposta pública os motivos sensíveis a PLD (`payer_pass_through`, `payer_inflow_jump`, `payer_dormant_awakened`, `new_source_account`, `mule_cashout`, `split_payments`, `new_device_structuring`), porque a lei proíbe avisar o cliente de suspeita de lavagem |
+
+Os sinais de destino de risco (`destination_fan_in`, `fresh_mule` etc.) saem
+com a mesma mensagem genérica ("A conta de destino tem sinais de risco"). O
+código é diferente, mas a mensagem não diz nada sobre outros clientes
+(sigilo bancário).
 
 **Erros HTTP** (formato do Base Service: `title`, `description`,
 `translation`, `code`). Uma recusa **não** é erro: é `201` com
