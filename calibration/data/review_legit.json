@@ -1,0 +1,602 @@
+[
+ {
+  "id": "lc-001",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-002",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-003",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-004",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-005",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-006",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-007",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-008",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-009",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-010",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-011",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-012",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-013",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-014",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-015",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-016",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-017",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-018",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-019",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-020",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-021",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-022",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-023",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-024",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-025",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-026",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-027",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-028",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-029",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-030",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-031",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-032",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-033",
+  "drop": false,
+  "note": "garçom de bar novo mas destino PJ; ok se for o bar"
+ },
+ {
+  "id": "lc-034",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-035",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-036",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-037",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-038",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-039",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-040",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-041",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-042",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-043",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-044",
+  "drop": false,
+  "note": "'Uber' pago por Pix a motorista particular: na prática é corrida particular, não Uber"
+ },
+ {
+  "id": "lc-045",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-046",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-047",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-048",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-049",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-050",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-051",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-052",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-053",
+  "drop": false,
+  "note": "saldo 4200 < entrada 24h 4500 sem saída registrada (saldo prévio negativo); inflow_new_senders 0 em conta de 3 dias exige remetente que já pagou antes"
+ },
+ {
+  "id": "lc-054",
+  "drop": false,
+  "note": "coerente (matching_inflow true); padrão 'Pix por engano' é vetor de golpe, rótulo legit depende da narrativa"
+ },
+ {
+  "id": "lc-055",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-056",
+  "drop": false,
+  "note": "filho guiando por telefone lembra golpe, mas destino é o filho com histórico; ok"
+ },
+ {
+  "id": "lc-057",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-058",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-059",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lc-060",
+  "drop": false,
+  "note": "celular antigo quebrou mas other_registered_devices 0 (antigo continuaria cadastrado, esperado 1)"
+ },
+ {
+  "id": "lh-001",
+  "drop": false,
+  "note": "difficulty easy no arquivo hard; ok"
+ },
+ {
+  "id": "lh-002",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-003",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-004",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-005",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-006",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-007",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-008",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-009",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-010",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-011",
+  "drop": false,
+  "note": "1º Pix da vida mas device.registered default true; plausível (app já usado para consulta)"
+ },
+ {
+  "id": "lh-012",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-013",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-014",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-015",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-016",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-017",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-018",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-019",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-020",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-021",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-022",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-023",
+  "drop": false,
+  "note": "marcação DICT 'resolvida' normalmente seria retirada; ok como teste"
+ },
+ {
+  "id": "lh-024",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-025",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-026",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-027",
+  "drop": true,
+  "note": "narrativa diz 'mesmo dia' mas first_received_days_ago 2 com entrada contada no flow_24h; entrada de desconhecido igual ao valor sem matching_inflow_from_stranger=true. Corrigir: first_received_days_ago 0 e matching true"
+ },
+ {
+  "id": "lh-028",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-029",
+  "drop": false,
+  "note": "'conta de luz da mãe': destino PF conhecido (mãe?) ambíguo; ok"
+ },
+ {
+  "id": "lh-030",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-031",
+  "drop": true,
+  "note": "rótulo duvidoso: R$48 mil a vendedor com conta de 20 dias ANTES da vistoria/cartório é o padrão do golpe do falso vendedor de veículo"
+ },
+ {
+  "id": "lh-032",
+  "drop": false,
+  "note": "1º Pix da vida com daily_limit 40000 implica aumento de limite não narrado; idosa+neto+celular de ontem é padrão de exploração, mas narrativa sustenta legit"
+ },
+ {
+  "id": "lh-033",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-034",
+  "drop": false,
+  "note": "nightly_limit 30000 (= diurno) irrealista sem aumento narrado"
+ },
+ {
+  "id": "lh-035",
+  "drop": false,
+  "note": "nightly_limit 20000 alto sem justificativa; ok"
+ },
+ {
+  "id": "lh-036",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-037",
+  "drop": false,
+  "note": "celular furtado + aparelho novo + intermediário + 4h: muito parecido com roubo de celular; other_registered_devices 0 supõe antigo descadastrado"
+ },
+ {
+  "id": "lh-038",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-039",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-040",
+  "drop": false,
+  "note": "'parcela' a particular novo com previous_payments 0 (seria 1ª parcela/sinal)"
+ },
+ {
+  "id": "lh-041",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-042",
+  "drop": false,
+  "note": "marcação MULE_ACCOUNT ainda ativa; legit sustentado só pela narrativa"
+ },
+ {
+  "id": "lh-043",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-044",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-045",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-046",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-047",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-048",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-049",
+  "drop": false,
+  "note": "narrativa cita só a esposa, mas other_accounts_on_device_30d 2"
+ },
+ {
+  "id": "lh-050",
+  "drop": false,
+  "note": "destino PF 'lojista'; compra acima da cota (descaminho) não é fraude Pix; ok"
+ },
+ {
+  "id": "lh-051",
+  "drop": false,
+  "note": "loja com conta de 60 dias e 14 novos pagadores em 7d parece loja falsa; legit limítrofe"
+ },
+ {
+  "id": "lh-052",
+  "drop": false,
+  "note": "dízimos em conta PF do pastor (mistura PF/PJ) realista no Brasil; ok"
+ },
+ {
+  "id": "lh-053",
+  "drop": false,
+  "note": "'confirmou por telefone com o banco' ecoa falsa central; coerente nos dados"
+ },
+ {
+  "id": "lh-054",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-055",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-056",
+  "drop": false,
+  "note": "FGTS (Caixa) com inflow_new_senders 0 ok se já recebeu antes; pagamento a agiota é ilícito mas não fraude contra o cliente"
+ },
+ {
+  "id": "lh-057",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-058",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "lh-059",
+  "drop": false,
+  "note": "nightly_limit 50000 irrealista para PF sem aumento narrado"
+ },
+ {
+  "id": "lh-060",
+  "drop": false,
+  "note": "saldo prévio implícito negativo (1300 - 2900 + 1100 = -500)"
+ }
+]

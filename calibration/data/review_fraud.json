@@ -1,0 +1,602 @@
+[
+ {
+  "id": "se-001",
+  "drop": false,
+  "note": "ok; envia 8.500 de 12.000, coerente com tentativa anterior de 12.000 barrada"
+ },
+ {
+  "id": "se-002",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-003",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-004",
+  "drop": false,
+  "note": "ok; 'jovem' com 35 anos (detalhe)"
+ },
+ {
+  "id": "se-005",
+  "drop": false,
+  "note": "ok; aumento de limite noturno não aparece em nenhum campo além do valor"
+ },
+ {
+  "id": "se-006",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-007",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-008",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-009",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-010",
+  "drop": false,
+  "note": "ok; attempts_24h=4 inclui o atual"
+ },
+ {
+  "id": "se-011",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-012",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-013",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-014",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-015",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-016",
+  "drop": false,
+  "note": "ok; attempts_1h=2 sem explicação na narrativa"
+ },
+ {
+  "id": "se-017",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-018",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-019",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-020",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-021",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-022",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-023",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-024",
+  "drop": false,
+  "note": "ok; duas tentativas de 5.000 barradas pelo limite e 1.000 agora"
+ },
+ {
+  "id": "se-025",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-026",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-027",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-028",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-029",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-030",
+  "drop": false,
+  "note": "ok; narrativa diz 'conta nova' mas destino tem 70 dias (nova para o pagador)"
+ },
+ {
+  "id": "se-031",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-032",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-033",
+  "drop": false,
+  "note": "ok; narrativa fala em boleto mas é Pix (detalhe)"
+ },
+ {
+  "id": "se-034",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-035",
+  "drop": false,
+  "note": "ok; sextorsão realista"
+ },
+ {
+  "id": "se-036",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-037",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-038",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-039",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-040",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-041",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-042",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-043",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-044",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-045",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-046",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-047",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-048",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-049",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-050",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-051",
+  "drop": false,
+  "note": "ok; 'já pagou dois aportes' ambíguo, dados ok"
+ },
+ {
+  "id": "se-052",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-053",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-054",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-055",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-056",
+  "drop": false,
+  "note": "ok; destino same com fan-in baixo, coerente com hard"
+ },
+ {
+  "id": "se-057",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-058",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-059",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "se-060",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-001",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-002",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-003",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-004",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-005",
+  "drop": false,
+  "note": "ok; nightly_limit 3.000 alto para quem quase não usa à noite (night_share 0.02)"
+ },
+ {
+  "id": "tm-006",
+  "drop": false,
+  "note": "ok; attempts_24h=6 sem fluxo de saída correspondente, sem explicação"
+ },
+ {
+  "id": "tm-007",
+  "drop": false,
+  "note": "ok; nightly_limit 20.000 implausível para aposentado sem uso noturno (aumento exigiria carência)"
+ },
+ {
+  "id": "tm-008",
+  "drop": false,
+  "note": "ok; nightly_limit 10.000 alto para perfil com Pix típico de 250"
+ },
+ {
+  "id": "tm-009",
+  "drop": false,
+  "note": "ok; narrativa diz 'conta nova' mas destino tem 150 dias"
+ },
+ {
+  "id": "tm-010",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-011",
+  "drop": false,
+  "note": "ok; ip_seen_before false questionável em acesso remoto no próprio aparelho"
+ },
+ {
+  "id": "tm-012",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-013",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-014",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-015",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-016",
+  "drop": true,
+  "note": "implausível: ladrão manda dinheiro para contato legítimo da vítima (rateio de R$ 45); não beneficia o ladrão"
+ },
+ {
+  "id": "tm-017",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-018",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-019",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-020",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-021",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-022",
+  "drop": false,
+  "note": "ok; 'drena a conta' mas envia 1.100 de 4.500"
+ },
+ {
+  "id": "tm-023",
+  "drop": false,
+  "note": "ok; comparsa que já recebeu legitimamente da vítima é forçado, mas aceitável"
+ },
+ {
+  "id": "tm-024",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-025",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-026",
+  "drop": false,
+  "note": "ok; device omitido (registered true) sem dizer como o invasor opera"
+ },
+ {
+  "id": "tm-027",
+  "drop": false,
+  "note": "ok; cenário rebuscado (celular do sobrinho também comprometido)"
+ },
+ {
+  "id": "tm-028",
+  "drop": false,
+  "note": "ok; fraud_type 'credenciais_vazadas' impreciso (é acesso indevido de conhecido)"
+ },
+ {
+  "id": "tm-029",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-030",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-031",
+  "drop": false,
+  "note": "ok; nightly_limit 10.000 em conta de 10 dias é improvável"
+ },
+ {
+  "id": "tm-032",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-033",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-034",
+  "drop": false,
+  "note": "ok; rotular aposta ilegal voluntária como 'fraud' é discutível"
+ },
+ {
+  "id": "tm-035",
+  "drop": false,
+  "note": "ok; conta aberta com documento de terceiro operada pelo fraudador: owner aceitável"
+ },
+ {
+  "id": "tm-036",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-037",
+  "drop": true,
+  "note": "operator errado: conta alugada operada pela quadrilha em aparelho dela (7 contas) -> intruder; corrigir operator"
+ },
+ {
+  "id": "tm-038",
+  "drop": false,
+  "note": "ok; avg_pix_out 45 e typical_large 150 incompatíveis com 3.800 pagos ao aliciador na semana"
+ },
+ {
+  "id": "tm-039",
+  "drop": false,
+  "note": "ok; ambíguo quem opera (dono ou quadrilha que comprou a conta)"
+ },
+ {
+  "id": "tm-040",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-041",
+  "drop": false,
+  "note": "ok; 'recém-aberto' com 60 dias"
+ },
+ {
+  "id": "tm-042",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-043",
+  "drop": false,
+  "note": "ok; aposta ilegal voluntária como 'fraud' é discutível"
+ },
+ {
+  "id": "tm-044",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-045",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-046",
+  "drop": true,
+  "note": "operator errado: narrativa diz operado do aparelho do aliciador -> intruder; corrigir operator"
+ },
+ {
+  "id": "tm-047",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-048",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-049",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-050",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-051",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-052",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-053",
+  "drop": false,
+  "note": "ok; aposta ilegal habitual voluntária como 'fraud' é discutível"
+ },
+ {
+  "id": "tm-054",
+  "drop": false,
+  "note": "ok; inflow_new_senders 0 sugere remetente conhecido, aceitável"
+ },
+ {
+  "id": "tm-055",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-056",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-057",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-058",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-059",
+  "drop": false,
+  "note": "ok"
+ },
+ {
+  "id": "tm-060",
+  "drop": false,
+  "note": "ok"
+ }
+]

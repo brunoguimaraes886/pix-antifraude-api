@@ -1,0 +1,255 @@
+{
+  "cost_model": {
+    "friction_2fa": 3.0,
+    "reject_fixed": 20.0,
+    "reject_share": 0.1,
+    "stop_intruder": 0.9,
+    "stop_deceived": 0.2,
+    "stop_mule": 0.05,
+    "legit_weights": [
+      10,
+      50,
+      200
+    ]
+  },
+  "best_config": {
+    "policy": "thresholds",
+    "prior_odds": 9.653539326532885e-05,
+    "c_2fa": 3.0,
+    "c_reject": 20.0,
+    "alpha": 0.1,
+    "p_fundada": 0.09925561917376442,
+    "p_claro": 0.5,
+    "rho_identity": 0.3366610734752879,
+    "mitigation_floor": -40,
+    "scale": {
+      "identity": 1.0,
+      "magnitude": 1.0,
+      "velocity": 1.0,
+      "relationship": 0.9583063309665639,
+      "destination": 1.0,
+      "payer_mule": 1.0,
+      "context": 1.0,
+      "pattern": 1.0,
+      "mitigation": 1.0
+    },
+    "cap": {
+      "identity": 50,
+      "magnitude": 40,
+      "velocity": 40,
+      "relationship": 30,
+      "destination": 80,
+      "payer_mule": 60,
+      "context": 25,
+      "pattern": 40
+    },
+    "rho": {
+      "identity": 0.99,
+      "magnitude": 0.4,
+      "velocity": 0.4,
+      "relationship": 0.3,
+      "destination": 0.1,
+      "payer_mule": 0.1,
+      "context": 0.3
+    }
+  },
+  "train": {
+    "baseline": {
+      "n": 166,
+      "fraud": {
+        "approved": 38,
+        "two_factor_required": 22,
+        "rejected": 23,
+        "n": 83
+      },
+      "legit": {
+        "approved": 58,
+        "two_factor_required": 23,
+        "rejected": 2,
+        "n": 83
+      },
+      "fraud_value_lost_pct": 50.3,
+      "cost_w10": 215856.0,
+      "cost_w50": 241812.0,
+      "cost_w200": 339147.0
+    },
+    "best": {
+      "n": 166,
+      "fraud": {
+        "approved": 38,
+        "two_factor_required": 22,
+        "rejected": 23,
+        "n": 83
+      },
+      "legit": {
+        "approved": 60,
+        "two_factor_required": 21,
+        "rejected": 2,
+        "n": 83
+      },
+      "fraud_value_lost_pct": 50.3,
+      "cost_w10": 215796.0,
+      "cost_w50": 241512.0,
+      "cost_w200": 337947.0
+    },
+    "relative_cost": 0.9983
+  },
+  "val": {
+    "baseline": {
+      "n": 72,
+      "fraud": {
+        "approved": 19,
+        "two_factor_required": 5,
+        "rejected": 12,
+        "n": 36
+      },
+      "legit": {
+        "approved": 24,
+        "two_factor_required": 11,
+        "rejected": 1,
+        "n": 36
+      },
+      "fraud_value_lost_pct": 41.4,
+      "cost_w10": 86900.0,
+      "cost_w50": 101020.0,
+      "cost_w200": 153970.0
+    },
+    "best": {
+      "n": 72,
+      "fraud": {
+        "approved": 19,
+        "two_factor_required": 5,
+        "rejected": 12,
+        "n": 36
+      },
+      "legit": {
+        "approved": 24,
+        "two_factor_required": 12,
+        "rejected": 0,
+        "n": 36
+      },
+      "fraud_value_lost_pct": 41.4,
+      "cost_w10": 83730.0,
+      "cost_w50": 85170.0,
+      "cost_w200": 90570.0
+    },
+    "relative_cost": 0.7983
+  },
+  "all": {
+    "baseline": {
+      "n": 238,
+      "fraud": {
+        "approved": 57,
+        "two_factor_required": 27,
+        "rejected": 35,
+        "n": 119
+      },
+      "legit": {
+        "approved": 82,
+        "two_factor_required": 34,
+        "rejected": 3,
+        "n": 119
+      },
+      "fraud_value_lost_pct": 47.4,
+      "cost_w10": 302756.0,
+      "cost_w50": 342832.0,
+      "cost_w200": 493117.0
+    },
+    "best": {
+      "n": 238,
+      "fraud": {
+        "approved": 57,
+        "two_factor_required": 27,
+        "rejected": 35,
+        "n": 119
+      },
+      "legit": {
+        "approved": 84,
+        "two_factor_required": 33,
+        "rejected": 2,
+        "n": 119
+      },
+      "fraud_value_lost_pct": 47.4,
+      "cost_w10": 299526.0,
+      "cost_w50": 326682.0,
+      "cost_w200": 428517.0
+    },
+    "relative_cost": 0.9371
+  },
+  "changed": [
+    {
+      "id": "lh-016",
+      "label": "legit",
+      "before": "two_factor_required",
+      "after": "approved",
+      "amount": 22000.0,
+      "narrative": "Empresa de construção paga pela primeira vez um fornecedor de cimento novo, pedido grande, de dia."
+    },
+    {
+      "id": "lh-028",
+      "label": "legit",
+      "before": "two_factor_required",
+      "after": "approved",
+      "amount": 1900.0,
+      "narrative": "Professora particular recebe de vários pais de alunos e paga o curso de especialização dela."
+    },
+    {
+      "id": "lh-050",
+      "label": "legit",
+      "before": "rejected",
+      "after": "two_factor_required",
+      "amount": 5400.0,
+      "narrative": "Turista brasileiro no Paraguai (Ciudad del Este) paga em reais um lojista brasileiro por eletrônicos, IP estrangeiro e localização a 900 km."
+    }
+  ],
+  "anchors": [],
+  "cross_validation": {
+    "relative_cost_per_fold": [
+      1.0,
+      1.0,
+      1.8033,
+      1.0413,
+      0.9403
+    ],
+    "relative_cost_pooled": 1.156,
+    "baseline": {
+      "n": 238,
+      "fraud": {
+        "approved": 57,
+        "two_factor_required": 27,
+        "rejected": 35,
+        "n": 119
+      },
+      "legit": {
+        "approved": 82,
+        "two_factor_required": 34,
+        "rejected": 3,
+        "n": 119
+      },
+      "fraud_value_lost_pct": 47.4,
+      "cost_w10": 302756.0,
+      "cost_w50": 342832.0,
+      "cost_w200": 493117.0
+    },
+    "tuned_out_of_sample": {
+      "n": 238,
+      "fraud": {
+        "approved": 44,
+        "two_factor_required": 43,
+        "rejected": 32,
+        "n": 119
+      },
+      "legit": {
+        "approved": 78,
+        "two_factor_required": 37,
+        "rejected": 4,
+        "n": 119
+      },
+      "fraud_value_lost_pct": 52.8,
+      "cost_w10": 339486.0,
+      "cost_w50": 392722.0,
+      "cost_w200": 592357.0
+    }
+  },
+  "distance_from_current": 0.576
+}

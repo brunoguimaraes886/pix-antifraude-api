@@ -1,0 +1,1929 @@
+[
+  {
+    "id": "lh-001",
+    "narrative": "Cliente paga a mensalidade da academia de sempre, um pouco mais alta porque renovou o plano semestral.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 780.0,
+      "hour": 9
+    },
+    "payer": {
+      "balance": 4200.0
+    },
+    "relationship": {
+      "previous_payments": 8,
+      "previous_total": 1040.0,
+      "largest_previous": 130.0,
+      "first_payment_days_ago": 240,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lh-002",
+    "narrative": "Feirante faz vários Pix seguidos no sábado de manhã pagando fornecedores conhecidos de verdura e ovos.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 320.0,
+      "hour": 6
+    },
+    "payer": {
+      "age_years": 52,
+      "balance": 2600.0,
+      "pix_out_per_day": 4.0,
+      "typical_large_pix": 600.0,
+      "avg_pix_out": 180.0,
+      "pix_in_per_day": 12.0,
+      "avg_pix_in": 35.0,
+      "night_share": 0.3,
+      "nightly_limit": 2000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 410.0,
+      "inflow_count": 14,
+      "inflow_new_senders": 6,
+      "outflow_amount": 900.0,
+      "outflow_count": 5,
+      "outflow_new_recipients": 0
+    },
+    "velocity": {
+      "attempts_1h": 5,
+      "attempts_24h": 6,
+      "seconds_since_last_attempt": 240
+    },
+    "relationship": {
+      "previous_payments": 20,
+      "previous_total": 6200.0,
+      "largest_previous": 520.0,
+      "first_payment_days_ago": 400,
+      "last_payment_days_ago": 7
+    }
+  },
+  {
+    "id": "lh-003",
+    "narrative": "Mãe manda a mesada do filho universitário, que mora em outra cidade, como todo mês.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 1200.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 49,
+      "balance": 8000.0,
+      "typical_large_pix": 1200.0,
+      "avg_pix_out": 300.0
+    },
+    "relationship": {
+      "previous_payments": 14,
+      "previous_total": 16800.0,
+      "largest_previous": 1200.0,
+      "first_payment_days_ago": 420,
+      "last_payment_days_ago": 31,
+      "received_from_destination_total": 150.0,
+      "first_received_days_ago": 200
+    }
+  },
+  {
+    "id": "lh-004",
+    "narrative": "Cliente paga pela primeira vez o eletricista do bairro por um serviço pequeno, de dia, no celular de sempre.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 250.0,
+      "hour": 15
+    },
+    "payer": {
+      "balance": 3100.0
+    },
+    "destination": {
+      "account_age_days": 2100
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-005",
+    "narrative": "Cliente transfere parte do salário para a própria conta em outro banco, como faz todo mês para investir.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 3000.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 34,
+      "balance": 7500.0,
+      "typical_large_pix": 3000.0,
+      "avg_pix_out": 450.0,
+      "avg_pix_in": 6500.0
+    },
+    "destination": {
+      "same_owner": true,
+      "account_age_days": 1500
+    },
+    "relationship": {
+      "previous_payments": 12,
+      "previous_total": 34000.0,
+      "largest_previous": 4000.0,
+      "first_payment_days_ago": 380,
+      "last_payment_days_ago": 30,
+      "received_from_destination_total": 5000.0,
+      "first_received_days_ago": 300
+    }
+  },
+  {
+    "id": "lh-006",
+    "narrative": "Divisão da conta do bar entre amigos: cliente paga ao amigo que pagou a conta, já pagou ele outras vezes.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 95.0,
+      "hour": 23
+    },
+    "payer": {
+      "age_years": 27,
+      "night_share": 0.35,
+      "balance": 900.0
+    },
+    "relationship": {
+      "previous_payments": 6,
+      "previous_total": 410.0,
+      "largest_previous": 120.0,
+      "first_payment_days_ago": 300,
+      "last_payment_days_ago": 12,
+      "received_from_destination_total": 260.0,
+      "first_received_days_ago": 280
+    }
+  },
+  {
+    "id": "lh-007",
+    "narrative": "Pequena empresa paga o aluguel da sala comercial ao proprietário, como faz todo mês.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 4500.0,
+      "hour": 11
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 8,
+      "account_age_days": 2400,
+      "balance": 38000.0,
+      "pix_out_per_day": 3.0,
+      "typical_large_pix": 6000.0,
+      "avg_pix_out": 1100.0,
+      "avg_pix_in": 1800.0,
+      "pix_in_per_day": 4.0,
+      "night_share": 0.02,
+      "daily_limit": 50000.0,
+      "nightly_limit": 5000.0
+    },
+    "relationship": {
+      "previous_payments": 24,
+      "previous_total": 104000.0,
+      "largest_previous": 4500.0,
+      "first_payment_days_ago": 730,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lh-008",
+    "narrative": "Cliente paga o boleto/condomínio via Pix para a administradora de sempre.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 690.0,
+      "hour": 8
+    },
+    "payer": {
+      "age_years": 61,
+      "balance": 5200.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 3600
+    },
+    "relationship": {
+      "previous_payments": 30,
+      "previous_total": 19800.0,
+      "largest_previous": 720.0,
+      "first_payment_days_ago": 900,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lh-009",
+    "narrative": "Cliente compra um presente numa loja online nova de dia, valor baixo.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 149.9,
+      "hour": 13
+    },
+    "payer": {
+      "age_years": 30,
+      "balance": 1800.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 1100,
+      "other_clients_first_paid_7d": 6
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-010",
+    "narrative": "Cliente compra moto usada de um particular que achou em classificados; viu a moto pessoalmente e checou o documento.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 14500.0,
+      "hour": 16
+    },
+    "payer": {
+      "age_years": 29,
+      "balance": 17000.0,
+      "typical_large_pix": 1500.0,
+      "avg_pix_out": 210.0,
+      "daily_limit": 20000.0
+    },
+    "destination": {
+      "account_age_days": 1900
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-011",
+    "narrative": "Aposentado de 74 anos faz o primeiro Pix da vida, ensinado pelo neto, para pagar a farmácia do bairro.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 380.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 74,
+      "account_age_days": 5400,
+      "pix_out_per_day": 0.0,
+      "typical_large_pix": null,
+      "avg_pix_out": null,
+      "avg_pix_in": 2800.0,
+      "pix_in_per_day": 0.04,
+      "night_share": 0.0,
+      "balance": 6100.0,
+      "daily_limit": 2000.0,
+      "nightly_limit": 500.0
+    },
+    "device": {
+      "channel_used_before": false
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 2900,
+      "other_clients_first_paid_7d": 4
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-012",
+    "narrative": "Enfermeira do plantão noturno paga às 3h da manhã a diarista que deixa os filhos dela; faz isso toda semana.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 220.0,
+      "hour": 3
+    },
+    "payer": {
+      "age_years": 38,
+      "night_share": 0.7,
+      "nightly_limit": 1500.0,
+      "balance": 1900.0
+    },
+    "relationship": {
+      "previous_payments": 16,
+      "previous_total": 3400.0,
+      "largest_previous": 240.0,
+      "first_payment_days_ago": 120,
+      "last_payment_days_ago": 7
+    }
+  },
+  {
+    "id": "lh-013",
+    "narrative": "Cliente em viagem a Salvador paga passeio de barco a um guia local; IP de hotel e localização a 1.500 km.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 600.0,
+      "hour": 9
+    },
+    "payer": {
+      "age_years": 44,
+      "balance": 9000.0,
+      "typical_large_pix": 800.0
+    },
+    "device": {
+      "ip_seen_before": false,
+      "distance_from_last_km": 1480.0,
+      "minutes_since_last_location": 360
+    },
+    "destination": {
+      "account_age_days": 1300
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-014",
+    "narrative": "Cliente trocou de celular ontem (o antigo quebrou) e paga a escola do filho, destino conhecido.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1450.0,
+      "hour": 8
+    },
+    "payer": {
+      "age_years": 41,
+      "balance": 6300.0,
+      "typical_large_pix": 1450.0
+    },
+    "device": {
+      "registered": false,
+      "other_registered_devices": 1,
+      "ip_seen_before": true
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 4000
+    },
+    "relationship": {
+      "previous_payments": 9,
+      "previous_total": 13050.0,
+      "largest_previous": 1450.0,
+      "first_payment_days_ago": 270,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lh-015",
+    "narrative": "Pai manda dinheiro para o filho de 18 anos que abriu a primeira conta ontem em um banco digital.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 500.0,
+      "hour": 20
+    },
+    "payer": {
+      "age_years": 47,
+      "balance": 4800.0,
+      "nightly_limit": 1000.0
+    },
+    "destination": {
+      "account_age_days": 1
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-016",
+    "narrative": "Empresa de construção paga pela primeira vez um fornecedor de cimento novo, pedido grande, de dia.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 22000.0,
+      "hour": 14
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 12,
+      "account_age_days": 3800,
+      "balance": 140000.0,
+      "pix_out_per_day": 6.0,
+      "typical_large_pix": 15000.0,
+      "avg_pix_out": 3200.0,
+      "avg_pix_in": 9000.0,
+      "pix_in_per_day": 3.0,
+      "night_share": 0.01,
+      "daily_limit": 100000.0,
+      "nightly_limit": 10000.0
+    },
+    "flow_24h": {
+      "outflow_amount": 18000.0,
+      "outflow_count": 4,
+      "outflow_new_recipients": 0
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 5,
+      "seconds_since_last_attempt": 1800
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 2200
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-017",
+    "narrative": "Cliente recebeu a rescisão ontem e quita de uma vez o financiamento com a irmã, que tinha emprestado dinheiro.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 9000.0,
+      "hour": 12
+    },
+    "payer": {
+      "age_years": 36,
+      "balance": 24000.0,
+      "typical_large_pix": 900.0,
+      "avg_pix_out": 160.0,
+      "daily_limit": 15000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 21000.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 0
+    },
+    "relationship": {
+      "previous_payments": 2,
+      "previous_total": 700.0,
+      "largest_previous": 500.0,
+      "first_payment_days_ago": 500,
+      "last_payment_days_ago": 90,
+      "received_from_destination_total": 10000.0,
+      "first_received_days_ago": 210
+    }
+  },
+  {
+    "id": "lh-018",
+    "narrative": "Motorista de aplicativo abastece de madrugada num posto novo de rodovia.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 210.0,
+      "hour": 2
+    },
+    "payer": {
+      "age_years": 33,
+      "night_share": 0.55,
+      "pix_out_per_day": 2.5,
+      "balance": 700.0,
+      "pix_in_per_day": 1.5,
+      "avg_pix_in": 120.0
+    },
+    "device": {
+      "distance_from_last_km": 85.0,
+      "minutes_since_last_location": 120,
+      "ip_seen_before": false
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 3000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-019",
+    "narrative": "Racha da casa de praia: cliente recebeu de 6 amigos e paga o valor total ao proprietário do imóvel.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 4200.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 31,
+      "balance": 5300.0,
+      "typical_large_pix": 1000.0,
+      "daily_limit": 8000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 3500.0,
+      "inflow_count": 6,
+      "inflow_new_senders": 1
+    },
+    "destination": {
+      "account_age_days": 2600
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-020",
+    "narrative": "Cliente faz a primeira parcela do material de construção para uma reforma, numa loja nova.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 3800.0,
+      "hour": 11
+    },
+    "payer": {
+      "age_years": 45,
+      "balance": 12000.0,
+      "typical_large_pix": 1200.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 1700,
+      "other_clients_first_paid_7d": 3
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-021",
+    "narrative": "Autônoma (manicure) recebeu de várias clientes no dia e paga a distribuidora de esmaltes, fornecedor recente.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 680.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 28,
+      "balance": 1100.0,
+      "pix_in_per_day": 6.0,
+      "avg_pix_in": 60.0,
+      "typical_large_pix": 500.0
+    },
+    "flow_24h": {
+      "inflow_amount": 720.0,
+      "inflow_count": 11,
+      "inflow_new_senders": 4
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 800
+    },
+    "relationship": {
+      "previous_payments": 1,
+      "previous_total": 450.0,
+      "largest_previous": 450.0,
+      "first_payment_days_ago": 25,
+      "last_payment_days_ago": 25
+    }
+  },
+  {
+    "id": "lh-022",
+    "narrative": "Cliente que já teve a conta bloqueada há 2 anos por ter caído num golpe paga o plano de saúde de sempre.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 890.0,
+      "hour": 9
+    },
+    "payer": {
+      "age_years": 58,
+      "balance": 4400.0,
+      "past_account_blocks": 1,
+      "past_rejected_pix": 2
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 5000
+    },
+    "relationship": {
+      "previous_payments": 18,
+      "previous_total": 15500.0,
+      "largest_previous": 890.0,
+      "first_payment_days_ago": 560,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lh-023",
+    "narrative": "Cliente paga o técnico que consertou a geladeira; a conta dele tem marcação antiga no DICT de 3 anos atrás (já resolvida).",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 350.0,
+      "hour": 16
+    },
+    "payer": {
+      "balance": 2700.0
+    },
+    "destination": {
+      "account_age_days": 2400,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "OTHER",
+            "on": "account",
+            "days_ago": 1100
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-024",
+    "narrative": "Cliente paga sinal de reserva de buffet para o casamento, valor acima do habitual, a empresa com conta antiga.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 6000.0,
+      "hour": 17
+    },
+    "payer": {
+      "age_years": 30,
+      "balance": 21000.0,
+      "typical_large_pix": 1500.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 3200
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-025",
+    "narrative": "Cliente em São Paulo a trabalho paga almoço e Uber por Pix; IP do hotel novo e 430 km de casa.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 85.0,
+      "hour": 13
+    },
+    "payer": {
+      "age_years": 39,
+      "balance": 3500.0,
+      "pix_out_per_day": 1.5
+    },
+    "flow_24h": {
+      "outflow_amount": 160.0,
+      "outflow_count": 3,
+      "outflow_new_recipients": 3
+    },
+    "device": {
+      "ip_seen_before": false,
+      "distance_from_last_km": 430.0,
+      "minutes_since_last_location": 300
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 4,
+      "seconds_since_last_attempt": 1500
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 1400
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-026",
+    "narrative": "Dono de lanchonete paga às 23h o entregador freelancer da noite, mesmo de sempre.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 180.0,
+      "hour": 23
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 4,
+      "account_age_days": 1300,
+      "balance": 3200.0,
+      "pix_out_per_day": 3.0,
+      "avg_pix_out": 150.0,
+      "typical_large_pix": 900.0,
+      "pix_in_per_day": 30.0,
+      "avg_pix_in": 42.0,
+      "night_share": 0.5,
+      "nightly_limit": 3000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 1800.0,
+      "inflow_count": 44,
+      "inflow_new_senders": 15
+    },
+    "relationship": {
+      "previous_payments": 40,
+      "previous_total": 6800.0,
+      "largest_previous": 220.0,
+      "first_payment_days_ago": 200,
+      "last_payment_days_ago": 1
+    }
+  },
+  {
+    "id": "lh-027",
+    "narrative": "Cliente vende o carro e, no mesmo dia, devolve o sinal ao comprador desistente; valor igual ao recebido dele.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 2000.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 50,
+      "balance": 9800.0
+    },
+    "flow_24h": {
+      "inflow_amount": 2000.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1,
+      "matching_inflow_from_stranger": true
+    },
+    "relationship": {
+      "previous_payments": 0,
+      "received_from_destination_total": 2000.0,
+      "first_received_days_ago": 0
+    }
+  },
+  {
+    "id": "lh-028",
+    "narrative": "Professora particular recebe de vários pais de alunos e paga o curso de especialização dela.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1900.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 35,
+      "balance": 2600.0,
+      "pix_in_per_day": 2.0,
+      "avg_pix_in": 180.0,
+      "nightly_limit": 2000.0,
+      "night_share": 0.25
+    },
+    "flow_24h": {
+      "inflow_amount": 1260.0,
+      "inflow_count": 7,
+      "inflow_new_senders": 2
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 4100
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-029",
+    "narrative": "Cliente com celular novo (trocou há 3 dias) paga a conta de luz atrasada da mãe.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 420.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 37,
+      "balance": 1500.0
+    },
+    "device": {
+      "registered": false,
+      "other_registered_devices": 1
+    },
+    "relationship": {
+      "previous_payments": 5,
+      "previous_total": 1600.0,
+      "largest_previous": 500.0,
+      "first_payment_days_ago": 330,
+      "last_payment_days_ago": 40
+    }
+  },
+  {
+    "id": "lh-030",
+    "narrative": "Cliente faz pagamento ao dentista novo que indicaram, tratamento de canal à vista.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 2400.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 53,
+      "balance": 7700.0,
+      "typical_large_pix": 900.0
+    },
+    "destination": {
+      "account_age_days": 3700
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-031",
+    "narrative": "Cliente compra carro usado de particular por R$ 48 mil; o vendedor abriu conta digital há 20 dias e o comprador nunca fez Pix grande. Vistoria e transferência no cartório já agendadas.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 48000.0,
+      "hour": 17
+    },
+    "payer": {
+      "age_years": 42,
+      "balance": 52000.0,
+      "typical_large_pix": 1200.0,
+      "avg_pix_out": 190.0,
+      "daily_limit": 50000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 45000.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 0
+    },
+    "destination": {
+      "account_age_days": 20
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-032",
+    "narrative": "Aposentada de 79 anos faz o 1º Pix da vida, valor alto, para a construtora pagar a entrada do apartamento da neta; está com o neto, num celular cadastrado ontem.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 30000.0,
+      "hour": 11
+    },
+    "payer": {
+      "age_years": 79,
+      "account_age_days": 8000,
+      "pix_out_per_day": 0.0,
+      "typical_large_pix": null,
+      "avg_pix_out": null,
+      "avg_pix_in": 4100.0,
+      "pix_in_per_day": 0.05,
+      "night_share": 0.0,
+      "balance": 186000.0,
+      "daily_limit": 40000.0,
+      "nightly_limit": 1000.0
+    },
+    "device": {
+      "registered": false,
+      "other_registered_devices": 0,
+      "ip_seen_before": false,
+      "channel_used_before": false,
+      "distance_from_last_km": null
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 2900
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-033",
+    "narrative": "Vaquinha para cirurgia: cliente recebeu dezenas de Pix de desconhecidos nas últimas 24h e repassa tudo ao hospital.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 12400.0,
+      "hour": 9
+    },
+    "payer": {
+      "age_years": 46,
+      "balance": 13100.0,
+      "typical_large_pix": 700.0,
+      "avg_pix_out": 140.0,
+      "avg_pix_in": 1500.0,
+      "pix_in_per_day": 0.3,
+      "daily_limit": 15000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 12350.0,
+      "inflow_count": 87,
+      "inflow_new_senders": 79
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 9000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-034",
+    "narrative": "Racha de viagem de formatura: recebeu de 25 colegas ontem e paga de uma vez a agência de turismo, de madrugada porque só ficou livre depois do trabalho.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 27500.0,
+      "hour": 0
+    },
+    "payer": {
+      "age_years": 23,
+      "account_age_days": 400,
+      "balance": 28300.0,
+      "typical_large_pix": 500.0,
+      "avg_pix_out": 90.0,
+      "avg_pix_in": 1400.0,
+      "night_share": 0.3,
+      "daily_limit": 30000.0,
+      "nightly_limit": 30000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 27500.0,
+      "inflow_count": 25,
+      "inflow_new_senders": 18
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 1600
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-035",
+    "narrative": "Portabilidade: cliente abriu ontem conta própria em outro banco para receber o salário e transfere quase todo o saldo para lá.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 18500.0,
+      "hour": 20
+    },
+    "payer": {
+      "age_years": 35,
+      "balance": 19000.0,
+      "typical_large_pix": 2000.0,
+      "avg_pix_out": 300.0,
+      "avg_pix_in": 7000.0,
+      "daily_limit": 20000.0,
+      "nightly_limit": 20000.0
+    },
+    "destination": {
+      "same_owner": true,
+      "account_age_days": 1
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-036",
+    "narrative": "Reforma: pagamentos ao empreiteiro em parcelas crescentes (2k, 5k, 9k e agora 15k) conforme a obra avança.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 15000.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 48,
+      "balance": 31000.0,
+      "typical_large_pix": 5000.0,
+      "avg_pix_out": 800.0,
+      "daily_limit": 20000.0,
+      "nightly_limit": 1000.0
+    },
+    "destination": {
+      "account_age_days": 160
+    },
+    "relationship": {
+      "previous_payments": 3,
+      "previous_total": 16000.0,
+      "largest_previous": 9000.0,
+      "first_payment_days_ago": 45,
+      "last_payment_days_ago": 10
+    }
+  },
+  {
+    "id": "lh-037",
+    "narrative": "Cliente em viagem a Lisboa, celular novo comprado lá porque o antigo foi furtado no aeroporto; paga o hostel em reais a um intermediário brasileiro.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 2300.0,
+      "hour": 4
+    },
+    "payer": {
+      "age_years": 27,
+      "balance": 6800.0,
+      "night_share": 0.1,
+      "nightly_limit": 3000.0
+    },
+    "device": {
+      "registered": false,
+      "other_registered_devices": 0,
+      "ip_seen_before": false,
+      "distance_from_last_km": 7500.0,
+      "minutes_since_last_location": 2200
+    },
+    "destination": {
+      "account_age_days": 700
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-038",
+    "narrative": "Mãe manda dinheiro para o filho que abriu conta ontem no nosso banco e acabou de receber o primeiro Pix dela; ele vai pagar o aluguel da república.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 1800.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 51,
+      "balance": 4500.0,
+      "typical_large_pix": 1000.0,
+      "nightly_limit": 2000.0
+    },
+    "destination": {
+      "bank": "same",
+      "account_age_days": 1,
+      "internal": {
+        "blocked": false,
+        "balance": 50.0,
+        "history_days": 1,
+        "pix_in_per_day": 1.0,
+        "avg_pix_in": 50.0,
+        "pix_out_per_day": 0.0,
+        "inflow_24h_amount": 50.0,
+        "inflow_24h_count": 1,
+        "inflow_24h_new_senders": 1,
+        "outflow_24h_amount": 0.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 1,
+      "previous_total": 50.0,
+      "largest_previous": 50.0,
+      "first_payment_days_ago": 0,
+      "last_payment_days_ago": 0,
+      "attempts_to_destination_24h": 1,
+      "last_attempt_amount": 50.0
+    }
+  },
+  {
+    "id": "lh-039",
+    "narrative": "Herdeiro recebeu R$ 80 mil do inventário e, no mesmo dia, paga a entrada de um imóvel a uma imobiliária pela qual nunca pagou.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 80000.0,
+      "hour": 14
+    },
+    "payer": {
+      "age_years": 39,
+      "balance": 83000.0,
+      "typical_large_pix": 1500.0,
+      "avg_pix_out": 220.0,
+      "daily_limit": 80000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 80000.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 5200
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-040",
+    "narrative": "Vigia noturno sempre faz Pix de madrugada; hoje paga, às 4h, a parcela de uma moto usada a um particular novo.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 3500.0,
+      "hour": 4
+    },
+    "payer": {
+      "age_years": 44,
+      "night_share": 0.85,
+      "balance": 4100.0,
+      "typical_large_pix": 600.0,
+      "nightly_limit": 4000.0,
+      "daily_limit": 5000.0
+    },
+    "destination": {
+      "account_age_days": 300
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-041",
+    "narrative": "Cliente foi vítima de golpe há 1 ano (conta bloqueada 2 vezes) e hoje, num celular novo, paga a matrícula da faculdade da filha.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 2900.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 55,
+      "balance": 8000.0,
+      "past_account_blocks": 2,
+      "past_rejected_pix": 3,
+      "typical_large_pix": 1000.0
+    },
+    "device": {
+      "registered": false,
+      "other_registered_devices": 0,
+      "ip_seen_before": false
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 7000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-042",
+    "narrative": "Destino com marcação de MULE_ACCOUNT de 2 anos atrás (era vítima usada por golpista, já resolvido); cliente paga o pedreiro conhecido do bairro pela primeira vez via Pix.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 1600.0,
+      "hour": 17
+    },
+    "payer": {
+      "age_years": 60,
+      "balance": 3900.0,
+      "typical_large_pix": 700.0
+    },
+    "destination": {
+      "account_age_days": 2800,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "MULE_ACCOUNT",
+            "on": "account",
+            "days_ago": 730
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-043",
+    "narrative": "Empresa recém-aberta (3 meses) paga fornecedor novo de maquinário; valor bem acima do histórico curto.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 42000.0,
+      "hour": 15
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 0,
+      "account_age_days": 90,
+      "balance": 60000.0,
+      "pix_out_per_day": 1.0,
+      "typical_large_pix": 5000.0,
+      "avg_pix_out": 1500.0,
+      "avg_pix_in": 20000.0,
+      "pix_in_per_day": 0.2,
+      "night_share": 0.0,
+      "daily_limit": 50000.0,
+      "nightly_limit": 5000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 50000.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 400
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-044",
+    "narrative": "Rifa beneficente: cliente recebeu 140 Pix pequenos de desconhecidos e paga o prêmio (uma TV) numa loja nova, de noite.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 3200.0,
+      "hour": 22
+    },
+    "payer": {
+      "age_years": 33,
+      "balance": 3700.0,
+      "typical_large_pix": 400.0,
+      "avg_pix_in": 900.0,
+      "pix_in_per_day": 0.4,
+      "nightly_limit": 5000.0,
+      "night_share": 0.3
+    },
+    "flow_24h": {
+      "inflow_amount": 3500.0,
+      "inflow_count": 140,
+      "inflow_new_senders": 132
+    },
+    "velocity": {
+      "attempts_1h": 0,
+      "attempts_24h": 1,
+      "seconds_since_last_attempt": 50000
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 1200
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-045",
+    "narrative": "Cliente quer pagar o carro usado e tenta várias vezes porque erra a chave Pix e o limite; finalmente aumenta o limite e tenta de novo.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 26000.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 37,
+      "balance": 29000.0,
+      "typical_large_pix": 2000.0,
+      "daily_limit": 30000.0,
+      "nightly_limit": 1000.0
+    },
+    "velocity": {
+      "attempts_1h": 4,
+      "attempts_24h": 4,
+      "seconds_since_last_attempt": 90
+    },
+    "destination": {
+      "account_age_days": 1100
+    },
+    "relationship": {
+      "previous_payments": 0,
+      "attempts_to_destination_24h": 2,
+      "last_attempt_amount": 26000.0,
+      "blocked_attempts_24h": 2
+    }
+  },
+  {
+    "id": "lh-046",
+    "narrative": "Casal recém-mudado para outro estado: celular novo, IP novo, 2.000 km de distância; paga a caução do apartamento ao corretor.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 7200.0,
+      "hour": 16
+    },
+    "payer": {
+      "age_years": 32,
+      "balance": 15000.0,
+      "typical_large_pix": 1500.0,
+      "daily_limit": 10000.0
+    },
+    "device": {
+      "registered": false,
+      "other_registered_devices": 1,
+      "ip_seen_before": false,
+      "distance_from_last_km": 2050.0,
+      "minutes_since_last_location": 1440
+    },
+    "destination": {
+      "account_age_days": 260
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-047",
+    "narrative": "Diarista ganha de várias patroas e, à noite, manda quase tudo para a filha que mora no Nordeste; filha usa conta que abriu há 10 dias.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 950.0,
+      "hour": 22
+    },
+    "payer": {
+      "age_years": 49,
+      "balance": 1000.0,
+      "pix_in_per_day": 1.2,
+      "avg_pix_in": 200.0,
+      "typical_large_pix": 400.0,
+      "nightly_limit": 1000.0,
+      "night_share": 0.4
+    },
+    "flow_24h": {
+      "inflow_amount": 600.0,
+      "inflow_count": 3,
+      "inflow_new_senders": 1
+    },
+    "device": {
+      "distance_from_last_km": 2.0
+    },
+    "destination": {
+      "account_age_days": 10
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-048",
+    "narrative": "Cliente com celular novo paga a segunda parcela da reforma ao mestre de obras, logo após receber um Pix de mesmo valor de um primo que nunca tinha mandado nada (emprestou).",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 5000.0,
+      "hour": 13
+    },
+    "payer": {
+      "age_years": 43,
+      "balance": 6200.0,
+      "typical_large_pix": 1200.0,
+      "daily_limit": 8000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 5000.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1,
+      "matching_inflow_from_stranger": true
+    },
+    "device": {
+      "registered": false,
+      "other_registered_devices": 1
+    },
+    "relationship": {
+      "previous_payments": 1,
+      "previous_total": 3000.0,
+      "largest_previous": 3000.0,
+      "first_payment_days_ago": 20,
+      "last_payment_days_ago": 20
+    }
+  },
+  {
+    "id": "lh-049",
+    "narrative": "Pequeno comerciante usa o celular da loja, onde a esposa também acessa a conta dela, para pagar fornecedor novo de bebidas.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 4700.0,
+      "hour": 7
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 6,
+      "account_age_days": 2000,
+      "balance": 9000.0,
+      "pix_out_per_day": 2.0,
+      "typical_large_pix": 3000.0,
+      "avg_pix_out": 700.0,
+      "pix_in_per_day": 25.0,
+      "avg_pix_in": 55.0,
+      "daily_limit": 15000.0,
+      "nightly_limit": 2000.0
+    },
+    "device": {
+      "other_accounts_on_device_30d": 2
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 350
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-050",
+    "narrative": "Turista brasileiro no Paraguai (Ciudad del Este) paga em reais um lojista brasileiro por eletrônicos, IP estrangeiro e localização a 900 km.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 5400.0,
+      "hour": 12
+    },
+    "payer": {
+      "age_years": 36,
+      "balance": 8000.0,
+      "typical_large_pix": 1000.0,
+      "daily_limit": 8000.0
+    },
+    "flow_24h": {
+      "outflow_amount": 1200.0,
+      "outflow_count": 2,
+      "outflow_new_recipients": 2
+    },
+    "device": {
+      "ip_seen_before": false,
+      "distance_from_last_km": 900.0,
+      "minutes_since_last_location": 400
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 3,
+      "seconds_since_last_attempt": 2400
+    },
+    "destination": {
+      "account_age_days": 190,
+      "other_clients_first_paid_7d": 9
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-051",
+    "narrative": "Cliente recebe devolução de compra cancelada e, minutos depois, paga outra loja pelo mesmo produto, valor quase idêntico, a uma conta nova.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 2399.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 26,
+      "balance": 2700.0,
+      "typical_large_pix": 500.0,
+      "nightly_limit": 3000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 2450.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1,
+      "matching_inflow_from_stranger": true
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 1,
+      "seconds_since_last_attempt": 600
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 60,
+      "other_clients_first_paid_7d": 14
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-052",
+    "narrative": "Pastor recebe dízimos de muitos fiéis no domingo à noite e paga o aluguel do templo ao proprietário.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 6500.0,
+      "hour": 22
+    },
+    "payer": {
+      "age_years": 57,
+      "balance": 7900.0,
+      "pix_in_per_day": 3.0,
+      "avg_pix_in": 90.0,
+      "typical_large_pix": 6500.0,
+      "avg_pix_out": 700.0,
+      "nightly_limit": 7000.0,
+      "night_share": 0.3
+    },
+    "flow_24h": {
+      "inflow_amount": 6100.0,
+      "inflow_count": 68,
+      "inflow_new_senders": 12
+    },
+    "relationship": {
+      "previous_payments": 11,
+      "previous_total": 71500.0,
+      "largest_previous": 6500.0,
+      "first_payment_days_ago": 340,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lh-053",
+    "narrative": "Cliente que já teve Pix rejeitado por suspeita ontem (era pagamento ao sobrinho) tenta de novo hoje, após confirmar por telefone com o banco.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 3000.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 64,
+      "balance": 11000.0,
+      "typical_large_pix": 800.0,
+      "past_rejected_pix": 1
+    },
+    "velocity": {
+      "attempts_1h": 0,
+      "attempts_24h": 2,
+      "seconds_since_last_attempt": 64000
+    },
+    "destination": {
+      "account_age_days": 500
+    },
+    "relationship": {
+      "previous_payments": 0,
+      "attempts_to_destination_24h": 1,
+      "last_attempt_amount": 3000.0,
+      "blocked_attempts_24h": 1,
+      "fraud_rejections_24h": 1
+    }
+  },
+  {
+    "id": "lh-054",
+    "narrative": "Cliente paga a 1ª parcela da entrada de imóvel na planta a uma incorporadora nova (SPE criada há 4 meses), de dia, pelo internet banking que nunca tinha usado.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 35000.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 40,
+      "balance": 62000.0,
+      "typical_large_pix": 3000.0,
+      "avg_pix_out": 400.0,
+      "daily_limit": 50000.0
+    },
+    "device": {
+      "channel_used_before": false,
+      "has_geolocation": false,
+      "distance_from_last_km": null,
+      "ip_seen_before": true
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 120,
+      "other_clients_first_paid_7d": 7
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-055",
+    "narrative": "DICT indisponível no momento; cliente paga o veterinário de emergência de madrugada por uma cirurgia do cachorro.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 2800.0,
+      "hour": 2
+    },
+    "payer": {
+      "age_years": 34,
+      "balance": 5000.0,
+      "typical_large_pix": 600.0,
+      "night_share": 0.05,
+      "nightly_limit": 3000.0
+    },
+    "device": {
+      "distance_from_last_km": 12.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 2500,
+      "dict": {
+        "available": false,
+        "markers": []
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-056",
+    "narrative": "Cliente sacou FGTS e, no mesmo dia, faz vários Pix grandes quitando dívidas com parentes e um agiota conhecido da família.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 8000.0,
+      "hour": 16
+    },
+    "payer": {
+      "age_years": 45,
+      "balance": 9500.0,
+      "typical_large_pix": 700.0,
+      "daily_limit": 25000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 24000.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 0,
+      "outflow_amount": 14500.0,
+      "outflow_count": 3,
+      "outflow_new_recipients": 2
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 4,
+      "seconds_since_last_attempt": 700
+    },
+    "destination": {
+      "account_age_days": 900
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-057",
+    "narrative": "Filho paga dívida da mãe hospitalizada usando a conta própria pela primeira vez no celular da mãe, que está no hospital com ele.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 4100.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 30,
+      "balance": 4300.0,
+      "typical_large_pix": 800.0,
+      "daily_limit": 6000.0
+    },
+    "device": {
+      "registered": false,
+      "other_registered_devices": 1,
+      "ip_seen_before": false,
+      "other_accounts_on_device_30d": 1,
+      "distance_from_last_km": 25.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 6000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-058",
+    "narrative": "Cliente paga ao amigo, também cliente nosso, a parte dele de uma moto comprada juntos; a conta do amigo recebeu muitos Pix hoje porque ele vende salgados.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 3700.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 25,
+      "balance": 4000.0,
+      "typical_large_pix": 600.0
+    },
+    "destination": {
+      "bank": "same",
+      "account_age_days": 220,
+      "internal": {
+        "blocked": false,
+        "balance": 2300.0,
+        "history_days": 30,
+        "pix_in_per_day": 22.0,
+        "avg_pix_in": 18.0,
+        "pix_out_per_day": 1.0,
+        "inflow_24h_amount": 520.0,
+        "inflow_24h_count": 29,
+        "inflow_24h_new_senders": 8,
+        "outflow_24h_amount": 0.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 2,
+      "previous_total": 90.0,
+      "largest_previous": 60.0,
+      "first_payment_days_ago": 150,
+      "last_payment_days_ago": 40,
+      "received_from_destination_total": 200.0,
+      "first_received_days_ago": 100
+    }
+  },
+  {
+    "id": "lh-059",
+    "narrative": "Cliente transfere toda a reserva para a própria conta nova numa corretora (aberta há 3 dias) para investir, à noite após o expediente.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 40000.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 38,
+      "balance": 40500.0,
+      "typical_large_pix": 2500.0,
+      "avg_pix_out": 350.0,
+      "daily_limit": 50000.0,
+      "nightly_limit": 50000.0,
+      "night_share": 0.2
+    },
+    "destination": {
+      "same_owner": true,
+      "type": "PF",
+      "account_age_days": 3
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lh-060",
+    "narrative": "Ambulante em dia de show: dezenas de Pix recebidos de desconhecidos e vários Pix enviados seguidos a fornecedores de gelo e bebida, de madrugada.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 900.0,
+      "hour": 1
+    },
+    "payer": {
+      "age_years": 31,
+      "balance": 1300.0,
+      "pix_out_per_day": 1.5,
+      "typical_large_pix": 700.0,
+      "avg_pix_out": 200.0,
+      "pix_in_per_day": 15.0,
+      "avg_pix_in": 15.0,
+      "night_share": 0.45,
+      "nightly_limit": 2500.0
+    },
+    "flow_24h": {
+      "inflow_amount": 2900.0,
+      "inflow_count": 190,
+      "inflow_new_senders": 160,
+      "outflow_amount": 1100.0,
+      "outflow_count": 3,
+      "outflow_new_recipients": 2
+    },
+    "device": {
+      "ip_seen_before": false,
+      "distance_from_last_km": 40.0,
+      "minutes_since_last_location": 30
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 4,
+      "seconds_since_last_attempt": 420
+    },
+    "destination": {
+      "account_age_days": 75
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  }
+]

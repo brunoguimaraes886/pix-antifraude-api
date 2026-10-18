@@ -1,0 +1,12 @@
+validação cruzada (fora da amostra): [1.0, 1.0, 1.8033, 1.0413, 0.9403] → 1.156
+  antes: {'n': 238, 'fraud': {'approved': 57, 'two_factor_required': 27, 'rejected': 35, 'n': 119}, 'legit': {'approved': 82, 'two_factor_required': 34, 'rejected': 3, 'n': 119}, 'fraud_value_lost_pct': 47.4, 'cost_w10': 302756.0, 'cost_w50': 342832.0, 'cost_w200': 493117.0}
+  depois: {'n': 238, 'fraud': {'approved': 44, 'two_factor_required': 43, 'rejected': 32, 'n': 119}, 'legit': {'approved': 78, 'two_factor_required': 37, 'rejected': 4, 'n': 119}, 'fraud_value_lost_pct': 52.8, 'cost_w10': 339486.0, 'cost_w50': 392722.0, 'cost_w200': 592357.0}
+train custo relativo: 0.9983
+  antes: {'n': 166, 'fraud': {'approved': 38, 'two_factor_required': 22, 'rejected': 23, 'n': 83}, 'legit': {'approved': 58, 'two_factor_required': 23, 'rejected': 2, 'n': 83}, 'fraud_value_lost_pct': 50.3, 'cost_w10': 215856.0, 'cost_w50': 241812.0, 'cost_w200': 339147.0}
+  depois: {'n': 166, 'fraud': {'approved': 38, 'two_factor_required': 22, 'rejected': 23, 'n': 83}, 'legit': {'approved': 60, 'two_factor_required': 21, 'rejected': 2, 'n': 83}, 'fraud_value_lost_pct': 50.3, 'cost_w10': 215796.0, 'cost_w50': 241512.0, 'cost_w200': 337947.0}
+val custo relativo: 0.7983
+  antes: {'n': 72, 'fraud': {'approved': 19, 'two_factor_required': 5, 'rejected': 12, 'n': 36}, 'legit': {'approved': 24, 'two_factor_required': 11, 'rejected': 1, 'n': 36}, 'fraud_value_lost_pct': 41.4, 'cost_w10': 86900.0, 'cost_w50': 101020.0, 'cost_w200': 153970.0}
+  depois: {'n': 72, 'fraud': {'approved': 19, 'two_factor_required': 5, 'rejected': 12, 'n': 36}, 'legit': {'approved': 24, 'two_factor_required': 12, 'rejected': 0, 'n': 36}, 'fraud_value_lost_pct': 41.4, 'cost_w10': 83730.0, 'cost_w50': 85170.0, 'cost_w200': 90570.0}
+all custo relativo: 0.9371
+  antes: {'n': 238, 'fraud': {'approved': 57, 'two_factor_required': 27, 'rejected': 35, 'n': 119}, 'legit': {'approved': 82, 'two_factor_required': 34, 'rejected': 3, 'n': 119}, 'fraud_value_lost_pct': 47.4, 'cost_w10': 302756.0, 'cost_w50': 342832.0, 'cost_w200': 493117.0}
+  depois: {'n': 238, 'fraud': {'approved': 57, 'two_factor_required': 27, 'rejected': 35, 'n': 119}, 'legit': {'approved': 84, 'two_factor_required': 33, 'rejected': 2, 'n': 119}, 'fraud_value_lost_pct': 47.4, 'cost_w10': 299526.0, 'cost_w50': 326682.0, 'cost_w200': 428517.0}

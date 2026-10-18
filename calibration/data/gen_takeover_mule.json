@@ -1,0 +1,2301 @@
+[
+  {
+    "id": "tm-001",
+    "narrative": "Celular roubado desbloqueado na saída de um bar em SP; ladrão faz Pix alto de madrugada para conta laranja nova, logo após outros dois.",
+    "label": "fraud",
+    "fraud_type": "roubo_celular",
+    "operator": "intruder",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 4800.0,
+      "hour": 2
+    },
+    "payer": {
+      "age_years": 27,
+      "balance": 6200.0,
+      "night_share": 0.1,
+      "typical_large_pix": 300.0,
+      "avg_pix_out": 80.0,
+      "nightly_limit": 5000.0
+    },
+    "flow_24h": {
+      "outflow_amount": 1900.0,
+      "outflow_count": 2,
+      "outflow_new_recipients": 2
+    },
+    "device": {
+      "distance_from_last_km": 3.2,
+      "minutes_since_last_location": 40,
+      "ip_seen_before": false
+    },
+    "velocity": {
+      "attempts_1h": 4,
+      "attempts_24h": 4,
+      "seconds_since_last_attempt": 70
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 12
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-002",
+    "narrative": "Credenciais obtidas por phishing de falso SMS do banco; fraudador loga em celular novo em outro estado e tenta esvaziar a conta.",
+    "label": "fraud",
+    "fraud_type": "credenciais_vazadas",
+    "operator": "intruder",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 9500.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 58,
+      "balance": 9800.0,
+      "typical_large_pix": 600.0,
+      "avg_pix_out": 120.0
+    },
+    "device": {
+      "registered": false,
+      "ip_seen_before": false,
+      "other_registered_devices": 1,
+      "distance_from_last_km": 2100.0,
+      "minutes_since_last_location": 300
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 2,
+      "seconds_since_last_attempt": 120
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 5,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "MULE_ACCOUNT",
+            "on": "account",
+            "days_ago": 3
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-003",
+    "narrative": "Após SIM swap, golpista reinstala o app em aparelho novo, redefine senha e envia vários Pix seguidos para contas distintas à noite.",
+    "label": "fraud",
+    "fraud_type": "sim_swap",
+    "operator": "intruder",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 3000.0,
+      "hour": 23
+    },
+    "payer": {
+      "age_years": 44,
+      "balance": 15000.0,
+      "typical_large_pix": 800.0,
+      "avg_pix_out": 200.0,
+      "night_share": 0.05,
+      "nightly_limit": 10000.0
+    },
+    "flow_24h": {
+      "outflow_amount": 6000.0,
+      "outflow_count": 2,
+      "outflow_new_recipients": 2
+    },
+    "device": {
+      "registered": false,
+      "ip_seen_before": false,
+      "other_registered_devices": 1,
+      "has_geolocation": false,
+      "distance_from_last_km": null,
+      "unregistered_sent_today": 6000.0
+    },
+    "velocity": {
+      "attempts_1h": 3,
+      "attempts_24h": 3,
+      "seconds_since_last_attempt": 90
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 20
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-004",
+    "narrative": "Celular furtado no metrô com senha anotada no bloco de notas; ladrão faz Pix perto de R$ 200 em sequência, de madrugada, para destinos novos.",
+    "label": "fraud",
+    "fraud_type": "roubo_celular",
+    "operator": "intruder",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 199.0,
+      "hour": 1
+    },
+    "payer": {
+      "age_years": 22,
+      "balance": 1400.0,
+      "typical_large_pix": 120.0,
+      "avg_pix_out": 35.0,
+      "night_share": 0.15,
+      "nightly_limit": 1000.0
+    },
+    "flow_24h": {
+      "outflow_amount": 796.0,
+      "outflow_count": 4,
+      "outflow_new_recipients": 4
+    },
+    "device": {
+      "ip_seen_before": false,
+      "distance_from_last_km": 8.0,
+      "minutes_since_last_location": 25
+    },
+    "velocity": {
+      "attempts_1h": 5,
+      "attempts_24h": 5,
+      "seconds_since_last_attempt": 45
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 30
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-005",
+    "narrative": "Vítima sequestrada é forçada a transferir de madrugada; Pix muito acima do hábito para conta recém-aberta, em local nunca visto.",
+    "label": "fraud",
+    "fraud_type": "sequestro_relampago",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 2000.0,
+      "hour": 3
+    },
+    "payer": {
+      "age_years": 39,
+      "balance": 7300.0,
+      "typical_large_pix": 500.0,
+      "avg_pix_out": 110.0,
+      "night_share": 0.02,
+      "nightly_limit": 3000.0
+    },
+    "flow_24h": {
+      "outflow_amount": 1000.0,
+      "outflow_count": 1,
+      "outflow_new_recipients": 1
+    },
+    "device": {
+      "distance_from_last_km": 22.0,
+      "minutes_since_last_location": 60,
+      "ip_seen_before": false
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 2,
+      "seconds_since_last_attempt": 400
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 9
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-006",
+    "narrative": "Trojan bancário sobrepõe a tela e dispara Pix automático de valor alto para conta já marcada no DICT como golpista e rejeitada para outros clientes.",
+    "label": "fraud",
+    "fraud_type": "malware",
+    "operator": "intruder",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 12000.0,
+      "hour": 11
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 6,
+      "balance": 40000.0,
+      "typical_large_pix": 5000.0,
+      "avg_pix_out": 1500.0,
+      "pix_out_per_day": 3.0,
+      "daily_limit": 50000.0
+    },
+    "device": {
+      "other_registered_devices": 0
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 6,
+      "seconds_since_last_attempt": 3000
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 45,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "SCAMMER_ACCOUNT",
+            "on": "owner",
+            "days_ago": 15
+          }
+        ]
+      },
+      "other_clients_rejected_90d": 3
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-007",
+    "narrative": "Fraudador com login vazado acessa pelo internet banking (canal nunca usado pelo cliente) e transfere quase todo o saldo de um aposentado de madrugada.",
+    "label": "fraud",
+    "fraud_type": "credenciais_vazadas",
+    "operator": "intruder",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 18000.0,
+      "hour": 4
+    },
+    "payer": {
+      "age_years": 71,
+      "account_age_days": 5000,
+      "balance": 18500.0,
+      "typical_large_pix": 1000.0,
+      "avg_pix_out": 250.0,
+      "pix_out_per_day": 0.2,
+      "night_share": 0.0,
+      "nightly_limit": 20000.0,
+      "daily_limit": 20000.0
+    },
+    "device": {
+      "registered": false,
+      "ip_seen_before": false,
+      "channel_used_before": false,
+      "has_geolocation": false,
+      "distance_from_last_km": null
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 1,
+      "seconds_since_last_attempt": 200000
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 3
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-008",
+    "narrative": "Conta invadida usada para disparar vários Pix para contas diferentes de laranjas em menos de uma hora, a partir de aparelho novo.",
+    "label": "fraud",
+    "fraud_type": "saque_fracionado",
+    "operator": "intruder",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 950.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 33,
+      "balance": 4100.0,
+      "typical_large_pix": 250.0,
+      "avg_pix_out": 60.0,
+      "night_share": 0.2,
+      "nightly_limit": 10000.0
+    },
+    "flow_24h": {
+      "outflow_amount": 7600.0,
+      "outflow_count": 8,
+      "outflow_new_recipients": 8
+    },
+    "device": {
+      "registered": false,
+      "ip_seen_before": false,
+      "unregistered_sent_today": 7600.0
+    },
+    "velocity": {
+      "attempts_1h": 9,
+      "attempts_24h": 9,
+      "seconds_since_last_attempt": 30
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 60
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-009",
+    "narrative": "Celular roubado em assalto de moto, desbloqueado sob ameaça; ladrão faz um Pix de valor moderado para conta nova logo após o roubo.",
+    "label": "fraud",
+    "fraud_type": "roubo_celular",
+    "operator": "intruder",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1500.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 35,
+      "balance": 3800.0,
+      "typical_large_pix": 700.0,
+      "avg_pix_out": 150.0
+    },
+    "device": {
+      "distance_from_last_km": 5.5,
+      "minutes_since_last_location": 20
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 3,
+      "seconds_since_last_attempt": 3000
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 150
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-010",
+    "narrative": "SIM swap seguido de reinstalação do app; golpista transfere valor dentro do limite diurno para conta antiga de laranja, sem pressa.",
+    "label": "fraud",
+    "fraud_type": "sim_swap",
+    "operator": "intruder",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 2500.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 50,
+      "balance": 12000.0,
+      "typical_large_pix": 1500.0,
+      "avg_pix_out": 300.0
+    },
+    "device": {
+      "registered": false,
+      "ip_seen_before": false,
+      "other_registered_devices": 1,
+      "distance_from_last_km": 430.0,
+      "minutes_since_last_location": 900
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 700
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-011",
+    "narrative": "Golpista com app de acesso remoto instalado no próprio celular da vítima (via falso suporte técnico) faz Pix de madrugada enquanto ela dorme.",
+    "label": "fraud",
+    "fraud_type": "acesso_remoto",
+    "operator": "intruder",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 900.0,
+      "hour": 1
+    },
+    "payer": {
+      "age_years": 66,
+      "balance": 5200.0,
+      "typical_large_pix": 400.0,
+      "avg_pix_out": 90.0,
+      "night_share": 0.0,
+      "nightly_limit": 1000.0
+    },
+    "device": {
+      "ip_seen_before": false
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 2,
+      "seconds_since_last_attempt": 600
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 40
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-012",
+    "narrative": "Combo de e-mail/senha vazado reutilizado; invasor cadastra celular novo e manda valor próximo ao hábito para conta de outro banco.",
+    "label": "fraud",
+    "fraud_type": "credenciais_vazadas",
+    "operator": "intruder",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 700.0,
+      "hour": 16
+    },
+    "payer": {
+      "age_years": 29,
+      "balance": 2600.0,
+      "typical_large_pix": 600.0,
+      "avg_pix_out": 140.0
+    },
+    "device": {
+      "registered": false,
+      "ip_seen_before": false,
+      "distance_from_last_km": 15.0,
+      "minutes_since_last_location": 120
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 220
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-013",
+    "narrative": "Malware de acessibilidade no aparelho do dono troca o destinatário de um pagamento legítimo a fornecedor pela conta PJ do fraudador.",
+    "label": "fraud",
+    "fraud_type": "malware",
+    "operator": "intruder",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 3400.0,
+      "hour": 14
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 3,
+      "balance": 9000.0,
+      "typical_large_pix": 3500.0,
+      "avg_pix_out": 900.0,
+      "pix_out_per_day": 2.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 60
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-014",
+    "narrative": "Vítima abordada no estacionamento é obrigada a fazer Pix enquanto o carro circula; valor dentro do limite noturno.",
+    "label": "fraud",
+    "fraud_type": "sequestro_relampago",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 950.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 31,
+      "balance": 3100.0,
+      "typical_large_pix": 500.0,
+      "avg_pix_out": 100.0,
+      "night_share": 0.25,
+      "nightly_limit": 1000.0
+    },
+    "device": {
+      "distance_from_last_km": 12.0,
+      "minutes_since_last_location": 30
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 2,
+      "seconds_since_last_attempt": 3500
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 120
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-015",
+    "narrative": "Invasor em celular não confiável envia Pix de R$ 190 a várias contas para tentar ficar abaixo de limites de confirmação.",
+    "label": "fraud",
+    "fraud_type": "saque_fracionado",
+    "operator": "intruder",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 190.0,
+      "hour": 13
+    },
+    "payer": {
+      "age_years": 25,
+      "balance": 2300.0,
+      "typical_large_pix": 250.0,
+      "avg_pix_out": 60.0,
+      "pix_out_per_day": 1.5
+    },
+    "flow_24h": {
+      "outflow_amount": 570.0,
+      "outflow_count": 3,
+      "outflow_new_recipients": 3
+    },
+    "device": {
+      "registered": false,
+      "ip_seen_before": false,
+      "unregistered_sent_today": 570.0,
+      "near_200_from_unregistered_24h": 3
+    },
+    "velocity": {
+      "attempts_1h": 4,
+      "attempts_24h": 4,
+      "seconds_since_last_attempt": 180
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 300
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-016",
+    "narrative": "Celular furtado em show; criminoso aguarda a madrugada e faz Pix para contato pago uma vez pela vítima (rateio), muito acima do valor anterior.",
+    "label": "fraud",
+    "fraud_type": "roubo_celular",
+    "operator": "intruder",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 2800.0,
+      "hour": 5
+    },
+    "payer": {
+      "age_years": 24,
+      "balance": 3500.0,
+      "typical_large_pix": 350.0,
+      "avg_pix_out": 70.0,
+      "night_share": 0.3,
+      "nightly_limit": 3000.0
+    },
+    "device": {
+      "distance_from_last_km": 9.0,
+      "minutes_since_last_location": 240,
+      "ip_seen_before": false
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 2,
+      "seconds_since_last_attempt": 2500
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 800
+    },
+    "relationship": {
+      "previous_payments": 1,
+      "previous_total": 45.0,
+      "largest_previous": 45.0,
+      "first_payment_days_ago": 70,
+      "last_payment_days_ago": 70
+    }
+  },
+  {
+    "id": "tm-017",
+    "narrative": "Falsa central convenceu a vítima a instalar app de espelhamento dias antes; agora o golpista opera remotamente o aparelho confiável à tarde.",
+    "label": "fraud",
+    "fraud_type": "acesso_remoto",
+    "operator": "intruder",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 4200.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 62,
+      "balance": 22000.0,
+      "typical_large_pix": 2000.0,
+      "avg_pix_out": 400.0
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 2,
+      "seconds_since_last_attempt": 900
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 25
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-018",
+    "narrative": "Senha de operador de empresa vazada; invasor em aparelho novo paga 'fornecedor' inexistente com CNPJ recém-aberto.",
+    "label": "fraud",
+    "fraud_type": "credenciais_vazadas",
+    "operator": "intruder",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 14500.0,
+      "hour": 17
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 9,
+      "account_age_days": 2500,
+      "balance": 85000.0,
+      "typical_large_pix": 15000.0,
+      "avg_pix_out": 3000.0,
+      "pix_out_per_day": 4.0,
+      "daily_limit": 100000.0
+    },
+    "device": {
+      "registered": false,
+      "ip_seen_before": false,
+      "other_registered_devices": 2
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 35
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-019",
+    "narrative": "Golpista após portabilidade fraudulenta do chip transfere para conta no nosso banco aberta há poucos dias, que já recebeu de outras vítimas.",
+    "label": "fraud",
+    "fraud_type": "sim_swap",
+    "operator": "intruder",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1800.0,
+      "hour": 9
+    },
+    "payer": {
+      "age_years": 47,
+      "balance": 6000.0,
+      "typical_large_pix": 1200.0,
+      "avg_pix_out": 250.0
+    },
+    "device": {
+      "registered": false,
+      "ip_seen_before": false,
+      "distance_from_last_km": 60.0,
+      "minutes_since_last_location": 720
+    },
+    "destination": {
+      "bank": "same",
+      "type": "PF",
+      "account_age_days": 8,
+      "other_clients_first_paid_7d": 4,
+      "internal": {
+        "blocked": false,
+        "balance": 300.0,
+        "history_days": 8,
+        "pix_in_per_day": 2.5,
+        "avg_pix_in": 1600.0,
+        "pix_out_per_day": 2.4,
+        "inflow_24h_amount": 5200.0,
+        "inflow_24h_count": 3,
+        "inflow_24h_new_senders": 3,
+        "outflow_24h_amount": 5000.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-020",
+    "narrative": "Malware 'mão fantasma' em celular confiável faz Pix noturnos pequenos em série enquanto a tela parece apagada.",
+    "label": "fraud",
+    "fraud_type": "malware",
+    "operator": "intruder",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 480.0,
+      "hour": 0
+    },
+    "payer": {
+      "age_years": 53,
+      "balance": 3900.0,
+      "typical_large_pix": 600.0,
+      "avg_pix_out": 130.0,
+      "night_share": 0.05,
+      "nightly_limit": 2000.0
+    },
+    "flow_24h": {
+      "outflow_amount": 960.0,
+      "outflow_count": 2,
+      "outflow_new_recipients": 2
+    },
+    "velocity": {
+      "attempts_1h": 3,
+      "attempts_24h": 3,
+      "seconds_since_last_attempt": 300
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 90
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-021",
+    "narrative": "Golpista com acesso remoto no celular confiável do dono faz um único Pix no horário e faixa habituais para conta antiga de laranja.",
+    "label": "fraud",
+    "fraud_type": "acesso_remoto",
+    "operator": "intruder",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 600.0,
+      "hour": 11
+    },
+    "payer": {
+      "age_years": 68,
+      "balance": 8000.0,
+      "typical_large_pix": 700.0,
+      "avg_pix_out": 180.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 1500
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-022",
+    "narrative": "Fraudador cadastrou celular novo há 3 semanas (já confiável) com credenciais vazadas e só agora drena a conta com valor no padrão do dono.",
+    "label": "fraud",
+    "fraud_type": "credenciais_vazadas",
+    "operator": "intruder",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 1100.0,
+      "hour": 14
+    },
+    "payer": {
+      "age_years": 36,
+      "balance": 4500.0,
+      "typical_large_pix": 1200.0,
+      "avg_pix_out": 250.0
+    },
+    "device": {
+      "other_registered_devices": 1,
+      "ip_seen_before": false,
+      "distance_from_last_km": 380.0,
+      "minutes_since_last_location": 4000
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 1100
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-023",
+    "narrative": "Celular roubado de empresário; criminoso paga contato salvo (comparsa infiltrado que já recebeu antes) com valor alto mas abaixo do maior histórico.",
+    "label": "fraud",
+    "fraud_type": "roubo_celular",
+    "operator": "intruder",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 3000.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 45,
+      "balance": 25000.0,
+      "typical_large_pix": 4000.0,
+      "avg_pix_out": 700.0,
+      "pix_out_per_day": 1.5,
+      "daily_limit": 30000.0
+    },
+    "device": {
+      "distance_from_last_km": 6.0,
+      "minutes_since_last_location": 45
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 2000
+    },
+    "relationship": {
+      "previous_payments": 2,
+      "previous_total": 4500.0,
+      "largest_previous": 3500.0,
+      "first_payment_days_ago": 200,
+      "last_payment_days_ago": 90
+    }
+  },
+  {
+    "id": "tm-024",
+    "narrative": "SIM swap com cadastro de aparelho há 10 dias (já confiável); invasor faz Pix diurno para conta PJ antiga de fachada, valor dentro do hábito.",
+    "label": "fraud",
+    "fraud_type": "sim_swap",
+    "operator": "intruder",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 2200.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 40,
+      "balance": 11000.0,
+      "typical_large_pix": 2500.0,
+      "avg_pix_out": 500.0
+    },
+    "device": {
+      "other_registered_devices": 1,
+      "distance_from_last_km": 20.0,
+      "minutes_since_last_location": 1500
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 1300
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-025",
+    "narrative": "Malware adultera o Pix copia-e-cola de um boleto de fornecedor; destino diferente do habitual, mas valor idêntico ao de sempre e aparelho confiável.",
+    "label": "fraud",
+    "fraud_type": "malware",
+    "operator": "intruder",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 2750.0,
+      "hour": 9
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 12,
+      "balance": 30000.0,
+      "typical_large_pix": 6000.0,
+      "avg_pix_out": 1800.0,
+      "pix_out_per_day": 5.0,
+      "daily_limit": 60000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 400
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-026",
+    "narrative": "Invasor paciente drena a conta com um Pix por dia, ~R$ 300 à tarde, para destino que ele mesmo começou a pagar há 4 dias.",
+    "label": "fraud",
+    "fraud_type": "saque_fracionado",
+    "operator": "intruder",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 300.0,
+      "hour": 16
+    },
+    "payer": {
+      "age_years": 30,
+      "balance": 2100.0,
+      "typical_large_pix": 450.0,
+      "avg_pix_out": 120.0,
+      "pix_out_per_day": 1.2
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 600
+    },
+    "relationship": {
+      "previous_payments": 3,
+      "previous_total": 870.0,
+      "largest_previous": 300.0,
+      "first_payment_days_ago": 4,
+      "last_payment_days_ago": 1
+    }
+  },
+  {
+    "id": "tm-027",
+    "narrative": "Idosa instalou 'app do banco' falso com controle remoto; golpista faz Pix para conta que ela já pagou antes (sobrinho), cujo celular também foi comprometido.",
+    "label": "fraud",
+    "fraud_type": "acesso_remoto",
+    "operator": "intruder",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 1500.0,
+      "hour": 13
+    },
+    "payer": {
+      "age_years": 79,
+      "account_age_days": 7000,
+      "balance": 34000.0,
+      "typical_large_pix": 2000.0,
+      "avg_pix_out": 400.0,
+      "pix_out_per_day": 0.3
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 3000
+    },
+    "relationship": {
+      "previous_payments": 5,
+      "previous_total": 4000.0,
+      "largest_previous": 1500.0,
+      "first_payment_days_ago": 400,
+      "last_payment_days_ago": 35
+    }
+  },
+  {
+    "id": "tm-028",
+    "narrative": "Ex-companheiro conhece a senha e usa o tablet já cadastrado da casa para transferir para a conta dele, que a vítima já pagou antes.",
+    "label": "fraud",
+    "fraud_type": "credenciais_vazadas",
+    "operator": "intruder",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 850.0,
+      "hour": 20
+    },
+    "payer": {
+      "age_years": 34,
+      "balance": 3200.0,
+      "typical_large_pix": 900.0,
+      "avg_pix_out": 200.0,
+      "night_share": 0.3,
+      "nightly_limit": 1000.0
+    },
+    "device": {
+      "other_registered_devices": 1
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 2500
+    },
+    "relationship": {
+      "previous_payments": 6,
+      "previous_total": 2100.0,
+      "largest_previous": 700.0,
+      "first_payment_days_ago": 500,
+      "last_payment_days_ago": 120
+    }
+  },
+  {
+    "id": "tm-029",
+    "narrative": "Vítima mantida refém em casa faz Pix do próprio celular, valor compatível com sua renda alta, para conta antiga de laranja.",
+    "label": "fraud",
+    "fraud_type": "sequestro_relampago",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 5000.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 48,
+      "balance": 60000.0,
+      "typical_large_pix": 6000.0,
+      "avg_pix_out": 1200.0,
+      "pix_out_per_day": 1.0,
+      "daily_limit": 50000.0,
+      "night_share": 0.2,
+      "nightly_limit": 10000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 900
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-030",
+    "narrative": "Celular roubado; ladrão espera o dia seguinte e faz um único Pix ao meio-dia, valor típico, perto da casa da vítima.",
+    "label": "fraud",
+    "fraud_type": "roubo_celular",
+    "operator": "intruder",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 400.0,
+      "hour": 12
+    },
+    "payer": {
+      "age_years": 28,
+      "balance": 1800.0,
+      "typical_large_pix": 500.0,
+      "avg_pix_out": 110.0,
+      "pix_out_per_day": 1.5
+    },
+    "device": {
+      "distance_from_last_km": 2.0,
+      "minutes_since_last_location": 1200
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 500
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-031",
+    "narrative": "Conta laranja recém-aberta recebe 6 Pix de vítimas desconhecidas em poucas horas e repassa quase tudo de madrugada para outra conta nova.",
+    "label": "fraud",
+    "fraud_type": "laranja_repasse",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 7800.0,
+      "hour": 2
+    },
+    "payer": {
+      "age_years": 19,
+      "account_age_days": 10,
+      "balance": 8100.0,
+      "history_days": 10,
+      "pix_out_per_day": 0.0,
+      "typical_large_pix": null,
+      "avg_pix_out": null,
+      "avg_pix_in": 1300.0,
+      "pix_in_per_day": 0.6,
+      "night_share": 0.0,
+      "nightly_limit": 10000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 8000.0,
+      "inflow_count": 6,
+      "inflow_new_senders": 6
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 1,
+      "seconds_since_last_attempt": 50000
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 6
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-032",
+    "narrative": "Laranja repassa dinheiro de golpe recém-recebido para conta já marcada no DICT como laranja por outros bancos.",
+    "label": "fraud",
+    "fraud_type": "destino_marcado_dict",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 2500.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 23,
+      "account_age_days": 40,
+      "balance": 2700.0,
+      "history_days": 30,
+      "typical_large_pix": 300.0,
+      "avg_pix_out": 80.0
+    },
+    "flow_24h": {
+      "inflow_amount": 2600.0,
+      "inflow_count": 2,
+      "inflow_new_senders": 2
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 50,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "MULE_ACCOUNT",
+            "on": "account",
+            "days_ago": 10
+          },
+          {
+            "type": "MULE_ACCOUNT",
+            "on": "owner",
+            "days_ago": 25
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-033",
+    "narrative": "Cliente nosso (golpe do falso empréstimo) paga 'taxa' a conta laranja do nosso banco que recebeu de 9 estranhos hoje e já tem Pix rejeitados.",
+    "label": "fraud",
+    "fraud_type": "laranja_destino",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 600.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 55,
+      "balance": 1500.0,
+      "typical_large_pix": 400.0,
+      "avg_pix_out": 90.0
+    },
+    "destination": {
+      "bank": "same",
+      "type": "PF",
+      "account_age_days": 15,
+      "other_clients_first_paid_7d": 9,
+      "other_clients_rejected_90d": 4,
+      "internal": {
+        "blocked": false,
+        "balance": 150.0,
+        "history_days": 15,
+        "pix_in_per_day": 3.0,
+        "avg_pix_in": 700.0,
+        "pix_out_per_day": 3.0,
+        "inflow_24h_amount": 6400.0,
+        "inflow_24h_count": 9,
+        "inflow_24h_new_senders": 9,
+        "outflow_24h_amount": 6300.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 4
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-034",
+    "narrative": "Cliente transfere de noite para casa de apostas não autorizada que usa conta PJ de fachada, com restrição de bets e marcação no DICT.",
+    "label": "fraud",
+    "fraud_type": "apostas_ilegais",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 1000.0,
+      "hour": 23
+    },
+    "payer": {
+      "age_years": 26,
+      "balance": 1300.0,
+      "typical_large_pix": 300.0,
+      "avg_pix_out": 70.0,
+      "night_share": 0.5,
+      "nightly_limit": 2000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 70,
+      "restricted": "bets",
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "OTHER",
+            "on": "owner",
+            "days_ago": 20
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-035",
+    "narrative": "Conta aberta há 2 dias com documentos de terceiro (fraude de abertura) recebe Pix de golpe e tenta sacar tudo de um aparelho usado por várias contas.",
+    "label": "fraud",
+    "fraud_type": "conta_recem_aberta",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 3900.0,
+      "hour": 22
+    },
+    "payer": {
+      "age_years": 21,
+      "account_age_days": 2,
+      "balance": 4000.0,
+      "history_days": 2,
+      "pix_out_per_day": 0.5,
+      "typical_large_pix": 100.0,
+      "avg_pix_out": 100.0,
+      "avg_pix_in": 1300.0,
+      "pix_in_per_day": 1.5,
+      "nightly_limit": 5000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 4000.0,
+      "inflow_count": 3,
+      "inflow_new_senders": 3,
+      "outflow_amount": 100.0,
+      "outflow_count": 1,
+      "outflow_new_recipients": 1
+    },
+    "device": {
+      "registered": false,
+      "other_registered_devices": 0,
+      "other_accounts_on_device_30d": 4
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 3,
+      "seconds_since_last_attempt": 400
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 4,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "APPLICATION_FRAUD",
+            "on": "owner",
+            "days_ago": 1
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-036",
+    "narrative": "Laranja recebe de um estranho (vítima de golpe) um valor alto e repassa o mesmo valor para outro destino novo minutos depois.",
+    "label": "fraud",
+    "fraud_type": "laranja_repasse",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 5000.0,
+      "hour": 14
+    },
+    "payer": {
+      "age_years": 20,
+      "account_age_days": 90,
+      "balance": 5200.0,
+      "typical_large_pix": 200.0,
+      "avg_pix_out": 50.0,
+      "avg_pix_in": 300.0
+    },
+    "flow_24h": {
+      "inflow_amount": 5000.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1,
+      "matching_inflow_from_stranger": true
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 1,
+      "seconds_since_last_attempt": 40000
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 30
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-037",
+    "narrative": "Conta alugada operada de aparelho que acessa outras 7 contas do banco; repassa dinheiro de várias vítimas de madrugada. Já foi bloqueada antes.",
+    "label": "fraud",
+    "fraud_type": "conta_alugada",
+    "operator": "intruder",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 2900.0,
+      "hour": 4
+    },
+    "payer": {
+      "age_years": 24,
+      "account_age_days": 300,
+      "balance": 3000.0,
+      "typical_large_pix": 150.0,
+      "avg_pix_out": 40.0,
+      "night_share": 0.6,
+      "nightly_limit": 5000.0,
+      "past_account_blocks": 1
+    },
+    "flow_24h": {
+      "inflow_amount": 3100.0,
+      "inflow_count": 4,
+      "inflow_new_senders": 4
+    },
+    "device": {
+      "registered": false,
+      "ip_seen_before": false,
+      "other_accounts_on_device_30d": 7
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 20
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-038",
+    "narrative": "Universitário aluga sua conta via anúncio no Telegram; recebe três Pix de estranhos e repassa à tarde para a conta do aliciador, já paga nesta semana.",
+    "label": "fraud",
+    "fraud_type": "conta_alugada",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 2400.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 20,
+      "account_age_days": 400,
+      "balance": 2600.0,
+      "typical_large_pix": 150.0,
+      "avg_pix_out": 45.0,
+      "avg_pix_in": 600.0
+    },
+    "flow_24h": {
+      "inflow_amount": 2500.0,
+      "inflow_count": 3,
+      "inflow_new_senders": 3
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 200
+    },
+    "relationship": {
+      "previous_payments": 2,
+      "previous_total": 3800.0,
+      "largest_previous": 2000.0,
+      "first_payment_days_ago": 6,
+      "last_payment_days_ago": 3
+    }
+  },
+  {
+    "id": "tm-039",
+    "narrative": "Conta parada há meses reativada pelo dono (vendida a quadrilha) em aparelho novo; volta a receber de estranhos e repassa.",
+    "label": "fraud",
+    "fraud_type": "conta_dormente",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1700.0,
+      "hour": 12
+    },
+    "payer": {
+      "age_years": 42,
+      "account_age_days": 1800,
+      "balance": 1750.0,
+      "history_days": 3,
+      "pix_out_per_day": 0.0,
+      "typical_large_pix": null,
+      "avg_pix_out": null,
+      "avg_pix_in": 875.0,
+      "pix_in_per_day": 0.07
+    },
+    "flow_24h": {
+      "inflow_amount": 1750.0,
+      "inflow_count": 2,
+      "inflow_new_senders": 2
+    },
+    "device": {
+      "registered": false,
+      "ip_seen_before": false
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 150
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-040",
+    "narrative": "Vítima de venda falsa em marketplace paga laranja do nosso banco com conta de 3 meses e fan-in moderado de novos pagadores.",
+    "label": "fraud",
+    "fraud_type": "laranja_destino",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1200.0,
+      "hour": 20
+    },
+    "payer": {
+      "age_years": 37,
+      "balance": 4000.0,
+      "typical_large_pix": 900.0,
+      "avg_pix_out": 180.0,
+      "night_share": 0.3,
+      "nightly_limit": 2000.0
+    },
+    "destination": {
+      "bank": "same",
+      "type": "PF",
+      "account_age_days": 95,
+      "other_clients_first_paid_7d": 3,
+      "internal": {
+        "blocked": false,
+        "balance": 900.0,
+        "history_days": 30,
+        "pix_in_per_day": 1.2,
+        "avg_pix_in": 1100.0,
+        "pix_out_per_day": 1.0,
+        "inflow_24h_amount": 3200.0,
+        "inflow_24h_count": 3,
+        "inflow_24h_new_senders": 3,
+        "outflow_24h_amount": 2500.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-041",
+    "narrative": "MEI de fachada recém-aberto recebe Pix de vítimas do golpe do falso investimento e paga 'fornecedor' novo no mesmo dia.",
+    "label": "fraud",
+    "fraud_type": "laranja_repasse",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 9000.0,
+      "hour": 16
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 0,
+      "account_age_days": 60,
+      "balance": 9800.0,
+      "history_days": 30,
+      "typical_large_pix": 4000.0,
+      "avg_pix_out": 1500.0,
+      "avg_pix_in": 2500.0,
+      "pix_in_per_day": 1.0,
+      "pix_out_per_day": 0.5,
+      "daily_limit": 20000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 9500.0,
+      "inflow_count": 4,
+      "inflow_new_senders": 4
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 45
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-042",
+    "narrative": "Cliente comprando 'iPhone barato' no Instagram paga conta nova cujo titular tem marcação antiga de golpista no DICT.",
+    "label": "fraud",
+    "fraud_type": "destino_marcado_dict",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 2300.0,
+      "hour": 13
+    },
+    "payer": {
+      "age_years": 30,
+      "balance": 5000.0,
+      "typical_large_pix": 1500.0,
+      "avg_pix_out": 250.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 40,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "SCAMMER_ACCOUNT",
+            "on": "owner",
+            "days_ago": 120
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-043",
+    "narrative": "Cliente paga 'cambista' PF que intermedeia apostas ilegais; conta destino recebe de muitos clientes nossos pela primeira vez.",
+    "label": "fraud",
+    "fraud_type": "apostas_ilegais",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 500.0,
+      "hour": 22
+    },
+    "payer": {
+      "age_years": 29,
+      "balance": 900.0,
+      "typical_large_pix": 350.0,
+      "avg_pix_out": 60.0,
+      "night_share": 0.4,
+      "nightly_limit": 1000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 180,
+      "other_clients_first_paid_7d": 14
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-044",
+    "narrative": "Conta digital aberta há 12 dias só para receber Pix de golpe; repassa em valores fracionados para destinos novos.",
+    "label": "fraud",
+    "fraud_type": "conta_recem_aberta",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 990.0,
+      "hour": 11
+    },
+    "payer": {
+      "age_years": 22,
+      "account_age_days": 12,
+      "balance": 2010.0,
+      "history_days": 12,
+      "pix_out_per_day": 0.1,
+      "typical_large_pix": 990.0,
+      "avg_pix_out": 990.0,
+      "avg_pix_in": 1500.0,
+      "pix_in_per_day": 0.2
+    },
+    "flow_24h": {
+      "inflow_amount": 3000.0,
+      "inflow_count": 2,
+      "inflow_new_senders": 2,
+      "outflow_amount": 990.0,
+      "outflow_count": 1,
+      "outflow_new_recipients": 1
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 2,
+      "seconds_since_last_attempt": 600
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 25
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-045",
+    "narrative": "Vítima do 'golpe do falso parente' paga conta nossa aberta há 20 dias, cujo saldo é zerado logo após cada recebimento.",
+    "label": "fraud",
+    "fraud_type": "laranja_destino",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 3500.0,
+      "hour": 9
+    },
+    "payer": {
+      "age_years": 64,
+      "balance": 12000.0,
+      "typical_large_pix": 2000.0,
+      "avg_pix_out": 300.0
+    },
+    "destination": {
+      "bank": "same",
+      "type": "PF",
+      "account_age_days": 20,
+      "internal": {
+        "blocked": false,
+        "balance": 20.0,
+        "history_days": 20,
+        "pix_in_per_day": 0.8,
+        "avg_pix_in": 2500.0,
+        "pix_out_per_day": 0.8,
+        "inflow_24h_amount": 4000.0,
+        "inflow_24h_count": 2,
+        "inflow_24h_new_senders": 2,
+        "outflow_24h_amount": 4000.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-046",
+    "narrative": "Idoso cooptado ('ganhe R$ 300 por mês emprestando a conta') recebe de estranhos e repassa no mesmo dia, operado do aparelho do aliciador.",
+    "label": "fraud",
+    "fraud_type": "conta_alugada",
+    "operator": "intruder",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 4400.0,
+      "hour": 17
+    },
+    "payer": {
+      "age_years": 70,
+      "account_age_days": 3000,
+      "balance": 4700.0,
+      "typical_large_pix": 500.0,
+      "avg_pix_out": 150.0,
+      "avg_pix_in": 1500.0,
+      "pix_in_per_day": 0.1
+    },
+    "flow_24h": {
+      "inflow_amount": 4500.0,
+      "inflow_count": 3,
+      "inflow_new_senders": 3
+    },
+    "device": {
+      "registered": false,
+      "ip_seen_before": false,
+      "other_accounts_on_device_30d": 2
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 100
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-047",
+    "narrative": "Laranja recebe de dois estranhos e repassa para conta nossa do mesmo grupo, que acumula fan-in de muitas vítimas.",
+    "label": "fraud",
+    "fraud_type": "laranja_repasse",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1900.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 25,
+      "account_age_days": 120,
+      "balance": 2000.0,
+      "typical_large_pix": 300.0,
+      "avg_pix_out": 70.0,
+      "avg_pix_in": 800.0
+    },
+    "flow_24h": {
+      "inflow_amount": 2000.0,
+      "inflow_count": 2,
+      "inflow_new_senders": 2
+    },
+    "destination": {
+      "bank": "same",
+      "type": "PF",
+      "account_age_days": 60,
+      "other_clients_first_paid_7d": 5,
+      "internal": {
+        "blocked": false,
+        "balance": 200.0,
+        "history_days": 30,
+        "pix_in_per_day": 2.0,
+        "avg_pix_in": 1800.0,
+        "pix_out_per_day": 1.0,
+        "inflow_24h_amount": 9000.0,
+        "inflow_24h_count": 5,
+        "inflow_24h_new_senders": 5,
+        "outflow_24h_amount": 8800.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-048",
+    "narrative": "Conta PJ sem uso há 2 anos volta a operar: recebe valores altos de pessoas físicas desconhecidas e repassa.",
+    "label": "fraud",
+    "fraud_type": "conta_dormente",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 15000.0,
+      "hour": 10
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 8,
+      "account_age_days": 2900,
+      "balance": 16000.0,
+      "history_days": 2,
+      "pix_out_per_day": 0.0,
+      "typical_large_pix": null,
+      "avg_pix_out": null,
+      "avg_pix_in": 8000.0,
+      "pix_in_per_day": 0.07,
+      "daily_limit": 50000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 16000.0,
+      "inflow_count": 2,
+      "inflow_new_senders": 2
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 300
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-049",
+    "narrative": "Cúmplice repassa dinheiro recebido de estranho para conta com marcação de fraude de abertura no DICT, embora a conta destino tenha 1 ano.",
+    "label": "fraud",
+    "fraud_type": "destino_marcado_dict",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 800.0,
+      "hour": 8
+    },
+    "payer": {
+      "age_years": 32,
+      "account_age_days": 500,
+      "balance": 1100.0,
+      "typical_large_pix": 600.0,
+      "avg_pix_out": 120.0
+    },
+    "flow_24h": {
+      "inflow_amount": 850.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 365,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "APPLICATION_FRAUD",
+            "on": "account",
+            "days_ago": 60
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-050",
+    "narrative": "Laranja experiente repassa só parte do dinheiro de golpe, para destino que já pagou várias vezes (conta do operador), em horário comercial.",
+    "label": "fraud",
+    "fraud_type": "laranja_repasse",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 1200.0,
+      "hour": 14
+    },
+    "payer": {
+      "age_years": 28,
+      "account_age_days": 700,
+      "balance": 3500.0,
+      "typical_large_pix": 1300.0,
+      "avg_pix_out": 300.0,
+      "avg_pix_in": 1200.0,
+      "pix_in_per_day": 0.4
+    },
+    "flow_24h": {
+      "inflow_amount": 2000.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 900
+    },
+    "relationship": {
+      "previous_payments": 4,
+      "previous_total": 4500.0,
+      "largest_previous": 1500.0,
+      "first_payment_days_ago": 150,
+      "last_payment_days_ago": 14
+    }
+  },
+  {
+    "id": "tm-051",
+    "narrative": "Conta de autônomo com histórico normal alugada para quadrilha; operada do próprio celular, valores dentro do hábito, para destino novo de conta antiga.",
+    "label": "fraud",
+    "fraud_type": "conta_alugada",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 800.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 35,
+      "account_age_days": 1500,
+      "balance": 2400.0,
+      "typical_large_pix": 900.0,
+      "avg_pix_out": 200.0,
+      "avg_pix_in": 700.0,
+      "pix_in_per_day": 0.8,
+      "pix_out_per_day": 1.2
+    },
+    "flow_24h": {
+      "inflow_amount": 1800.0,
+      "inflow_count": 2,
+      "inflow_new_senders": 1
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 1000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-052",
+    "narrative": "Vítima paga 'loja' de golpe que usa conta PJ antiga no nosso banco com movimento aparentemente comercial (muitos pagadores novos parece normal).",
+    "label": "fraud",
+    "fraud_type": "laranja_destino",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 450.0,
+      "hour": 12
+    },
+    "payer": {
+      "age_years": 41,
+      "balance": 3000.0,
+      "typical_large_pix": 600.0,
+      "avg_pix_out": 150.0
+    },
+    "destination": {
+      "bank": "same",
+      "type": "PJ",
+      "account_age_days": 1200,
+      "other_clients_first_paid_7d": 6,
+      "internal": {
+        "blocked": false,
+        "balance": 8000.0,
+        "history_days": 30,
+        "pix_in_per_day": 6.0,
+        "avg_pix_in": 400.0,
+        "pix_out_per_day": 1.0,
+        "inflow_24h_amount": 2600.0,
+        "inflow_24h_count": 7,
+        "inflow_24h_new_senders": 5,
+        "outflow_24h_amount": 1500.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-053",
+    "narrative": "Cliente paga plataforma de apostas ilegal via intermediador de pagamento PJ antigo sem restrição cadastrada; valor habitual de lazer.",
+    "label": "fraud",
+    "fraud_type": "apostas_ilegais",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 200.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 27,
+      "balance": 1500.0,
+      "typical_large_pix": 250.0,
+      "avg_pix_out": 70.0,
+      "night_share": 0.4,
+      "nightly_limit": 1000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 800,
+      "other_clients_first_paid_7d": 2
+    },
+    "relationship": {
+      "previous_payments": 6,
+      "previous_total": 900.0,
+      "largest_previous": 200.0,
+      "first_payment_days_ago": 90,
+      "last_payment_days_ago": 7
+    }
+  },
+  {
+    "id": "tm-054",
+    "narrative": "Conta antiga de uso esporádico 'reaquecida' por 2 semanas com Pix pequenos e um grande de teste antes de começar a escoar dinheiro de golpe.",
+    "label": "fraud",
+    "fraud_type": "conta_dormente",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 2500.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 45,
+      "account_age_days": 2200,
+      "balance": 2800.0,
+      "history_days": 14,
+      "pix_out_per_day": 0.7,
+      "typical_large_pix": 2600.0,
+      "avg_pix_out": 400.0,
+      "avg_pix_in": 1500.0,
+      "pix_in_per_day": 0.6
+    },
+    "flow_24h": {
+      "inflow_amount": 2600.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 600
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-055",
+    "narrative": "Camada intermediária de lavagem: recebe de outro laranja que já lhe mandou antes e repassa para destino antigo com histórico recíproco.",
+    "label": "fraud",
+    "fraud_type": "laranja_repasse",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 3200.0,
+      "hour": 11
+    },
+    "payer": {
+      "age_years": 33,
+      "account_age_days": 1000,
+      "balance": 4000.0,
+      "typical_large_pix": 3000.0,
+      "avg_pix_out": 600.0,
+      "avg_pix_in": 2500.0,
+      "pix_in_per_day": 0.5
+    },
+    "flow_24h": {
+      "inflow_amount": 3300.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 1500
+    },
+    "relationship": {
+      "previous_payments": 2,
+      "previous_total": 5000.0,
+      "largest_previous": 3000.0,
+      "first_payment_days_ago": 60,
+      "last_payment_days_ago": 20,
+      "received_from_destination_total": 1500.0,
+      "first_received_days_ago": 50
+    }
+  },
+  {
+    "id": "tm-056",
+    "narrative": "Cliente paga 'aluguel de temporada' falso; destino é conta PF antiga de outro banco comprada pela quadrilha, ainda sem marcações.",
+    "label": "fraud",
+    "fraud_type": "laranja_destino",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 1800.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 38,
+      "balance": 7000.0,
+      "typical_large_pix": 2000.0,
+      "avg_pix_out": 350.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 2000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-057",
+    "narrative": "Conta aberta há 45 dias com documentos reais de laranja simulou uso normal e agora repassa valor moderado de golpe.",
+    "label": "fraud",
+    "fraud_type": "conta_recem_aberta",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 1400.0,
+      "hour": 17
+    },
+    "payer": {
+      "age_years": 24,
+      "account_age_days": 45,
+      "balance": 2600.0,
+      "history_days": 30,
+      "pix_out_per_day": 1.0,
+      "typical_large_pix": 1500.0,
+      "avg_pix_out": 300.0,
+      "avg_pix_in": 900.0,
+      "pix_in_per_day": 0.7
+    },
+    "flow_24h": {
+      "inflow_amount": 1500.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 700
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-058",
+    "narrative": "Pequeno comércio aluga a conta PJ para escoar dinheiro de bets ilegais; paga 'fornecedor' habitual (conta da quadrilha) dentro do padrão.",
+    "label": "fraud",
+    "fraud_type": "conta_alugada",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 6500.0,
+      "hour": 9
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 5,
+      "account_age_days": 1800,
+      "balance": 20000.0,
+      "typical_large_pix": 7000.0,
+      "avg_pix_out": 2000.0,
+      "pix_out_per_day": 3.0,
+      "avg_pix_in": 1500.0,
+      "pix_in_per_day": 6.0,
+      "daily_limit": 40000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 9000.0,
+      "inflow_count": 8,
+      "inflow_new_senders": 5
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 1100
+    },
+    "relationship": {
+      "previous_payments": 8,
+      "previous_total": 42000.0,
+      "largest_previous": 7000.0,
+      "first_payment_days_ago": 180,
+      "last_payment_days_ago": 6
+    }
+  },
+  {
+    "id": "tm-059",
+    "narrative": "Vítima do golpe do falso emprego paga conta nossa usada como laranja, com histórico longo e fan-in só um pouco acima do normal.",
+    "label": "fraud",
+    "fraud_type": "laranja_destino",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 350.0,
+      "hour": 16
+    },
+    "payer": {
+      "age_years": 21,
+      "balance": 1200.0,
+      "typical_large_pix": 400.0,
+      "avg_pix_out": 90.0
+    },
+    "destination": {
+      "bank": "same",
+      "type": "PF",
+      "account_age_days": 800,
+      "other_clients_first_paid_7d": 2,
+      "internal": {
+        "blocked": false,
+        "balance": 1200.0,
+        "history_days": 30,
+        "pix_in_per_day": 1.5,
+        "avg_pix_in": 400.0,
+        "pix_out_per_day": 1.3,
+        "inflow_24h_amount": 1100.0,
+        "inflow_24h_count": 3,
+        "inflow_24h_new_senders": 2,
+        "outflow_24h_amount": 900.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "tm-060",
+    "narrative": "Cúmplice de alta renda lava R$ 50 mil de golpe do investimento em um único Pix diurno para conta PJ antiga com quem já 'negociou' antes.",
+    "label": "fraud",
+    "fraud_type": "laranja_repasse",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 50000.0,
+      "hour": 13
+    },
+    "payer": {
+      "age_years": 52,
+      "account_age_days": 4000,
+      "balance": 120000.0,
+      "typical_large_pix": 45000.0,
+      "avg_pix_out": 8000.0,
+      "avg_pix_in": 20000.0,
+      "pix_in_per_day": 0.5,
+      "pix_out_per_day": 0.8,
+      "daily_limit": 100000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 52000.0,
+      "inflow_count": 3,
+      "inflow_new_senders": 2
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 2500
+    },
+    "relationship": {
+      "previous_payments": 3,
+      "previous_total": 90000.0,
+      "largest_previous": 40000.0,
+      "first_payment_days_ago": 300,
+      "last_payment_days_ago": 45
+    }
+  }
+]

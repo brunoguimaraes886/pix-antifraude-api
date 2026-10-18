@@ -1,0 +1,1818 @@
+[
+  {
+    "id": "lc-001",
+    "narrative": "Estudante paga a parte da pizza para o amigo que pagou a conta.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 35.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 20,
+      "account_age_days": 700,
+      "balance": 420.0,
+      "typical_large_pix": 120.0,
+      "avg_pix_out": 40.0,
+      "avg_pix_in": 300.0,
+      "night_share": 0.4,
+      "pix_out_per_day": 1.2
+    },
+    "relationship": {
+      "previous_payments": 14,
+      "previous_total": 520.0,
+      "largest_previous": 80.0,
+      "first_payment_days_ago": 400,
+      "last_payment_days_ago": 6,
+      "received_from_destination_total": 300.0,
+      "first_received_days_ago": 380
+    }
+  },
+  {
+    "id": "lc-002",
+    "narrative": "Aposentada paga a diarista que vem toda semana.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 180.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 68,
+      "account_age_days": 3000,
+      "balance": 3200.0,
+      "typical_large_pix": 250.0,
+      "avg_pix_out": 150.0,
+      "avg_pix_in": 2800.0,
+      "night_share": 0.0,
+      "pix_out_per_day": 0.3
+    },
+    "relationship": {
+      "previous_payments": 40,
+      "previous_total": 7200.0,
+      "largest_previous": 180.0,
+      "first_payment_days_ago": 300,
+      "last_payment_days_ago": 7
+    }
+  },
+  {
+    "id": "lc-003",
+    "narrative": "Cliente paga a compra da feira na barraca de sempre.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 62.5,
+      "hour": 8
+    },
+    "payer": {
+      "age_years": 45,
+      "balance": 2100.0
+    },
+    "relationship": {
+      "previous_payments": 20,
+      "previous_total": 1100.0,
+      "largest_previous": 95.0,
+      "first_payment_days_ago": 200,
+      "last_payment_days_ago": 7
+    }
+  },
+  {
+    "id": "lc-004",
+    "narrative": "Pai manda a mesada mensal do filho universitário, mesmo banco.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 600.0,
+      "hour": 9
+    },
+    "payer": {
+      "age_years": 52,
+      "account_age_days": 4000,
+      "balance": 9000.0,
+      "typical_large_pix": 800.0,
+      "avg_pix_out": 220.0,
+      "avg_pix_in": 7000.0
+    },
+    "destination": {
+      "bank": "same",
+      "internal": {
+        "blocked": false,
+        "balance": 150.0,
+        "history_days": 30,
+        "pix_in_per_day": 0.5,
+        "avg_pix_in": 400.0,
+        "pix_out_per_day": 0.6,
+        "inflow_24h_amount": 0.0,
+        "inflow_24h_count": 0,
+        "inflow_24h_new_senders": 0,
+        "outflow_24h_amount": 0.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 24,
+      "previous_total": 14400.0,
+      "largest_previous": 600.0,
+      "first_payment_days_ago": 730,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lc-005",
+    "narrative": "Inquilino paga o aluguel ao proprietário, como todo mês.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 1800.0,
+      "hour": 11
+    },
+    "payer": {
+      "age_years": 34,
+      "account_age_days": 1500,
+      "balance": 4300.0,
+      "typical_large_pix": 1800.0,
+      "avg_pix_out": 250.0,
+      "avg_pix_in": 5200.0
+    },
+    "destination": {
+      "account_age_days": 5000
+    },
+    "relationship": {
+      "previous_payments": 18,
+      "previous_total": 32400.0,
+      "largest_previous": 1800.0,
+      "first_payment_days_ago": 540,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lc-006",
+    "narrative": "Mulher divide a conta do almoço com a colega de trabalho.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 27.9,
+      "hour": 13
+    },
+    "payer": {
+      "age_years": 29,
+      "balance": 1300.0
+    },
+    "relationship": {
+      "previous_payments": 9,
+      "previous_total": 260.0,
+      "largest_previous": 60.0,
+      "first_payment_days_ago": 150,
+      "last_payment_days_ago": 12,
+      "received_from_destination_total": 180.0,
+      "first_received_days_ago": 140
+    }
+  },
+  {
+    "id": "lc-007",
+    "narrative": "Morador paga a conta de luz via Pix para a distribuidora (PJ).",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 214.37,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 39,
+      "balance": 2600.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 9000
+    },
+    "relationship": {
+      "previous_payments": 12,
+      "previous_total": 2400.0,
+      "largest_previous": 260.0,
+      "first_payment_days_ago": 360,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lc-008",
+    "narrative": "Fiel faz o dízimo mensal para a igreja que frequenta.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 300.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 57,
+      "account_age_days": 2500,
+      "balance": 3500.0,
+      "typical_large_pix": 400.0,
+      "avg_pix_out": 120.0,
+      "avg_pix_in": 3000.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 6000
+    },
+    "relationship": {
+      "previous_payments": 30,
+      "previous_total": 9000.0,
+      "largest_previous": 350.0,
+      "first_payment_days_ago": 900,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lc-009",
+    "narrative": "Cliente transfere parte do salário para a própria conta em outro banco.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 2000.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 36,
+      "account_age_days": 2000,
+      "balance": 6500.0,
+      "typical_large_pix": 2000.0,
+      "avg_pix_out": 300.0,
+      "avg_pix_in": 6000.0
+    },
+    "destination": {
+      "same_owner": true,
+      "account_age_days": 2200
+    },
+    "relationship": {
+      "previous_payments": 26,
+      "previous_total": 48000.0,
+      "largest_previous": 3000.0,
+      "first_payment_days_ago": 800,
+      "last_payment_days_ago": 30,
+      "received_from_destination_total": 12000.0,
+      "first_received_days_ago": 780
+    }
+  },
+  {
+    "id": "lc-010",
+    "narrative": "Rapaz paga o barbeiro do bairro após o corte.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 45.0,
+      "hour": 17
+    },
+    "payer": {
+      "age_years": 26,
+      "balance": 800.0
+    },
+    "relationship": {
+      "previous_payments": 8,
+      "previous_total": 360.0,
+      "largest_previous": 45.0,
+      "first_payment_days_ago": 240,
+      "last_payment_days_ago": 25
+    }
+  },
+  {
+    "id": "lc-011",
+    "narrative": "Mãe manda dinheiro para a filha comprar material escolar, mesmo banco.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 150.0,
+      "hour": 12
+    },
+    "payer": {
+      "age_years": 44,
+      "balance": 2300.0
+    },
+    "destination": {
+      "bank": "same",
+      "internal": {
+        "blocked": false,
+        "balance": 60.0,
+        "history_days": 30,
+        "pix_in_per_day": 0.5,
+        "avg_pix_in": 100.0,
+        "pix_out_per_day": 0.6,
+        "inflow_24h_amount": 0.0,
+        "inflow_24h_count": 0,
+        "inflow_24h_new_senders": 0,
+        "outflow_24h_amount": 0.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 35,
+      "previous_total": 3800.0,
+      "largest_previous": 400.0,
+      "first_payment_days_ago": 600,
+      "last_payment_days_ago": 9
+    }
+  },
+  {
+    "id": "lc-012",
+    "narrative": "Cliente paga a mensalidade da academia ao personal.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 250.0,
+      "hour": 7
+    },
+    "payer": {
+      "age_years": 31,
+      "balance": 3100.0,
+      "typical_large_pix": 400.0
+    },
+    "relationship": {
+      "previous_payments": 10,
+      "previous_total": 2500.0,
+      "largest_previous": 250.0,
+      "first_payment_days_ago": 300,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lc-013",
+    "narrative": "Amigos racham a gasolina da viagem; ele paga o motorista.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 80.0,
+      "hour": 16
+    },
+    "payer": {
+      "age_years": 24,
+      "balance": 650.0
+    },
+    "relationship": {
+      "previous_payments": 5,
+      "previous_total": 230.0,
+      "largest_previous": 80.0,
+      "first_payment_days_ago": 180,
+      "last_payment_days_ago": 20,
+      "received_from_destination_total": 120.0,
+      "first_received_days_ago": 170
+    }
+  },
+  {
+    "id": "lc-014",
+    "narrative": "Vovô manda presente de aniversário para o neto.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 200.0,
+      "hour": 14
+    },
+    "payer": {
+      "age_years": 74,
+      "account_age_days": 3500,
+      "balance": 5200.0,
+      "typical_large_pix": 300.0,
+      "avg_pix_out": 180.0,
+      "avg_pix_in": 3100.0,
+      "night_share": 0.0,
+      "pix_out_per_day": 0.2
+    },
+    "relationship": {
+      "previous_payments": 6,
+      "previous_total": 1200.0,
+      "largest_previous": 300.0,
+      "first_payment_days_ago": 700,
+      "last_payment_days_ago": 120
+    }
+  },
+  {
+    "id": "lc-015",
+    "narrative": "MEI de salgados paga o fornecedor de farinha e óleo, como toda semana.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 870.0,
+      "hour": 9
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 4,
+      "account_age_days": 1400,
+      "balance": 6200.0,
+      "pix_out_per_day": 2.0,
+      "typical_large_pix": 1200.0,
+      "avg_pix_out": 350.0,
+      "avg_pix_in": 90.0,
+      "pix_in_per_day": 15.0,
+      "daily_limit": 20000.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 3000
+    },
+    "relationship": {
+      "previous_payments": 60,
+      "previous_total": 49000.0,
+      "largest_previous": 1300.0,
+      "first_payment_days_ago": 420,
+      "last_payment_days_ago": 7
+    }
+  },
+  {
+    "id": "lc-016",
+    "narrative": "Estudante paga o lanche na cantina da faculdade via QR.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 12.5,
+      "hour": 12
+    },
+    "payer": {
+      "age_years": 19,
+      "account_age_days": 400,
+      "balance": 230.0,
+      "typical_large_pix": 60.0,
+      "avg_pix_out": 18.0,
+      "avg_pix_in": 400.0,
+      "pix_out_per_day": 2.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 2000
+    },
+    "relationship": {
+      "previous_payments": 45,
+      "previous_total": 600.0,
+      "largest_previous": 25.0,
+      "first_payment_days_ago": 300,
+      "last_payment_days_ago": 1
+    }
+  },
+  {
+    "id": "lc-017",
+    "narrative": "Cliente paga a manicure no salão do bairro.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 55.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 37,
+      "balance": 1400.0
+    },
+    "relationship": {
+      "previous_payments": 11,
+      "previous_total": 600.0,
+      "largest_previous": 70.0,
+      "first_payment_days_ago": 330,
+      "last_payment_days_ago": 14
+    }
+  },
+  {
+    "id": "lc-018",
+    "narrative": "Irmã devolve o dinheiro que pegou emprestado da irmã.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 400.0,
+      "hour": 20
+    },
+    "payer": {
+      "age_years": 32,
+      "balance": 1900.0,
+      "night_share": 0.3
+    },
+    "destination": {
+      "bank": "same",
+      "internal": {
+        "blocked": false,
+        "balance": 1500.0,
+        "history_days": 30,
+        "pix_in_per_day": 0.5,
+        "avg_pix_in": 200.0,
+        "pix_out_per_day": 0.6,
+        "inflow_24h_amount": 0.0,
+        "inflow_24h_count": 0,
+        "inflow_24h_new_senders": 0,
+        "outflow_24h_amount": 0.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 7,
+      "previous_total": 1300.0,
+      "largest_previous": 300.0,
+      "first_payment_days_ago": 500,
+      "last_payment_days_ago": 40,
+      "received_from_destination_total": 1500.0,
+      "first_received_days_ago": 480
+    }
+  },
+  {
+    "id": "lc-019",
+    "narrative": "Cliente paga a escola de inglês do filho, mensalidade fixa.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 690.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 42,
+      "balance": 4800.0,
+      "typical_large_pix": 900.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 4000
+    },
+    "relationship": {
+      "previous_payments": 9,
+      "previous_total": 6210.0,
+      "largest_previous": 690.0,
+      "first_payment_days_ago": 280,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lc-020",
+    "narrative": "Pedreiro autônomo recebe o pagamento da obra e repassa a parte do ajudante.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 350.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 47,
+      "balance": 3300.0,
+      "avg_pix_in": 1500.0,
+      "pix_in_per_day": 0.4
+    },
+    "flow_24h": {
+      "inflow_amount": 2500.0,
+      "inflow_count": 1
+    },
+    "relationship": {
+      "previous_payments": 22,
+      "previous_total": 7000.0,
+      "largest_previous": 500.0,
+      "first_payment_days_ago": 400,
+      "last_payment_days_ago": 7
+    }
+  },
+  {
+    "id": "lc-021",
+    "narrative": "Cliente paga o açougue de confiança no sábado de manhã.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 138.4,
+      "hour": 9
+    },
+    "payer": {
+      "age_years": 50,
+      "balance": 2700.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 2500
+    },
+    "relationship": {
+      "previous_payments": 30,
+      "previous_total": 3600.0,
+      "largest_previous": 210.0,
+      "first_payment_days_ago": 400,
+      "last_payment_days_ago": 7
+    }
+  },
+  {
+    "id": "lc-022",
+    "narrative": "Jovem paga a conta do bar onde sempre vai com os amigos.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 96.0,
+      "hour": 23
+    },
+    "payer": {
+      "age_years": 27,
+      "balance": 900.0,
+      "night_share": 0.5
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 1800
+    },
+    "relationship": {
+      "previous_payments": 12,
+      "previous_total": 900.0,
+      "largest_previous": 140.0,
+      "first_payment_days_ago": 360,
+      "last_payment_days_ago": 10
+    }
+  },
+  {
+    "id": "lc-023",
+    "narrative": "Cliente paga a fatura do condomínio para a administradora.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 720.0,
+      "hour": 11
+    },
+    "payer": {
+      "age_years": 40,
+      "balance": 5100.0,
+      "typical_large_pix": 900.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 5000
+    },
+    "relationship": {
+      "previous_payments": 14,
+      "previous_total": 10080.0,
+      "largest_previous": 720.0,
+      "first_payment_days_ago": 420,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lc-024",
+    "narrative": "Namorado manda dinheiro para a namorada pagar o cinema dos dois.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 60.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 23,
+      "balance": 480.0
+    },
+    "destination": {
+      "bank": "same",
+      "internal": {
+        "blocked": false,
+        "balance": 1500.0,
+        "history_days": 30,
+        "pix_in_per_day": 0.5,
+        "avg_pix_in": 200.0,
+        "pix_out_per_day": 0.6,
+        "inflow_24h_amount": 0.0,
+        "inflow_24h_count": 0,
+        "inflow_24h_new_senders": 0,
+        "outflow_24h_amount": 0.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 40,
+      "previous_total": 2100.0,
+      "largest_previous": 200.0,
+      "first_payment_days_ago": 365,
+      "last_payment_days_ago": 3,
+      "received_from_destination_total": 1500.0,
+      "first_received_days_ago": 360
+    }
+  },
+  {
+    "id": "lc-025",
+    "narrative": "Cliente paga a internet de casa ao provedor local.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 99.9,
+      "hour": 8
+    },
+    "payer": {
+      "age_years": 35,
+      "balance": 1700.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 2200
+    },
+    "relationship": {
+      "previous_payments": 16,
+      "previous_total": 1598.4,
+      "largest_previous": 99.9,
+      "first_payment_days_ago": 480,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lc-026",
+    "narrative": "Senhora paga o feirante de verduras como toda quarta.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 28.0,
+      "hour": 7
+    },
+    "payer": {
+      "age_years": 66,
+      "balance": 1900.0,
+      "night_share": 0.0
+    },
+    "relationship": {
+      "previous_payments": 50,
+      "previous_total": 1400.0,
+      "largest_previous": 45.0,
+      "first_payment_days_ago": 360,
+      "last_payment_days_ago": 7
+    }
+  },
+  {
+    "id": "lc-027",
+    "narrative": "Cliente paga o motorista do transporte escolar dos filhos.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 380.0,
+      "hour": 7
+    },
+    "payer": {
+      "age_years": 38,
+      "balance": 2500.0
+    },
+    "relationship": {
+      "previous_payments": 10,
+      "previous_total": 3800.0,
+      "largest_previous": 380.0,
+      "first_payment_days_ago": 300,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lc-028",
+    "narrative": "Freelancer designer paga a assinatura de software ao revendedor nacional.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 120.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 30,
+      "balance": 2400.0,
+      "avg_pix_in": 2500.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 3000
+    },
+    "relationship": {
+      "previous_payments": 8,
+      "previous_total": 960.0,
+      "largest_previous": 120.0,
+      "first_payment_days_ago": 240,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lc-029",
+    "narrative": "Colega de república paga sua parte do mercado do mês.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 210.0,
+      "hour": 20
+    },
+    "payer": {
+      "age_years": 22,
+      "balance": 700.0,
+      "night_share": 0.3
+    },
+    "destination": {
+      "bank": "same",
+      "internal": {
+        "blocked": false,
+        "balance": 1500.0,
+        "history_days": 30,
+        "pix_in_per_day": 0.5,
+        "avg_pix_in": 200.0,
+        "pix_out_per_day": 0.6,
+        "inflow_24h_amount": 0.0,
+        "inflow_24h_count": 0,
+        "inflow_24h_new_senders": 0,
+        "outflow_24h_amount": 0.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 15,
+      "previous_total": 2800.0,
+      "largest_previous": 260.0,
+      "first_payment_days_ago": 420,
+      "last_payment_days_ago": 30,
+      "received_from_destination_total": 600.0,
+      "first_received_days_ago": 400
+    }
+  },
+  {
+    "id": "lc-030",
+    "narrative": "Dono de padaria (PJ) paga o distribuidor de laticínios.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 1450.0,
+      "hour": 8
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 12,
+      "account_age_days": 3800,
+      "balance": 18000.0,
+      "pix_out_per_day": 3.0,
+      "typical_large_pix": 2500.0,
+      "avg_pix_out": 700.0,
+      "avg_pix_in": 60.0,
+      "pix_in_per_day": 40.0,
+      "daily_limit": 30000.0,
+      "nightly_limit": 3000.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 6000
+    },
+    "relationship": {
+      "previous_payments": 90,
+      "previous_total": 120000.0,
+      "largest_previous": 3000.0,
+      "first_payment_days_ago": 1000,
+      "last_payment_days_ago": 3
+    }
+  },
+  {
+    "id": "lc-031",
+    "narrative": "Cliente compra um tênis usado de um vendedor de marketplace, primeiro pagamento a ele.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 230.0,
+      "hour": 14
+    },
+    "payer": {
+      "age_years": 28,
+      "balance": 1600.0
+    },
+    "destination": {
+      "account_age_days": 1200
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-032",
+    "narrative": "Mulher contrata uma diarista nova indicada pela vizinha e paga o primeiro dia.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 160.0,
+      "hour": 16
+    },
+    "payer": {
+      "age_years": 41,
+      "balance": 2800.0
+    },
+    "destination": {
+      "account_age_days": 2000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-033",
+    "narrative": "Rapaz paga a conta do bar à noite para o garçom de um bar novo.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 145.0,
+      "hour": 23
+    },
+    "payer": {
+      "age_years": 25,
+      "balance": 1100.0,
+      "night_share": 0.35
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 900
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-034",
+    "narrative": "Cliente com conta aberta há 3 dias paga o almoço do restaurante perto do trabalho.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 42.0,
+      "hour": 12
+    },
+    "payer": {
+      "age_years": 33,
+      "account_age_days": 3,
+      "balance": 900.0,
+      "history_days": 3,
+      "pix_out_per_day": 0.7,
+      "typical_large_pix": 60.0,
+      "avg_pix_out": 35.0,
+      "avg_pix_in": 1500.0,
+      "pix_in_per_day": 0.3
+    },
+    "device": {
+      "registered": false,
+      "other_registered_devices": 0,
+      "ip_seen_before": true
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 3000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-035",
+    "narrative": "Freelancer recebe pelo projeto e repassa a parte do colega que ajudou.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1200.0,
+      "hour": 17
+    },
+    "payer": {
+      "age_years": 29,
+      "balance": 3800.0,
+      "typical_large_pix": 700.0,
+      "avg_pix_out": 180.0,
+      "avg_pix_in": 1800.0
+    },
+    "flow_24h": {
+      "inflow_amount": 3000.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1
+    },
+    "relationship": {
+      "previous_payments": 4,
+      "previous_total": 2200.0,
+      "largest_previous": 800.0,
+      "first_payment_days_ago": 200,
+      "last_payment_days_ago": 45
+    }
+  },
+  {
+    "id": "lc-036",
+    "narrative": "Aposentado paga o eletricista que veio pela primeira vez consertar o chuveiro.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 280.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 71,
+      "account_age_days": 4000,
+      "balance": 4100.0,
+      "typical_large_pix": 300.0,
+      "avg_pix_out": 140.0,
+      "avg_pix_in": 3200.0,
+      "night_share": 0.0,
+      "pix_out_per_day": 0.2
+    },
+    "destination": {
+      "account_age_days": 2500
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-037",
+    "narrative": "Grupo de amigos racha o churrasco; ela paga quatro amigos que adiantaram compras, um seguido do outro.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 75.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 27,
+      "balance": 1300.0,
+      "night_share": 0.3
+    },
+    "flow_24h": {
+      "outflow_amount": 225.0,
+      "outflow_count": 3,
+      "outflow_new_recipients": 1
+    },
+    "velocity": {
+      "attempts_1h": 3,
+      "attempts_24h": 4,
+      "seconds_since_last_attempt": 90
+    },
+    "relationship": {
+      "previous_payments": 3,
+      "previous_total": 160.0,
+      "largest_previous": 70.0,
+      "first_payment_days_ago": 120,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lc-038",
+    "narrative": "Cliente paga o sinal de uma reforma ao empreiteiro recomendado, primeira vez.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 2500.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 46,
+      "account_age_days": 2500,
+      "balance": 14000.0,
+      "typical_large_pix": 1500.0,
+      "avg_pix_out": 300.0,
+      "avg_pix_in": 9000.0
+    },
+    "destination": {
+      "account_age_days": 3000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-039",
+    "narrative": "MEI de costura compra tecido de fornecedor novo em outra cidade.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1600.0,
+      "hour": 11
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 2,
+      "account_age_days": 700,
+      "balance": 5200.0,
+      "pix_out_per_day": 1.0,
+      "typical_large_pix": 1200.0,
+      "avg_pix_out": 400.0,
+      "avg_pix_in": 150.0,
+      "pix_in_per_day": 6.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 2400
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-040",
+    "narrative": "Estudante paga a primeira mensalidade da república nova ao proprietário.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 900.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 19,
+      "account_age_days": 500,
+      "balance": 1400.0,
+      "typical_large_pix": 150.0,
+      "avg_pix_out": 45.0,
+      "avg_pix_in": 1200.0
+    },
+    "flow_24h": {
+      "inflow_amount": 1200.0,
+      "inflow_count": 1
+    },
+    "destination": {
+      "account_age_days": 3500
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-041",
+    "narrative": "Cliente viaja e paga a pousada no litoral; está a 400 km de onde costuma usar o app.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 650.0,
+      "hour": 13
+    },
+    "payer": {
+      "age_years": 38,
+      "balance": 3600.0,
+      "typical_large_pix": 600.0
+    },
+    "device": {
+      "distance_from_last_km": 410.0,
+      "minutes_since_last_location": 360,
+      "ip_seen_before": false
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 2700
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-042",
+    "narrative": "Pai paga a festa de formatura do filho para a comissão, valor acima do habitual.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 3200.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 50,
+      "account_age_days": 3000,
+      "balance": 11000.0,
+      "typical_large_pix": 1500.0,
+      "avg_pix_out": 280.0,
+      "avg_pix_in": 8000.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 400
+    },
+    "relationship": {
+      "previous_payments": 2,
+      "previous_total": 1600.0,
+      "largest_previous": 800.0,
+      "first_payment_days_ago": 150,
+      "last_payment_days_ago": 60
+    }
+  },
+  {
+    "id": "lc-043",
+    "narrative": "Cliente compra celular usado de vendedor de marketplace conhecido localmente, mesmo banco.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1100.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 30,
+      "balance": 2600.0,
+      "typical_large_pix": 500.0
+    },
+    "destination": {
+      "bank": "same",
+      "internal": {
+        "blocked": false,
+        "balance": 800.0,
+        "history_days": 30,
+        "pix_in_per_day": 0.5,
+        "avg_pix_in": 350.0,
+        "pix_out_per_day": 0.6,
+        "inflow_24h_amount": 0.0,
+        "inflow_24h_count": 0,
+        "inflow_24h_new_senders": 0,
+        "outflow_24h_amount": 0.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      },
+      "account_age_days": 1500
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-044",
+    "narrative": "Jovem paga o Uber de volta da balada a um motorista particular, à 1h.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 48.0,
+      "hour": 1
+    },
+    "payer": {
+      "age_years": 22,
+      "balance": 380.0,
+      "night_share": 0.45
+    },
+    "destination": {
+      "account_age_days": 1000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-045",
+    "narrative": "Mulher troca de celular e faz o primeiro Pix no aparelho novo para pagar a escola dos filhos.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 690.0,
+      "hour": 9
+    },
+    "payer": {
+      "age_years": 39,
+      "balance": 3900.0,
+      "typical_large_pix": 800.0
+    },
+    "device": {
+      "registered": false,
+      "other_registered_devices": 1,
+      "ip_seen_before": true,
+      "distance_from_last_km": 0.2
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 4000
+    },
+    "relationship": {
+      "previous_payments": 11,
+      "previous_total": 7590.0,
+      "largest_previous": 690.0,
+      "first_payment_days_ago": 330,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lc-046",
+    "narrative": "Dona de loja (PJ) paga freelancer de fotografia pela primeira vez.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 800.0,
+      "hour": 15
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 6,
+      "account_age_days": 2000,
+      "balance": 12000.0,
+      "pix_out_per_day": 1.5,
+      "typical_large_pix": 2000.0,
+      "avg_pix_out": 600.0,
+      "avg_pix_in": 120.0,
+      "pix_in_per_day": 20.0,
+      "daily_limit": 20000.0
+    },
+    "destination": {
+      "account_age_days": 1100
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-047",
+    "narrative": "Cliente paga o veterinário de emergência à noite pelo atendimento do cachorro.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 450.0,
+      "hour": 22
+    },
+    "payer": {
+      "age_years": 35,
+      "balance": 2700.0,
+      "night_share": 0.1,
+      "typical_large_pix": 500.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 3200
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-048",
+    "narrative": "Autônomo paga a parcela do carro para o antigo dono, combinado entre conhecidos.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1500.0,
+      "hour": 8
+    },
+    "payer": {
+      "age_years": 43,
+      "balance": 3400.0,
+      "typical_large_pix": 1500.0,
+      "avg_pix_out": 220.0,
+      "avg_pix_in": 2800.0
+    },
+    "relationship": {
+      "previous_payments": 3,
+      "previous_total": 4500.0,
+      "largest_previous": 1500.0,
+      "first_payment_days_ago": 95,
+      "last_payment_days_ago": 30
+    }
+  },
+  {
+    "id": "lc-049",
+    "narrative": "Tia manda dinheiro para a sobrinha pagar a inscrição do vestibular; sobrinha tem conta nova.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 180.0,
+      "hour": 20
+    },
+    "payer": {
+      "age_years": 55,
+      "balance": 2600.0,
+      "night_share": 0.15
+    },
+    "destination": {
+      "account_age_days": 20
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-050",
+    "narrative": "Cliente paga ingresso de show revendido por um amigo do amigo.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 380.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 26,
+      "balance": 1500.0,
+      "night_share": 0.3
+    },
+    "destination": {
+      "account_age_days": 1300
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-051",
+    "narrative": "Cliente faz compras grandes de mês no atacarejo, valor maior que o usual.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 980.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 48,
+      "balance": 3500.0,
+      "typical_large_pix": 500.0,
+      "avg_pix_out": 130.0
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 7000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-052",
+    "narrative": "Cliente vende o carro antigo, recebe R$ 9.500 do comprador (desconhecido) e no mesmo dia paga a entrada do carro novo na concessionária.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 9000.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 44,
+      "account_age_days": 2200,
+      "balance": 10800.0,
+      "typical_large_pix": 1200.0,
+      "avg_pix_out": 200.0,
+      "avg_pix_in": 4500.0
+    },
+    "flow_24h": {
+      "inflow_amount": 9500.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 5000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-053",
+    "narrative": "Conta aberta há 3 dias: recém-chegado à cidade paga o primeiro aluguel e caução ao proprietário, valor alto para o histórico.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 3000.0,
+      "hour": 11
+    },
+    "payer": {
+      "age_years": 27,
+      "account_age_days": 3,
+      "balance": 4200.0,
+      "history_days": 3,
+      "pix_out_per_day": 0.3,
+      "typical_large_pix": 80.0,
+      "avg_pix_out": 50.0,
+      "avg_pix_in": 4500.0,
+      "pix_in_per_day": 0.3,
+      "daily_limit": 5000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 4500.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 0
+    },
+    "device": {
+      "other_registered_devices": 0,
+      "registered": false
+    },
+    "destination": {
+      "account_age_days": 4000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-054",
+    "narrative": "Sobrinha devolve ao tio exatamente o valor que ele mandou por engano na conta dela; ele nunca tinha mandado nada antes e ela nunca pagou a ele.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 500.0,
+      "hour": 20
+    },
+    "payer": {
+      "age_years": 24,
+      "balance": 1100.0,
+      "night_share": 0.3
+    },
+    "flow_24h": {
+      "inflow_amount": 500.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1,
+      "matching_inflow_from_stranger": true
+    },
+    "relationship": {
+      "previous_payments": 0,
+      "received_from_destination_total": 500.0,
+      "first_received_days_ago": 0
+    }
+  },
+  {
+    "id": "lc-055",
+    "narrative": "Organizadora de vaquinha de presente de casamento recebe de 12 colegas e repassa o total à loja de móveis.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 1800.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 31,
+      "balance": 2600.0,
+      "typical_large_pix": 300.0,
+      "avg_pix_out": 80.0,
+      "avg_pix_in": 600.0,
+      "pix_in_per_day": 0.2
+    },
+    "flow_24h": {
+      "inflow_amount": 1800.0,
+      "inflow_count": 12,
+      "inflow_new_senders": 7
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 3800
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-056",
+    "narrative": "Aposentada que quase nunca usa Pix envia, à noite, dinheiro para o filho pagar remédio urgente; o filho ajudou a fazer pelo telefone.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 800.0,
+      "hour": 22
+    },
+    "payer": {
+      "age_years": 76,
+      "account_age_days": 5000,
+      "balance": 6000.0,
+      "pix_out_per_day": 0.05,
+      "typical_large_pix": 200.0,
+      "avg_pix_out": 150.0,
+      "avg_pix_in": 2900.0,
+      "night_share": 0.0
+    },
+    "destination": {
+      "bank": "same",
+      "internal": {
+        "blocked": false,
+        "balance": 300.0,
+        "history_days": 30,
+        "pix_in_per_day": 0.5,
+        "avg_pix_in": 800.0,
+        "pix_out_per_day": 0.6,
+        "inflow_24h_amount": 0.0,
+        "inflow_24h_count": 0,
+        "inflow_24h_new_senders": 0,
+        "outflow_24h_amount": 0.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      },
+      "account_age_days": 2500
+    },
+    "relationship": {
+      "previous_payments": 2,
+      "previous_total": 300.0,
+      "largest_previous": 200.0,
+      "first_payment_days_ago": 400,
+      "last_payment_days_ago": 180,
+      "received_from_destination_total": 1200.0,
+      "first_received_days_ago": 900
+    }
+  },
+  {
+    "id": "lc-057",
+    "narrative": "Comerciante (PJ) paga fornecedor novo de outro estado com valor alto para fechar lote em promoção; usa o notebook do escritório pela primeira vez.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 7500.0,
+      "hour": 14
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 8,
+      "account_age_days": 2900,
+      "balance": 26000.0,
+      "pix_out_per_day": 2.0,
+      "typical_large_pix": 4000.0,
+      "avg_pix_out": 1200.0,
+      "avg_pix_in": 200.0,
+      "pix_in_per_day": 25.0,
+      "daily_limit": 30000.0,
+      "nightly_limit": 3000.0
+    },
+    "device": {
+      "registered": false,
+      "other_registered_devices": 2,
+      "ip_seen_before": true,
+      "channel_used_before": false,
+      "has_geolocation": false,
+      "distance_from_last_km": null
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 1500
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-058",
+    "narrative": "Universitário divide a conta da república e paga 5 colegas em sequência rápida às 23h, dois deles novos.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 120.0,
+      "hour": 23
+    },
+    "payer": {
+      "age_years": 21,
+      "balance": 1200.0,
+      "night_share": 0.5,
+      "pix_out_per_day": 1.5,
+      "typical_large_pix": 150.0,
+      "avg_pix_out": 40.0
+    },
+    "flow_24h": {
+      "outflow_amount": 480.0,
+      "outflow_count": 4,
+      "outflow_new_recipients": 1
+    },
+    "velocity": {
+      "attempts_1h": 4,
+      "attempts_24h": 6,
+      "seconds_since_last_attempt": 45
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-059",
+    "narrative": "Cliente recebe herança e transfere grande parte para a própria conta de investimentos em outro banco, aberta há 10 dias.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 9800.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 53,
+      "account_age_days": 2600,
+      "balance": 48000.0,
+      "typical_large_pix": 1000.0,
+      "avg_pix_out": 200.0,
+      "avg_pix_in": 5000.0,
+      "daily_limit": 10000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 45000.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1
+    },
+    "destination": {
+      "same_owner": true,
+      "account_age_days": 10
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "lc-060",
+    "narrative": "Turista brasileira em outro estado, com celular novo comprado após o antigo quebrar, paga o restaurante à noite.",
+    "label": "legit",
+    "fraud_type": null,
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 210.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 34,
+      "balance": 2900.0,
+      "night_share": 0.25
+    },
+    "device": {
+      "registered": false,
+      "other_registered_devices": 0,
+      "ip_seen_before": false,
+      "distance_from_last_km": 1100.0,
+      "minutes_since_last_location": 1440
+    },
+    "destination": {
+      "type": "PJ",
+      "account_age_days": 2000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  }
+]

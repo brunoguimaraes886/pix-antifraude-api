@@ -1,0 +1,2291 @@
+[
+  {
+    "id": "se-001",
+    "narrative": "Idosa de 74 anos recebe ligação da 'central de segurança' dizendo que há uma compra suspeita e é instruída a transferir o saldo para uma 'conta de proteção'. O destino é conta de 12 dias já marcada por outro banco como golpista.",
+    "label": "fraud",
+    "fraud_type": "falsa_central",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 8500.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 74,
+      "account_age_days": 5400,
+      "balance": 12000.0,
+      "pix_out_per_day": 0.2,
+      "typical_large_pix": 600.0,
+      "avg_pix_out": 180.0,
+      "avg_pix_in": 3200.0,
+      "pix_in_per_day": 0.07,
+      "night_share": 0.0
+    },
+    "velocity": {
+      "attempts_1h": 3,
+      "attempts_24h": 3,
+      "seconds_since_last_attempt": 240
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 12,
+      "other_clients_first_paid_7d": 6,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "SCAMMER_ACCOUNT",
+            "on": "account",
+            "days_ago": 4
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0,
+      "attempts_to_destination_24h": 2,
+      "last_attempt_amount": 12000.0,
+      "blocked_attempts_24h": 1
+    }
+  },
+  {
+    "id": "se-002",
+    "narrative": "Falso funcionário do banco convence cliente de 58 anos de que a conta foi invadida e que ele deve mover tudo para uma 'conta segura' em seu próprio nome, aberta por golpistas com seus dados vazados dois dias antes. Já houve um primeiro envio de R$ 6.000 mais cedo.",
+    "label": "fraud",
+    "fraud_type": "conta_segura",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 25000.0,
+      "hour": 11
+    },
+    "payer": {
+      "age_years": 58,
+      "account_age_days": 3200,
+      "balance": 31000.0,
+      "pix_out_per_day": 0.5,
+      "typical_large_pix": 1500.0,
+      "avg_pix_out": 350.0,
+      "avg_pix_in": 8000.0,
+      "pix_in_per_day": 0.1,
+      "daily_limit": 50000.0
+    },
+    "flow_24h": {
+      "outflow_amount": 6000.0,
+      "outflow_count": 1,
+      "outflow_new_recipients": 1
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 2,
+      "seconds_since_last_attempt": 900
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 2,
+      "same_owner": true,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "APPLICATION_FRAUD",
+            "on": "account",
+            "days_ago": 1
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 1,
+      "previous_total": 6000.0,
+      "largest_previous": 6000.0,
+      "first_payment_days_ago": 0,
+      "last_payment_days_ago": 0,
+      "attempts_to_destination_24h": 1,
+      "last_attempt_amount": 6000.0
+    }
+  },
+  {
+    "id": "se-003",
+    "narrative": "Mãe de 67 anos recebe mensagem de WhatsApp com a foto do filho dizendo que trocou de número e precisa pagar uma conta urgente. O destino é conta de laranja cliente do próprio banco, recém-aberta e recebendo de dezenas de pessoas.",
+    "label": "fraud",
+    "fraud_type": "falso_parente",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 4800.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 67,
+      "account_age_days": 4100,
+      "balance": 9300.0,
+      "pix_out_per_day": 0.3,
+      "typical_large_pix": 300.0,
+      "avg_pix_out": 110.0,
+      "avg_pix_in": 2800.0,
+      "pix_in_per_day": 0.07,
+      "night_share": 0.05
+    },
+    "destination": {
+      "bank": "same",
+      "type": "PF",
+      "account_age_days": 20,
+      "other_clients_first_paid_7d": 9,
+      "other_clients_rejected_90d": 2,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "MULE_ACCOUNT",
+            "on": "owner",
+            "days_ago": 15
+          }
+        ]
+      },
+      "internal": {
+        "blocked": false,
+        "balance": 350.0,
+        "history_days": 20,
+        "pix_in_per_day": 2.5,
+        "avg_pix_in": 2600.0,
+        "pix_out_per_day": 4.0,
+        "inflow_24h_amount": 21000.0,
+        "inflow_24h_count": 7,
+        "inflow_24h_new_senders": 7,
+        "outflow_24h_amount": 20500.0,
+        "past_account_blocks": 1,
+        "past_rejected_pix_in": 3
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-004",
+    "narrative": "Jovem recebe R$ 1.200 de um desconhecido e logo depois uma ligação pedindo a 'devolução' para outra chave. O valor recebido veio de outra vítima; a conta indicada para devolução é nova e marcada no DICT.",
+    "label": "fraud",
+    "fraud_type": "pix_errado",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 1200.0,
+      "hour": 16
+    },
+    "payer": {
+      "age_years": 35,
+      "account_age_days": 900,
+      "balance": 1700.0,
+      "pix_out_per_day": 1.0,
+      "typical_large_pix": 350.0,
+      "avg_pix_out": 90.0,
+      "avg_pix_in": 1800.0,
+      "pix_in_per_day": 0.3
+    },
+    "flow_24h": {
+      "inflow_amount": 1200.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1,
+      "matching_inflow_from_stranger": true
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 5,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "SCAMMER_ACCOUNT",
+            "on": "owner",
+            "days_ago": 3
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-005",
+    "narrative": "Jovem de 23 anos entrou num grupo de Telegram de 'trader' que promete 30% ao dia; já mandou R$ 200 e R$ 500, recebeu R$ 150 de 'lucro' e agora manda R$ 2.000 de noite, após aumentar o limite noturno.",
+    "label": "fraud",
+    "fraud_type": "falso_investimento",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 2000.0,
+      "hour": 22
+    },
+    "payer": {
+      "age_years": 23,
+      "account_age_days": 400,
+      "balance": 2300.0,
+      "pix_out_per_day": 1.5,
+      "typical_large_pix": 250.0,
+      "avg_pix_out": 60.0,
+      "avg_pix_in": 1400.0,
+      "pix_in_per_day": 0.2,
+      "night_share": 0.3,
+      "nightly_limit": 3000.0
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 4,
+      "seconds_since_last_attempt": 600
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 8,
+      "other_clients_first_paid_7d": 5,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "SCAMMER_ACCOUNT",
+            "on": "account",
+            "days_ago": 2
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 2,
+      "previous_total": 700.0,
+      "largest_previous": 500.0,
+      "first_payment_days_ago": 3,
+      "last_payment_days_ago": 1,
+      "received_from_destination_total": 150.0,
+      "first_received_days_ago": 2,
+      "attempts_to_destination_24h": 1,
+      "last_attempt_amount": 2000.0,
+      "blocked_attempts_24h": 1
+    }
+  },
+  {
+    "id": "se-006",
+    "narrative": "Pai de 52 anos recebe ligação com gritos de 'filha' sequestrada e exigência de resgate imediato; tenta várias vezes mandar R$ 15.000 para uma conta aberta há 3 dias, com tentativas anteriores barradas.",
+    "label": "fraud",
+    "fraud_type": "falso_sequestro",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 15000.0,
+      "hour": 11
+    },
+    "payer": {
+      "age_years": 52,
+      "account_age_days": 2800,
+      "balance": 18000.0,
+      "pix_out_per_day": 0.6,
+      "typical_large_pix": 800.0,
+      "avg_pix_out": 200.0,
+      "avg_pix_in": 6500.0,
+      "pix_in_per_day": 0.1,
+      "daily_limit": 20000.0
+    },
+    "velocity": {
+      "attempts_1h": 4,
+      "attempts_24h": 4,
+      "seconds_since_last_attempt": 90
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 3,
+      "other_clients_rejected_90d": 3,
+      "dict": {
+        "available": true,
+        "markers": []
+      }
+    },
+    "relationship": {
+      "previous_payments": 0,
+      "attempts_to_destination_24h": 3,
+      "last_attempt_amount": 15000.0,
+      "blocked_attempts_24h": 2,
+      "fraud_rejections_24h": 1
+    }
+  },
+  {
+    "id": "se-007",
+    "narrative": "Idoso de 81 anos recebe ligação de falso gerente que avisa que um motoboy irá buscar o cartão 'clonado'; antes disso, ele é instruído a mandar R$ 9.900 para uma 'conta de estorno' PJ aberta há 9 dias.",
+    "label": "fraud",
+    "fraud_type": "golpe_motoboy",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 9900.0,
+      "hour": 14
+    },
+    "payer": {
+      "age_years": 81,
+      "account_age_days": 7000,
+      "balance": 14500.0,
+      "pix_out_per_day": 0.1,
+      "typical_large_pix": 400.0,
+      "avg_pix_out": 150.0,
+      "avg_pix_in": 4200.0,
+      "pix_in_per_day": 0.04,
+      "night_share": 0.0,
+      "daily_limit": 10000.0
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 2,
+      "seconds_since_last_attempt": 400
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 9,
+      "other_clients_first_paid_7d": 4,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "MULE_ACCOUNT",
+            "on": "account",
+            "days_ago": 6
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-008",
+    "narrative": "Entregador recebe mensagem do 'suporte do app de entregas' dizendo que sua conta será desativada se não pagar uma 'taxa de regularização'; paga R$ 3.000 para conta pessoal recém-aberta já marcada por dois bancos.",
+    "label": "fraud",
+    "fraud_type": "falso_suporte",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 3000.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 31,
+      "account_age_days": 700,
+      "balance": 3400.0,
+      "pix_out_per_day": 1.2,
+      "typical_large_pix": 400.0,
+      "avg_pix_out": 70.0,
+      "avg_pix_in": 250.0,
+      "pix_in_per_day": 1.5,
+      "night_share": 0.25
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 11,
+      "other_clients_first_paid_7d": 3,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "SCAMMER_ACCOUNT",
+            "on": "account",
+            "days_ago": 5
+          },
+          {
+            "type": "SCAMMER_ACCOUNT",
+            "on": "owner",
+            "days_ago": 2
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-009",
+    "narrative": "Cliente vê anúncio de iPhone com 50% de desconto numa 'loja' no Instagram durante a Black Friday e paga R$ 3.200 via QR code para conta pessoal de 6 dias que dezenas de clientes começaram a pagar nesta semana.",
+    "label": "fraud",
+    "fraud_type": "falsa_loja",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 3200.0,
+      "hour": 20
+    },
+    "payer": {
+      "age_years": 27,
+      "account_age_days": 1100,
+      "balance": 4100.0,
+      "pix_out_per_day": 1.1,
+      "typical_large_pix": 600.0,
+      "avg_pix_out": 95.0,
+      "avg_pix_in": 3000.0,
+      "pix_in_per_day": 0.1,
+      "night_share": 0.35,
+      "nightly_limit": 5000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 6,
+      "other_clients_first_paid_7d": 25,
+      "other_clients_rejected_90d": 4,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "SCAMMER_ACCOUNT",
+            "on": "account",
+            "days_ago": 1
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-010",
+    "narrative": "Jovem aceitou 'trabalho' de curtir vídeos e avaliar hotéis; recebeu pequenas comissões e agora precisa 'desbloquear tarefas VIP' com depósitos crescentes, cada um para uma conta diferente. Este é o quarto envio do dia.",
+    "label": "fraud",
+    "fraud_type": "golpe_tarefas",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 2700.0,
+      "hour": 17
+    },
+    "payer": {
+      "age_years": 29,
+      "account_age_days": 800,
+      "balance": 3100.0,
+      "pix_out_per_day": 0.9,
+      "typical_large_pix": 300.0,
+      "avg_pix_out": 80.0,
+      "avg_pix_in": 1900.0,
+      "pix_in_per_day": 0.2
+    },
+    "flow_24h": {
+      "inflow_amount": 95.0,
+      "inflow_count": 3,
+      "inflow_new_senders": 3,
+      "outflow_amount": 1300.0,
+      "outflow_count": 3,
+      "outflow_new_recipients": 3
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 4,
+      "seconds_since_last_attempt": 1200
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 14,
+      "other_clients_first_paid_7d": 7,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "MULE_ACCOUNT",
+            "on": "account",
+            "days_ago": 8
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-011",
+    "narrative": "Viúva de 63 anos mantém relacionamento virtual com 'engenheiro estrangeiro' que pede R$ 18.000 para liberar uma 'herança retida na alfândega'. O destino é PJ de 15 dias marcada no DICT.",
+    "label": "fraud",
+    "fraud_type": "golpe_amor",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 18000.0,
+      "hour": 9
+    },
+    "payer": {
+      "age_years": 63,
+      "account_age_days": 6000,
+      "balance": 42000.0,
+      "pix_out_per_day": 0.3,
+      "typical_large_pix": 1200.0,
+      "avg_pix_out": 300.0,
+      "avg_pix_in": 5500.0,
+      "pix_in_per_day": 0.1,
+      "daily_limit": 20000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 15,
+      "other_clients_first_paid_7d": 2,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "SCAMMER_ACCOUNT",
+            "on": "owner",
+            "days_ago": 20
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-012",
+    "narrative": "Cliente encontra site clonado de leiloeiro oficial e 'arremata' um carro por R$ 22.000; paga para PJ de 30 dias que vários outros clientes começaram a pagar na semana e que já tem marcação no DICT.",
+    "label": "fraud",
+    "fraud_type": "falso_leilao",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 22000.0,
+      "hour": 13
+    },
+    "payer": {
+      "age_years": 44,
+      "account_age_days": 2500,
+      "balance": 27000.0,
+      "pix_out_per_day": 0.7,
+      "typical_large_pix": 2000.0,
+      "avg_pix_out": 400.0,
+      "avg_pix_in": 9000.0,
+      "pix_in_per_day": 0.1,
+      "daily_limit": 30000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 30,
+      "other_clients_first_paid_7d": 7,
+      "other_clients_rejected_90d": 2,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "SCAMMER_ACCOUNT",
+            "on": "account",
+            "days_ago": 7
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-013",
+    "narrative": "À noite, falsa central convence cliente a 'testar o sistema' aumentando o limite noturno e transferindo R$ 14.000 para 'conta de segurança'. Destino recém-aberto, já pago e barrado para outros clientes.",
+    "label": "fraud",
+    "fraud_type": "falsa_central",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 14000.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 49,
+      "account_age_days": 3000,
+      "balance": 16000.0,
+      "pix_out_per_day": 0.4,
+      "typical_large_pix": 700.0,
+      "avg_pix_out": 160.0,
+      "avg_pix_in": 7000.0,
+      "pix_in_per_day": 0.1,
+      "night_share": 0.1,
+      "nightly_limit": 20000.0,
+      "daily_limit": 20000.0
+    },
+    "velocity": {
+      "attempts_1h": 3,
+      "attempts_24h": 3,
+      "seconds_since_last_attempt": 300
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 4,
+      "other_clients_first_paid_7d": 5,
+      "other_clients_rejected_90d": 3,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "MULE_ACCOUNT",
+            "on": "account",
+            "days_ago": 2
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0,
+      "attempts_to_destination_24h": 2,
+      "last_attempt_amount": 14000.0,
+      "blocked_attempts_24h": 1
+    }
+  },
+  {
+    "id": "se-014",
+    "narrative": "Dona de pequena loja (PJ de 4 anos) recebe ligação do 'gerente' dizendo que o CNPJ foi alvo de ataque e transfere R$ 45.000 do caixa para uma 'conta segura' com o mesmo CNPJ, aberta ontem por golpistas em outra instituição.",
+    "label": "fraud",
+    "fraud_type": "conta_segura",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 45000.0,
+      "hour": 10
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 4,
+      "account_age_days": 1400,
+      "balance": 52000.0,
+      "pix_out_per_day": 3.0,
+      "typical_large_pix": 6000.0,
+      "avg_pix_out": 1200.0,
+      "avg_pix_in": 600.0,
+      "pix_in_per_day": 12.0,
+      "daily_limit": 60000.0,
+      "nightly_limit": 5000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 1,
+      "same_owner": true,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "APPLICATION_FRAUD",
+            "on": "account",
+            "days_ago": 0
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-015",
+    "narrative": "Motorista busca 'pagar IPVA com desconto' no Google, cai em site falso patrocinado e paga QR code de R$ 1.850 que vai para conta pessoal de 4 dias, paga por dezenas de clientes nesta semana.",
+    "label": "fraud",
+    "fraud_type": "falsa_cobranca",
+    "operator": "owner",
+    "difficulty": "easy",
+    "pix": {
+      "amount": 1850.0,
+      "hour": 12
+    },
+    "payer": {
+      "age_years": 39,
+      "account_age_days": 1500,
+      "balance": 5200.0,
+      "pix_out_per_day": 1.0,
+      "typical_large_pix": 900.0,
+      "avg_pix_out": 140.0,
+      "avg_pix_in": 4500.0,
+      "pix_in_per_day": 0.1
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 4,
+      "other_clients_first_paid_7d": 40,
+      "other_clients_rejected_90d": 6,
+      "dict": {
+        "available": true,
+        "markers": [
+          {
+            "type": "SCAMMER_ACCOUNT",
+            "on": "account",
+            "days_ago": 1
+          }
+        ]
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-016",
+    "narrative": "Cliente de 45 anos recebe ligação com número mascarado do banco e é convencido a 'cancelar uma compra' fazendo um Pix de R$ 4.500 para conta de 60 dias sem marcações.",
+    "label": "fraud",
+    "fraud_type": "falsa_central",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 4500.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 45,
+      "account_age_days": 2200,
+      "balance": 7800.0,
+      "pix_out_per_day": 0.8,
+      "typical_large_pix": 1200.0,
+      "avg_pix_out": 250.0,
+      "avg_pix_in": 5000.0,
+      "pix_in_per_day": 0.15
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 2,
+      "seconds_since_last_attempt": 500
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 60,
+      "other_clients_first_paid_7d": 2
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-017",
+    "narrative": "Senhora de 59 anos atende pedido de 'sobrinha' com número novo no WhatsApp para pagar um fornecedor; manda R$ 2.300 para conta de 200 dias.",
+    "label": "fraud",
+    "fraud_type": "falso_parente",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 2300.0,
+      "hour": 9
+    },
+    "payer": {
+      "age_years": 59,
+      "account_age_days": 3600,
+      "balance": 6100.0,
+      "pix_out_per_day": 0.5,
+      "typical_large_pix": 900.0,
+      "avg_pix_out": 200.0,
+      "avg_pix_in": 3800.0,
+      "pix_in_per_day": 0.1
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 200,
+      "other_clients_first_paid_7d": 1
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-018",
+    "narrative": "Cliente recebe R$ 650 de desconhecido e uma mensagem educada pedindo devolução 'para a chave da minha esposa'. O valor veio de uma vítima de outro golpe e a conta indicada é de um laranja antigo.",
+    "label": "fraud",
+    "fraud_type": "pix_errado",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 650.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 42,
+      "account_age_days": 1900,
+      "balance": 2400.0,
+      "pix_out_per_day": 1.1,
+      "typical_large_pix": 500.0,
+      "avg_pix_out": 110.0,
+      "avg_pix_in": 3500.0,
+      "pix_in_per_day": 0.15
+    },
+    "flow_24h": {
+      "inflow_amount": 650.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1,
+      "matching_inflow_from_stranger": true
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 400
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-019",
+    "narrative": "Pirâmide de 'robô de arbitragem': cliente já fez 4 aportes crescentes para o mesmo destino e recebeu R$ 800 de 'rendimentos'; agora aporta R$ 6.000.",
+    "label": "fraud",
+    "fraud_type": "falso_investimento",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 6000.0,
+      "hour": 20
+    },
+    "payer": {
+      "age_years": 37,
+      "account_age_days": 2000,
+      "balance": 9000.0,
+      "pix_out_per_day": 0.9,
+      "typical_large_pix": 1500.0,
+      "avg_pix_out": 280.0,
+      "avg_pix_in": 6000.0,
+      "pix_in_per_day": 0.2,
+      "night_share": 0.3,
+      "nightly_limit": 10000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 90
+    },
+    "relationship": {
+      "previous_payments": 4,
+      "previous_total": 3500.0,
+      "largest_previous": 1500.0,
+      "first_payment_days_ago": 35,
+      "last_payment_days_ago": 6,
+      "received_from_destination_total": 800.0,
+      "first_received_days_ago": 25
+    }
+  },
+  {
+    "id": "se-020",
+    "narrative": "Aposentado de 71 anos conheceu 'mulher' em aplicativo de namoro que pede ajuda para passagem e hospital; já mandou R$ 500 e R$ 800 e agora R$ 3.000.",
+    "label": "fraud",
+    "fraud_type": "golpe_amor",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 3000.0,
+      "hour": 16
+    },
+    "payer": {
+      "age_years": 71,
+      "account_age_days": 5000,
+      "balance": 8200.0,
+      "pix_out_per_day": 0.3,
+      "typical_large_pix": 700.0,
+      "avg_pix_out": 180.0,
+      "avg_pix_in": 4600.0,
+      "pix_in_per_day": 0.05
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 300
+    },
+    "relationship": {
+      "previous_payments": 2,
+      "previous_total": 1300.0,
+      "largest_previous": 800.0,
+      "first_payment_days_ago": 40,
+      "last_payment_days_ago": 12
+    }
+  },
+  {
+    "id": "se-021",
+    "narrative": "Golpe de tarefas: após duas 'missões' pagas ao mesmo destino (R$ 150 e R$ 400) e comissões pequenas recebidas, a vítima envia R$ 1.200 para 'subir de nível'.",
+    "label": "fraud",
+    "fraud_type": "golpe_tarefas",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1200.0,
+      "hour": 14
+    },
+    "payer": {
+      "age_years": 34,
+      "account_age_days": 1200,
+      "balance": 1600.0,
+      "pix_out_per_day": 1.0,
+      "typical_large_pix": 450.0,
+      "avg_pix_out": 85.0,
+      "avg_pix_in": 2400.0,
+      "pix_in_per_day": 0.3
+    },
+    "flow_24h": {
+      "inflow_amount": 60.0,
+      "inflow_count": 2,
+      "inflow_new_senders": 1,
+      "outflow_amount": 400.0,
+      "outflow_count": 1
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 2,
+      "seconds_since_last_attempt": 5400
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 45,
+      "other_clients_first_paid_7d": 3
+    },
+    "relationship": {
+      "previous_payments": 2,
+      "previous_total": 550.0,
+      "largest_previous": 400.0,
+      "first_payment_days_ago": 2,
+      "last_payment_days_ago": 0
+    }
+  },
+  {
+    "id": "se-022",
+    "narrative": "Compra de celular seminovo em marketplace: o 'vendedor' pede pagamento por fora da plataforma e some. Destino é conta pessoal de 180 dias sem marcação.",
+    "label": "fraud",
+    "fraud_type": "falso_vendedor",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1400.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 24,
+      "account_age_days": 600,
+      "balance": 1900.0,
+      "pix_out_per_day": 1.3,
+      "typical_large_pix": 350.0,
+      "avg_pix_out": 70.0,
+      "avg_pix_in": 1600.0,
+      "pix_in_per_day": 0.2,
+      "night_share": 0.3
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 180,
+      "other_clients_first_paid_7d": 3
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-023",
+    "narrative": "Cliente arremata moto em site falso de leilão do Detran e paga R$ 9.800 para PJ de 120 dias sem marcações.",
+    "label": "fraud",
+    "fraud_type": "falso_leilao",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 9800.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 33,
+      "account_age_days": 1300,
+      "balance": 14000.0,
+      "pix_out_per_day": 0.8,
+      "typical_large_pix": 1800.0,
+      "avg_pix_out": 300.0,
+      "avg_pix_in": 5200.0,
+      "pix_in_per_day": 0.2,
+      "daily_limit": 15000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 120,
+      "other_clients_first_paid_7d": 2
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-024",
+    "narrative": "Às 23h, mulher recebe ligação de 'sequestro' do marido; tenta mandar R$ 5.000, é barrada pelo limite noturno e acaba mandando R$ 1.000 para o mesmo destino.",
+    "label": "fraud",
+    "fraud_type": "falso_sequestro",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1000.0,
+      "hour": 23
+    },
+    "payer": {
+      "age_years": 40,
+      "account_age_days": 2100,
+      "balance": 6300.0,
+      "pix_out_per_day": 0.7,
+      "typical_large_pix": 600.0,
+      "avg_pix_out": 130.0,
+      "avg_pix_in": 4000.0,
+      "pix_in_per_day": 0.1,
+      "night_share": 0.1,
+      "nightly_limit": 1000.0
+    },
+    "velocity": {
+      "attempts_1h": 3,
+      "attempts_24h": 3,
+      "seconds_since_last_attempt": 120
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 45
+    },
+    "relationship": {
+      "previous_payments": 0,
+      "attempts_to_destination_24h": 2,
+      "last_attempt_amount": 5000.0,
+      "blocked_attempts_24h": 2
+    }
+  },
+  {
+    "id": "se-025",
+    "narrative": "Idosa de 77 anos recebe ligação de 'falso gerente' sobre cartão clonado; antes do motoboy buscar o cartão, faz Pix de R$ 2.000 para 'validar o cancelamento'.",
+    "label": "fraud",
+    "fraud_type": "golpe_motoboy",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 2000.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 77,
+      "account_age_days": 6500,
+      "balance": 5400.0,
+      "pix_out_per_day": 0.2,
+      "typical_large_pix": 500.0,
+      "avg_pix_out": 160.0,
+      "avg_pix_in": 3100.0,
+      "pix_in_per_day": 0.04,
+      "night_share": 0.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 90,
+      "other_clients_first_paid_7d": 1
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-026",
+    "narrative": "'Suporte do banco digital' pelo WhatsApp pede um Pix de R$ 1 'para validar a chave' e, em seguida, R$ 1.500 'para reativar a conta'. Destino de 70 dias.",
+    "label": "fraud",
+    "fraud_type": "falso_suporte",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1500.0,
+      "hour": 11
+    },
+    "payer": {
+      "age_years": 30,
+      "account_age_days": 500,
+      "balance": 2100.0,
+      "pix_out_per_day": 1.0,
+      "typical_large_pix": 400.0,
+      "avg_pix_out": 90.0,
+      "avg_pix_in": 2200.0,
+      "pix_in_per_day": 0.2
+    },
+    "flow_24h": {
+      "outflow_amount": 1.0,
+      "outflow_count": 1,
+      "outflow_new_recipients": 1
+    },
+    "velocity": {
+      "attempts_1h": 2,
+      "attempts_24h": 2,
+      "seconds_since_last_attempt": 300
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 70
+    },
+    "relationship": {
+      "previous_payments": 1,
+      "previous_total": 1.0,
+      "largest_previous": 1.0,
+      "first_payment_days_ago": 0,
+      "last_payment_days_ago": 0,
+      "attempts_to_destination_24h": 1,
+      "last_attempt_amount": 1.0
+    }
+  },
+  {
+    "id": "se-027",
+    "narrative": "Jovem de 19 anos 'aprovado' em vaga falsa de home office paga R$ 380 de 'taxa de uniforme e treinamento' para PJ de 25 dias, quase todo o seu saldo.",
+    "label": "fraud",
+    "fraud_type": "falso_emprego",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 380.0,
+      "hour": 13
+    },
+    "payer": {
+      "age_years": 19,
+      "account_age_days": 250,
+      "balance": 420.0,
+      "pix_out_per_day": 1.2,
+      "typical_large_pix": 80.0,
+      "avg_pix_out": 25.0,
+      "avg_pix_in": 300.0,
+      "pix_in_per_day": 0.3,
+      "night_share": 0.4
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 25,
+      "other_clients_first_paid_7d": 4
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-028",
+    "narrative": "Cliente de 50 anos convencido por 'gerente' a mover R$ 12.000 para conta em seu próprio nome numa fintech; a conta foi aberta por golpistas com seus dados há 20 dias.",
+    "label": "fraud",
+    "fraud_type": "conta_segura",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 12000.0,
+      "hour": 14
+    },
+    "payer": {
+      "age_years": 50,
+      "account_age_days": 2900,
+      "balance": 15500.0,
+      "pix_out_per_day": 0.6,
+      "typical_large_pix": 2000.0,
+      "avg_pix_out": 350.0,
+      "avg_pix_in": 7500.0,
+      "pix_in_per_day": 0.1,
+      "daily_limit": 15000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 20,
+      "same_owner": true
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-029",
+    "narrative": "Loja virtual falsa de tênis com preços baixos e site bem feito; cliente paga R$ 890 para PJ de 40 dias que vários clientes começaram a pagar nesta semana.",
+    "label": "fraud",
+    "fraud_type": "falsa_loja",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 890.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 28,
+      "account_age_days": 1000,
+      "balance": 2600.0,
+      "pix_out_per_day": 1.4,
+      "typical_large_pix": 500.0,
+      "avg_pix_out": 80.0,
+      "avg_pix_in": 3000.0,
+      "pix_in_per_day": 0.1,
+      "night_share": 0.45
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 40,
+      "other_clients_first_paid_7d": 12
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-030",
+    "narrative": "Pequena indústria recebe e-mail (do domínio invadido do fornecedor) informando 'nova conta bancária' e paga a fatura de R$ 18.000 para a conta nova.",
+    "label": "fraud",
+    "fraud_type": "falso_fornecedor",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 18000.0,
+      "hour": 10
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 9,
+      "account_age_days": 3000,
+      "balance": 95000.0,
+      "pix_out_per_day": 4.0,
+      "typical_large_pix": 20000.0,
+      "avg_pix_out": 4500.0,
+      "avg_pix_in": 8000.0,
+      "pix_in_per_day": 3.0,
+      "daily_limit": 100000.0,
+      "nightly_limit": 10000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 70
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-031",
+    "narrative": "Influenciador falso promete cripto com retorno garantido; vítima trouxe R$ 5.000 de outra conta própria e repassa tudo para PJ 'exchange' de 150 dias.",
+    "label": "fraud",
+    "fraud_type": "falso_investimento",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 5000.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 27,
+      "account_age_days": 900,
+      "balance": 5600.0,
+      "pix_out_per_day": 0.8,
+      "typical_large_pix": 500.0,
+      "avg_pix_out": 90.0,
+      "avg_pix_in": 2000.0,
+      "pix_in_per_day": 0.2
+    },
+    "flow_24h": {
+      "inflow_amount": 5000.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 150,
+      "other_clients_first_paid_7d": 3
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-032",
+    "narrative": "Senhora de 66 anos é mantida ao telefone por 'central antifraude' e faz três Pix seguidos para contas diferentes 'de estorno'; este é o terceiro.",
+    "label": "fraud",
+    "fraud_type": "falsa_central",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 3000.0,
+      "hour": 16
+    },
+    "payer": {
+      "age_years": 66,
+      "account_age_days": 4800,
+      "balance": 7000.0,
+      "pix_out_per_day": 0.3,
+      "typical_large_pix": 900.0,
+      "avg_pix_out": 220.0,
+      "avg_pix_in": 4000.0,
+      "pix_in_per_day": 0.07
+    },
+    "flow_24h": {
+      "outflow_amount": 6000.0,
+      "outflow_count": 2,
+      "outflow_new_recipients": 2
+    },
+    "velocity": {
+      "attempts_1h": 3,
+      "attempts_24h": 3,
+      "seconds_since_last_attempt": 420
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 110
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-033",
+    "narrative": "'Mãe' com número novo pede para o filho pagar um boleto 'que o app dela não abre'; ele paga R$ 1.750 para uma PJ de 300 dias que já teve Pix rejeitado de outro cliente.",
+    "label": "fraud",
+    "fraud_type": "falso_parente",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 1750.0,
+      "hour": 12
+    },
+    "payer": {
+      "age_years": 48,
+      "account_age_days": 3100,
+      "balance": 4700.0,
+      "pix_out_per_day": 0.9,
+      "typical_large_pix": 1000.0,
+      "avg_pix_out": 210.0,
+      "avg_pix_in": 6000.0,
+      "pix_in_per_day": 0.1
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 300,
+      "other_clients_rejected_90d": 1
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-034",
+    "narrative": "Mulher de 55 anos em 'namoro' com militar americano fictício envia R$ 7.500 para 'taxa de liberação de encomenda' a uma conta pessoal antiga.",
+    "label": "fraud",
+    "fraud_type": "golpe_amor",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 7500.0,
+      "hour": 8
+    },
+    "payer": {
+      "age_years": 55,
+      "account_age_days": 4000,
+      "balance": 11000.0,
+      "pix_out_per_day": 0.4,
+      "typical_large_pix": 1500.0,
+      "avg_pix_out": 300.0,
+      "avg_pix_in": 6000.0,
+      "pix_in_per_day": 0.1
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 500
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-035",
+    "narrative": "Universitário de 22 anos é vítima de sextorsão: golpista ameaça divulgar fotos íntimas e exige R$ 600 imediatamente, à noite.",
+    "label": "fraud",
+    "fraud_type": "extorsao",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 600.0,
+      "hour": 21
+    },
+    "payer": {
+      "age_years": 22,
+      "account_age_days": 700,
+      "balance": 750.0,
+      "pix_out_per_day": 1.5,
+      "typical_large_pix": 150.0,
+      "avg_pix_out": 35.0,
+      "avg_pix_in": 900.0,
+      "pix_in_per_day": 0.2,
+      "night_share": 0.5
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 1,
+      "seconds_since_last_attempt": 30000
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 50
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-036",
+    "narrative": "Aposentada de 69 anos recebe contato de 'escritório de advocacia' que conhece seu processo real e cobra R$ 6.800 de custas para liberar a indenização.",
+    "label": "fraud",
+    "fraud_type": "falso_advogado",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 6800.0,
+      "hour": 11
+    },
+    "payer": {
+      "age_years": 69,
+      "account_age_days": 5500,
+      "balance": 10200.0,
+      "pix_out_per_day": 0.2,
+      "typical_large_pix": 800.0,
+      "avg_pix_out": 250.0,
+      "avg_pix_in": 3900.0,
+      "pix_in_per_day": 0.05
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 200,
+      "other_clients_first_paid_7d": 2
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-037",
+    "narrative": "Golpe do intermediário na compra de carro anunciado em classificados: o comprador paga R$ 35.000 para a conta indicada pelo golpista, achando que é do vendedor real.",
+    "label": "fraud",
+    "fraud_type": "falso_intermediario",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 35000.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 38,
+      "account_age_days": 2600,
+      "balance": 40000.0,
+      "pix_out_per_day": 0.7,
+      "typical_large_pix": 3000.0,
+      "avg_pix_out": 450.0,
+      "avg_pix_in": 9000.0,
+      "pix_in_per_day": 0.2,
+      "daily_limit": 50000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 400
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-038",
+    "narrative": "Golpe de tarefas no Telegram: a vítima já fez dois depósitos hoje para contas diferentes e agora manda R$ 2.400 para uma terceira para 'recuperar o saldo travado'.",
+    "label": "fraud",
+    "fraud_type": "golpe_tarefas",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 2400.0,
+      "hour": 20
+    },
+    "payer": {
+      "age_years": 26,
+      "account_age_days": 1000,
+      "balance": 2800.0,
+      "pix_out_per_day": 1.0,
+      "typical_large_pix": 350.0,
+      "avg_pix_out": 75.0,
+      "avg_pix_in": 2100.0,
+      "pix_in_per_day": 0.2,
+      "night_share": 0.3,
+      "nightly_limit": 3000.0
+    },
+    "flow_24h": {
+      "inflow_amount": 40.0,
+      "inflow_count": 1,
+      "inflow_new_senders": 1,
+      "outflow_amount": 1100.0,
+      "outflow_count": 2,
+      "outflow_new_recipients": 2
+    },
+    "velocity": {
+      "attempts_1h": 1,
+      "attempts_24h": 3,
+      "seconds_since_last_attempt": 3600
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 160
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-039",
+    "narrative": "Cliente de 60 anos recebe SMS de 'compra não reconhecida', liga para o número indicado e é instruído a fazer Pix de R$ 7.000 'para estornar'. O DICT não respondeu no momento.",
+    "label": "fraud",
+    "fraud_type": "falsa_central",
+    "operator": "owner",
+    "difficulty": "medium",
+    "pix": {
+      "amount": 7000.0,
+      "hour": 17
+    },
+    "payer": {
+      "age_years": 60,
+      "account_age_days": 3800,
+      "balance": 12500.0,
+      "pix_out_per_day": 0.4,
+      "typical_large_pix": 1500.0,
+      "avg_pix_out": 280.0,
+      "avg_pix_in": 6500.0,
+      "pix_in_per_day": 0.08
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 35,
+      "other_clients_first_paid_7d": 4,
+      "dict": {
+        "available": false,
+        "markers": []
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-040",
+    "narrative": "Golpista com WhatsApp clonado do neto pede R$ 450 'para completar o aluguel'; o destino é conta antiga de laranja recrutado, sem nenhuma marcação.",
+    "label": "fraud",
+    "fraud_type": "falso_parente",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 450.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 72,
+      "account_age_days": 5200,
+      "balance": 3800.0,
+      "pix_out_per_day": 0.4,
+      "typical_large_pix": 600.0,
+      "avg_pix_out": 150.0,
+      "avg_pix_in": 3200.0,
+      "pix_in_per_day": 0.05
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 1500
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-041",
+    "narrative": "Relacionamento virtual de seis meses: o pagador já mandou 12 Pix ao mesmo 'namorado' e agora manda R$ 1.500, abaixo do maior envio anterior.",
+    "label": "fraud",
+    "fraud_type": "golpe_amor",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 1500.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 57,
+      "account_age_days": 3900,
+      "balance": 6000.0,
+      "pix_out_per_day": 0.9,
+      "typical_large_pix": 1800.0,
+      "avg_pix_out": 350.0,
+      "avg_pix_in": 5000.0,
+      "pix_in_per_day": 0.1,
+      "night_share": 0.2
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 800
+    },
+    "relationship": {
+      "previous_payments": 12,
+      "previous_total": 14000.0,
+      "largest_previous": 2000.0,
+      "first_payment_days_ago": 180,
+      "last_payment_days_ago": 9
+    }
+  },
+  {
+    "id": "se-042",
+    "narrative": "Pirâmide de 'consultoria de investimentos' que paga rendimentos regulares; o cliente já aportou 5 vezes e recebeu de volta parte do valor. Novo aporte de R$ 4.000.",
+    "label": "fraud",
+    "fraud_type": "falso_investimento",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 4000.0,
+      "hour": 11
+    },
+    "payer": {
+      "age_years": 46,
+      "account_age_days": 3300,
+      "balance": 22000.0,
+      "pix_out_per_day": 0.7,
+      "typical_large_pix": 3500.0,
+      "avg_pix_out": 600.0,
+      "avg_pix_in": 9000.0,
+      "pix_in_per_day": 0.2
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 700
+    },
+    "relationship": {
+      "previous_payments": 5,
+      "previous_total": 11000.0,
+      "largest_previous": 3000.0,
+      "first_payment_days_ago": 150,
+      "last_payment_days_ago": 30,
+      "received_from_destination_total": 2400.0,
+      "first_received_days_ago": 120
+    }
+  },
+  {
+    "id": "se-043",
+    "narrative": "Loja falsa de eletrodomésticos com CNPJ antigo comprado de empresa inativa; cliente paga R$ 320 por uma air fryer que nunca chega.",
+    "label": "fraud",
+    "fraud_type": "falsa_loja",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 320.0,
+      "hour": 15
+    },
+    "payer": {
+      "age_years": 36,
+      "account_age_days": 1800,
+      "balance": 2900.0,
+      "pix_out_per_day": 1.2,
+      "typical_large_pix": 400.0,
+      "avg_pix_out": 90.0,
+      "avg_pix_in": 3500.0,
+      "pix_in_per_day": 0.1
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 700
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-044",
+    "narrative": "Venda falsa de ingressos de show em rede social; o golpista usa conta antiga de laranja. R$ 750, dentro do padrão do pagador.",
+    "label": "fraud",
+    "fraud_type": "falso_vendedor",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 750.0,
+      "hour": 20
+    },
+    "payer": {
+      "age_years": 25,
+      "account_age_days": 1100,
+      "balance": 3200.0,
+      "pix_out_per_day": 1.6,
+      "typical_large_pix": 800.0,
+      "avg_pix_out": 110.0,
+      "avg_pix_in": 3000.0,
+      "pix_in_per_day": 0.2,
+      "night_share": 0.4,
+      "nightly_limit": 1500.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 2000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-045",
+    "narrative": "Cliente de saldo alto é convencido a migrar recursos para 'conta segura' em seu nome aberta há 60 dias por golpistas; ontem fez um Pix-teste de R$ 100 e hoje manda R$ 9.000, perto do seu habitual.",
+    "label": "fraud",
+    "fraud_type": "conta_segura",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 9000.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 53,
+      "account_age_days": 4500,
+      "balance": 85000.0,
+      "pix_out_per_day": 1.0,
+      "typical_large_pix": 8000.0,
+      "avg_pix_out": 1500.0,
+      "avg_pix_in": 18000.0,
+      "pix_in_per_day": 0.2,
+      "daily_limit": 50000.0,
+      "nightly_limit": 5000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 60,
+      "same_owner": true
+    },
+    "relationship": {
+      "previous_payments": 1,
+      "previous_total": 100.0,
+      "largest_previous": 100.0,
+      "first_payment_days_ago": 1,
+      "last_payment_days_ago": 1
+    }
+  },
+  {
+    "id": "se-046",
+    "narrative": "Mercadinho recebe ligação do 'suporte da maquininha' sobre atualização obrigatória e paga R$ 2.300 de 'taxa' para uma PJ antiga controlada pelos golpistas.",
+    "label": "fraud",
+    "fraud_type": "falso_suporte",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 2300.0,
+      "hour": 9
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 6,
+      "account_age_days": 2100,
+      "balance": 18000.0,
+      "pix_out_per_day": 2.5,
+      "typical_large_pix": 3000.0,
+      "avg_pix_out": 700.0,
+      "avg_pix_in": 120.0,
+      "pix_in_per_day": 25.0,
+      "daily_limit": 30000.0,
+      "nightly_limit": 3000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 900
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-047",
+    "narrative": "Falsa central sofisticada, com dados reais do cliente vazados, pede Pix de R$ 2.800 'para estornar uma fraude'; valor e horário são típicos e a conta destino é antiga.",
+    "label": "fraud",
+    "fraud_type": "falsa_central",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 2800.0,
+      "hour": 13
+    },
+    "payer": {
+      "age_years": 44,
+      "account_age_days": 2700,
+      "balance": 9800.0,
+      "pix_out_per_day": 1.0,
+      "typical_large_pix": 3000.0,
+      "avg_pix_out": 500.0,
+      "avg_pix_in": 8000.0,
+      "pix_in_per_day": 0.15
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 1100
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-048",
+    "narrative": "E-mail do fornecedor real foi invadido e a fatura veio com dados bancários trocados para outra PJ antiga; a empresa paga R$ 12.500, dentro do habitual.",
+    "label": "fraud",
+    "fraud_type": "falso_fornecedor",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 12500.0,
+      "hour": 14
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 12,
+      "account_age_days": 4000,
+      "balance": 140000.0,
+      "pix_out_per_day": 6.0,
+      "typical_large_pix": 15000.0,
+      "avg_pix_out": 3800.0,
+      "avg_pix_in": 9000.0,
+      "pix_in_per_day": 4.0,
+      "daily_limit": 150000.0,
+      "nightly_limit": 20000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 1200
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-049",
+    "narrative": "Dois dias atrás o cliente recebeu R$ 480 de um desconhecido (dinheiro de outra vítima); hoje um 'atendente' liga pedindo a devolução para outra chave, de conta antiga.",
+    "label": "fraud",
+    "fraud_type": "pix_errado",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 480.0,
+      "hour": 17
+    },
+    "payer": {
+      "age_years": 38,
+      "account_age_days": 1600,
+      "balance": 2700.0,
+      "pix_out_per_day": 1.1,
+      "typical_large_pix": 600.0,
+      "avg_pix_out": 120.0,
+      "avg_pix_in": 1600.0,
+      "pix_in_per_day": 0.4
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 600
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-050",
+    "narrative": "Primeira 'tarefa paga' de um golpe de avaliação de produtos: depósito de R$ 200 para conta antiga, valor normal para o pagador.",
+    "label": "fraud",
+    "fraud_type": "golpe_tarefas",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 200.0,
+      "hour": 12
+    },
+    "payer": {
+      "age_years": 31,
+      "account_age_days": 1300,
+      "balance": 1800.0,
+      "pix_out_per_day": 1.3,
+      "typical_large_pix": 250.0,
+      "avg_pix_out": 60.0,
+      "avg_pix_in": 2200.0,
+      "pix_in_per_day": 0.2
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 1000
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-051",
+    "narrative": "Investidor de 70 anos com patrimônio alto aplica R$ 18.000 numa 'gestora' fraudulenta que já pagou dois aportes anteriores; valor dentro do habitual dele.",
+    "label": "fraud",
+    "fraud_type": "falso_investimento",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 18000.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 70,
+      "account_age_days": 8000,
+      "balance": 300000.0,
+      "pix_out_per_day": 0.5,
+      "typical_large_pix": 20000.0,
+      "avg_pix_out": 5000.0,
+      "avg_pix_in": 25000.0,
+      "pix_in_per_day": 0.1,
+      "daily_limit": 100000.0,
+      "nightly_limit": 10000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 1500
+    },
+    "relationship": {
+      "previous_payments": 2,
+      "previous_total": 30000.0,
+      "largest_previous": 15000.0,
+      "first_payment_days_ago": 90,
+      "last_payment_days_ago": 45,
+      "received_from_destination_total": 1800.0,
+      "first_received_days_ago": 60
+    }
+  },
+  {
+    "id": "se-052",
+    "narrative": "Golpe do amor de longa duração: às 22h, como de costume, a vítima manda R$ 1.200 ao 'parceiro', a quem já pagou 6 vezes.",
+    "label": "fraud",
+    "fraud_type": "golpe_amor",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 1200.0,
+      "hour": 22
+    },
+    "payer": {
+      "age_years": 48,
+      "account_age_days": 2400,
+      "balance": 4500.0,
+      "pix_out_per_day": 1.0,
+      "typical_large_pix": 1300.0,
+      "avg_pix_out": 250.0,
+      "avg_pix_in": 4800.0,
+      "pix_in_per_day": 0.1,
+      "night_share": 0.5,
+      "nightly_limit": 2000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 600
+    },
+    "relationship": {
+      "previous_payments": 6,
+      "previous_total": 6300.0,
+      "largest_previous": 1500.0,
+      "first_payment_days_ago": 100,
+      "last_payment_days_ago": 14
+    }
+  },
+  {
+    "id": "se-053",
+    "narrative": "Cliente com bom saldo paga R$ 8.000 de 'entrada' de imóvel em falso leilão judicial; destino PJ antiga, valor dentro do padrão.",
+    "label": "fraud",
+    "fraud_type": "falso_leilao",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 8000.0,
+      "hour": 16
+    },
+    "payer": {
+      "age_years": 51,
+      "account_age_days": 3500,
+      "balance": 60000.0,
+      "pix_out_per_day": 0.9,
+      "typical_large_pix": 10000.0,
+      "avg_pix_out": 1800.0,
+      "avg_pix_in": 15000.0,
+      "pix_in_per_day": 0.2,
+      "daily_limit": 50000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 900
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-054",
+    "narrative": "Falso sequestro com voz clonada por IA; a vítima, calma por fora, manda R$ 900 às 14h para conta antiga, valor no seu padrão.",
+    "label": "fraud",
+    "fraud_type": "falso_sequestro",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 900.0,
+      "hour": 14
+    },
+    "payer": {
+      "age_years": 43,
+      "account_age_days": 2300,
+      "balance": 5000.0,
+      "pix_out_per_day": 1.0,
+      "typical_large_pix": 1000.0,
+      "avg_pix_out": 200.0,
+      "avg_pix_in": 5000.0,
+      "pix_in_per_day": 0.1
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 700
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-055",
+    "narrative": "Idoso recebe ligação sobre 'compra cancelada' e devolve R$ 1.100 via Pix antes da visita do motoboy; valor e horário comuns, destino antigo.",
+    "label": "fraud",
+    "fraud_type": "golpe_motoboy",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 1100.0,
+      "hour": 10
+    },
+    "payer": {
+      "age_years": 75,
+      "account_age_days": 6000,
+      "balance": 8000.0,
+      "pix_out_per_day": 0.5,
+      "typical_large_pix": 1500.0,
+      "avg_pix_out": 300.0,
+      "avg_pix_in": 4500.0,
+      "pix_in_per_day": 0.08,
+      "night_share": 0.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 1300
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-056",
+    "narrative": "WhatsApp clonado do sobrinho pede R$ 600 emprestado até amanhã; destino é conta de um ano, sem marcações, valor abaixo do habitual.",
+    "label": "fraud",
+    "fraud_type": "falso_parente",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 600.0,
+      "hour": 18
+    },
+    "payer": {
+      "age_years": 50,
+      "account_age_days": 3000,
+      "balance": 4200.0,
+      "pix_out_per_day": 0.8,
+      "typical_large_pix": 800.0,
+      "avg_pix_out": 180.0,
+      "avg_pix_in": 5000.0,
+      "pix_in_per_day": 0.1
+    },
+    "destination": {
+      "bank": "same",
+      "type": "PF",
+      "account_age_days": 365,
+      "internal": {
+        "blocked": false,
+        "balance": 180.0,
+        "history_days": 30,
+        "pix_in_per_day": 0.5,
+        "avg_pix_in": 700.0,
+        "pix_out_per_day": 0.6,
+        "inflow_24h_amount": 900.0,
+        "inflow_24h_count": 1,
+        "inflow_24h_new_senders": 1,
+        "outflow_24h_amount": 880.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-057",
+    "narrative": "Jovem de 21 anos paga R$ 150 de 'taxa de cadastro' para vaga falsa de jovem aprendiz; valor e destino parecem normais.",
+    "label": "fraud",
+    "fraud_type": "falso_emprego",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 150.0,
+      "hour": 16
+    },
+    "payer": {
+      "age_years": 21,
+      "account_age_days": 500,
+      "balance": 900.0,
+      "pix_out_per_day": 1.5,
+      "typical_large_pix": 150.0,
+      "avg_pix_out": 40.0,
+      "avg_pix_in": 1100.0,
+      "pix_in_per_day": 0.2,
+      "night_share": 0.35
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 800
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-058",
+    "narrative": "Restaurante (PJ pequena) compra insumos de 'distribuidora' falsa que anunciou no Google; paga R$ 4.200, dentro do padrão de compras.",
+    "label": "fraud",
+    "fraud_type": "falsa_loja",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 4200.0,
+      "hour": 9
+    },
+    "payer": {
+      "type": "PJ",
+      "age_years": 3,
+      "account_age_days": 1100,
+      "balance": 26000.0,
+      "pix_out_per_day": 3.5,
+      "typical_large_pix": 5000.0,
+      "avg_pix_out": 1100.0,
+      "avg_pix_in": 90.0,
+      "pix_in_per_day": 40.0,
+      "daily_limit": 30000.0,
+      "nightly_limit": 5000.0
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PJ",
+      "account_age_days": 400
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-059",
+    "narrative": "Falsa central orienta cliente a mandar R$ 3.500 para 'conta transitória' que é, na verdade, laranja antigo cliente do próprio banco; o laranja tem pouco saldo e recebeu de alguns desconhecidos hoje.",
+    "label": "fraud",
+    "fraud_type": "falsa_central",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 3500.0,
+      "hour": 14
+    },
+    "payer": {
+      "age_years": 47,
+      "account_age_days": 2900,
+      "balance": 11000.0,
+      "pix_out_per_day": 0.8,
+      "typical_large_pix": 4000.0,
+      "avg_pix_out": 600.0,
+      "avg_pix_in": 7500.0,
+      "pix_in_per_day": 0.15
+    },
+    "destination": {
+      "bank": "same",
+      "type": "PF",
+      "account_age_days": 900,
+      "internal": {
+        "blocked": false,
+        "balance": 120.0,
+        "history_days": 30,
+        "pix_in_per_day": 0.4,
+        "avg_pix_in": 1500.0,
+        "pix_out_per_day": 0.5,
+        "inflow_24h_amount": 4100.0,
+        "inflow_24h_count": 2,
+        "inflow_24h_new_senders": 2,
+        "outflow_24h_amount": 4000.0,
+        "past_account_blocks": 0,
+        "past_rejected_pix_in": 0
+      }
+    },
+    "relationship": {
+      "previous_payments": 0
+    }
+  },
+  {
+    "id": "se-060",
+    "narrative": "Jovem participa de esquema Ponzi de 'apostas esportivas garantidas' que vem pagando retornos; nono aporte de R$ 1.000 para o mesmo destino, com R$ 1.500 já recebidos.",
+    "label": "fraud",
+    "fraud_type": "falso_investimento",
+    "operator": "owner",
+    "difficulty": "hard",
+    "pix": {
+      "amount": 1000.0,
+      "hour": 19
+    },
+    "payer": {
+      "age_years": 24,
+      "account_age_days": 1000,
+      "balance": 2600.0,
+      "pix_out_per_day": 1.2,
+      "typical_large_pix": 1000.0,
+      "avg_pix_out": 180.0,
+      "avg_pix_in": 1500.0,
+      "pix_in_per_day": 0.4,
+      "night_share": 0.3
+    },
+    "destination": {
+      "bank": "other",
+      "type": "PF",
+      "account_age_days": 500
+    },
+    "relationship": {
+      "previous_payments": 8,
+      "previous_total": 6200.0,
+      "largest_previous": 1200.0,
+      "first_payment_days_ago": 75,
+      "last_payment_days_ago": 7,
+      "received_from_destination_total": 1500.0,
+      "first_received_days_ago": 60
+    }
+  }
+]

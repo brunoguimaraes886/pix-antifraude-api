@@ -1,0 +1,660 @@
+{
+  "cost_model": {
+    "friction_2fa": 3.0,
+    "reject_fixed": 20.0,
+    "reject_share": 0.1,
+    "stop_intruder": 0.9,
+    "stop_deceived": 0.2,
+    "stop_mule": 0.05,
+    "legit_weights": [
+      10,
+      50,
+      200
+    ]
+  },
+  "best_config": {
+    "policy": "expected_cost",
+    "prior_odds": 0.00037501613707613076,
+    "c_2fa": 3.5032220190050607,
+    "c_reject": 47.10911071432654,
+    "alpha": 0.003322779596746181,
+    "p_fundada": 0.0993676023385637,
+    "p_claro": 0.5046335104835755,
+    "rho_identity": 0.4988619266860589,
+    "mitigation_floor": -40,
+    "scale": {
+      "identity": 1.006191382688859,
+      "magnitude": 0.9973815266451952,
+      "velocity": 0.9929009066427317,
+      "relationship": 1.23415249026792,
+      "destination": 3.150119407725708,
+      "payer_mule": 1.002711074082209,
+      "context": 0.9874450020877671,
+      "pattern": 1.0023027491881173,
+      "mitigation": 1.1810100414234084
+    },
+    "cap": {
+      "identity": 50,
+      "magnitude": 25,
+      "velocity": 40,
+      "relationship": 30,
+      "destination": 61,
+      "payer_mule": 60,
+      "context": 25,
+      "pattern": 40
+    },
+    "rho": {
+      "identity": 0.8898471573308869,
+      "magnitude": 0.4046930539135162,
+      "velocity": 0.4004583519292015,
+      "relationship": 0.42480114853285306,
+      "destination": 0.10113571820774352,
+      "payer_mule": 0.10049916960065888,
+      "context": 0.307578513702398
+    }
+  },
+  "train": {
+    "baseline": {
+      "n": 111,
+      "fraud": {
+        "approved": 15,
+        "two_factor_required": 18,
+        "rejected": 21,
+        "n": 54
+      },
+      "legit": {
+        "approved": 52,
+        "two_factor_required": 5,
+        "rejected": 0,
+        "n": 57
+      },
+      "fraud_value_lost_pct": 41.7,
+      "cost_w10": 124367.0,
+      "cost_w50": 124967.0,
+      "cost_w200": 127217.0
+    },
+    "best": {
+      "n": 111,
+      "fraud": {
+        "approved": 2,
+        "two_factor_required": 8,
+        "rejected": 44,
+        "n": 54
+      },
+      "legit": {
+        "approved": 47,
+        "two_factor_required": 10,
+        "rejected": 0,
+        "n": 57
+      },
+      "fraud_value_lost_pct": 4.4,
+      "cost_w10": 13416.9,
+      "cost_w50": 14616.9,
+      "cost_w200": 19116.9
+    },
+    "relative_cost": 0.125
+  },
+  "val": {
+    "baseline": {
+      "n": 47,
+      "fraud": {
+        "approved": 2,
+        "two_factor_required": 7,
+        "rejected": 14,
+        "n": 23
+      },
+      "legit": {
+        "approved": 23,
+        "two_factor_required": 1,
+        "rejected": 0,
+        "n": 24
+      },
+      "fraud_value_lost_pct": 9.7,
+      "cost_w10": 15600.0,
+      "cost_w50": 15720.0,
+      "cost_w200": 16170.0
+    },
+    "best": {
+      "n": 47,
+      "fraud": {
+        "approved": 0,
+        "two_factor_required": 3,
+        "rejected": 20,
+        "n": 23
+      },
+      "legit": {
+        "approved": 22,
+        "two_factor_required": 2,
+        "rejected": 0,
+        "n": 24
+      },
+      "fraud_value_lost_pct": 3.9,
+      "cost_w10": 6380.0,
+      "cost_w50": 6620.0,
+      "cost_w200": 7520.0
+    },
+    "relative_cost": 0.4317
+  },
+  "all": {
+    "baseline": {
+      "n": 158,
+      "fraud": {
+        "approved": 17,
+        "two_factor_required": 25,
+        "rejected": 35,
+        "n": 77
+      },
+      "legit": {
+        "approved": 75,
+        "two_factor_required": 6,
+        "rejected": 0,
+        "n": 81
+      },
+      "fraud_value_lost_pct": 30.5,
+      "cost_w10": 139967.0,
+      "cost_w50": 140687.0,
+      "cost_w200": 143387.0
+    },
+    "best": {
+      "n": 158,
+      "fraud": {
+        "approved": 2,
+        "two_factor_required": 11,
+        "rejected": 64,
+        "n": 77
+      },
+      "legit": {
+        "approved": 69,
+        "two_factor_required": 12,
+        "rejected": 0,
+        "n": 81
+      },
+      "fraud_value_lost_pct": 4.2,
+      "cost_w10": 19796.9,
+      "cost_w50": 21236.9,
+      "cost_w200": 26636.9
+    },
+    "relative_cost": 0.1594
+  },
+  "changed": [
+    {
+      "id": "lc-042",
+      "label": "legit",
+      "before": "approved",
+      "after": "two_factor_required",
+      "amount": 3200.0,
+      "narrative": "Pai paga a festa de formatura do filho para a comissão, valor acima do habitual."
+    },
+    {
+      "id": "lh-015",
+      "label": "legit",
+      "before": "approved",
+      "after": "two_factor_required",
+      "amount": 500.0,
+      "narrative": "Pai manda dinheiro para o filho de 18 anos que abriu a primeira conta ontem em um banco digital."
+    },
+    {
+      "id": "lh-019",
+      "label": "legit",
+      "before": "approved",
+      "after": "two_factor_required",
+      "amount": 4200.0,
+      "narrative": "Racha da casa de praia: cliente recebeu de 6 amigos e paga o valor total ao proprietário do imóvel."
+    },
+    {
+      "id": "lh-020",
+      "label": "legit",
+      "before": "approved",
+      "after": "two_factor_required",
+      "amount": 3800.0,
+      "narrative": "Cliente faz a primeira parcela do material de construção para uma reforma, numa loja nova."
+    },
+    {
+      "id": "lh-024",
+      "label": "legit",
+      "before": "approved",
+      "after": "two_factor_required",
+      "amount": 6000.0,
+      "narrative": "Cliente paga sinal de reserva de buffet para o casamento, valor acima do habitual, a empresa com conta antiga."
+    },
+    {
+      "id": "lh-027",
+      "label": "legit",
+      "before": "approved",
+      "after": "two_factor_required",
+      "amount": 2000.0,
+      "narrative": "Cliente vende o carro e, no mesmo dia, devolve o sinal ao comprador desistente; valor igual ao recebido dele."
+    },
+    {
+      "id": "se-016",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 4500.0,
+      "narrative": "Cliente de 45 anos recebe ligação com número mascarado do banco e é convencido a 'cancelar uma compra' fazendo um Pix de R$ 4.500 para conta de 60 dias sem marcações."
+    },
+    {
+      "id": "se-017",
+      "label": "fraud",
+      "before": "approved",
+      "after": "two_factor_required",
+      "amount": 2300.0,
+      "narrative": "Senhora de 59 anos atende pedido de 'sobrinha' com número novo no WhatsApp para pagar um fornecedor; manda R$ 2.300 para conta de 200 dias."
+    },
+    {
+      "id": "se-019",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 6000.0,
+      "narrative": "Pirâmide de 'robô de arbitragem': cliente já fez 4 aportes crescentes para o mesmo destino e recebeu R$ 800 de 'rendimentos'; agora aporta R$ 6.000."
+    },
+    {
+      "id": "se-020",
+      "label": "fraud",
+      "before": "approved",
+      "after": "two_factor_required",
+      "amount": 3000.0,
+      "narrative": "Aposentado de 71 anos conheceu 'mulher' em aplicativo de namoro que pede ajuda para passagem e hospital; já mandou R$ 500 e R$ 800 e agora R$ 3.000."
+    },
+    {
+      "id": "se-021",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 1200.0,
+      "narrative": "Golpe de tarefas: após duas 'missões' pagas ao mesmo destino (R$ 150 e R$ 400) e comissões pequenas recebidas, a vítima envia R$ 1.200 para 'subir de nível'."
+    },
+    {
+      "id": "se-022",
+      "label": "fraud",
+      "before": "approved",
+      "after": "rejected",
+      "amount": 1400.0,
+      "narrative": "Compra de celular seminovo em marketplace: o 'vendedor' pede pagamento por fora da plataforma e some. Destino é conta pessoal de 180 dias sem marcação."
+    },
+    {
+      "id": "se-023",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 9800.0,
+      "narrative": "Cliente arremata moto em site falso de leilão do Detran e paga R$ 9.800 para PJ de 120 dias sem marcações."
+    },
+    {
+      "id": "se-024",
+      "label": "fraud",
+      "before": "approved",
+      "after": "rejected",
+      "amount": 1000.0,
+      "narrative": "Às 23h, mulher recebe ligação de 'sequestro' do marido; tenta mandar R$ 5.000, é barrada pelo limite noturno e acaba mandando R$ 1.000 para o mesmo destino."
+    },
+    {
+      "id": "se-025",
+      "label": "fraud",
+      "before": "approved",
+      "after": "two_factor_required",
+      "amount": 2000.0,
+      "narrative": "Idosa de 77 anos recebe ligação de 'falso gerente' sobre cartão clonado; antes do motoboy buscar o cartão, faz Pix de R$ 2.000 para 'validar o cancelamento'."
+    },
+    {
+      "id": "se-026",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 1500.0,
+      "narrative": "'Suporte do banco digital' pelo WhatsApp pede um Pix de R$ 1 'para validar a chave' e, em seguida, R$ 1.500 'para reativar a conta'. Destino de 70 dias."
+    },
+    {
+      "id": "se-027",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 380.0,
+      "narrative": "Jovem de 19 anos 'aprovado' em vaga falsa de home office paga R$ 380 de 'taxa de uniforme e treinamento' para PJ de 25 dias, quase todo o seu saldo."
+    },
+    {
+      "id": "se-028",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 12000.0,
+      "narrative": "Cliente de 50 anos convencido por 'gerente' a mover R$ 12.000 para conta em seu próprio nome numa fintech; a conta foi aberta por golpistas com seus dados há 20 dias."
+    },
+    {
+      "id": "se-029",
+      "label": "fraud",
+      "before": "approved",
+      "after": "rejected",
+      "amount": 890.0,
+      "narrative": "Loja virtual falsa de tênis com preços baixos e site bem feito; cliente paga R$ 890 para PJ de 40 dias que vários clientes começaram a pagar nesta semana."
+    },
+    {
+      "id": "se-030",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 18000.0,
+      "narrative": "Pequena indústria recebe e-mail (do domínio invadido do fornecedor) informando 'nova conta bancária' e paga a fatura de R$ 18.000 para a conta nova."
+    },
+    {
+      "id": "se-031",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 5000.0,
+      "narrative": "Influenciador falso promete cripto com retorno garantido; vítima trouxe R$ 5.000 de outra conta própria e repassa tudo para PJ 'exchange' de 150 dias."
+    },
+    {
+      "id": "se-032",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 3000.0,
+      "narrative": "Senhora de 66 anos é mantida ao telefone por 'central antifraude' e faz três Pix seguidos para contas diferentes 'de estorno'; este é o terceiro."
+    },
+    {
+      "id": "se-033",
+      "label": "fraud",
+      "before": "approved",
+      "after": "rejected",
+      "amount": 1750.0,
+      "narrative": "'Mãe' com número novo pede para o filho pagar um boleto 'que o app dela não abre'; ele paga R$ 1.750 para uma PJ de 300 dias que já teve Pix rejeitado de outro cliente."
+    },
+    {
+      "id": "se-035",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 600.0,
+      "narrative": "Universitário de 22 anos é vítima de sextorsão: golpista ameaça divulgar fotos íntimas e exige R$ 600 imediatamente, à noite."
+    },
+    {
+      "id": "se-037",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 35000.0,
+      "narrative": "Golpe do intermediário na compra de carro anunciado em classificados: o comprador paga R$ 35.000 para a conta indicada pelo golpista, achando que é do vendedor real."
+    },
+    {
+      "id": "se-039",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 7000.0,
+      "narrative": "Cliente de 60 anos recebe SMS de 'compra não reconhecida', liga para o número indicado e é instruído a fazer Pix de R$ 7.000 'para estornar'. O DICT não respondeu no momento."
+    },
+    {
+      "id": "tm-004",
+      "label": "fraud",
+      "before": "approved",
+      "after": "two_factor_required",
+      "amount": 199.0,
+      "narrative": "Celular furtado no metrô com senha anotada no bloco de notas; ladrão faz Pix perto de R$ 200 em sequência, de madrugada, para destinos novos."
+    },
+    {
+      "id": "tm-005",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 2000.0,
+      "narrative": "Vítima sequestrada é forçada a transferir de madrugada; Pix muito acima do hábito para conta recém-aberta, em local nunca visto."
+    },
+    {
+      "id": "tm-009",
+      "label": "fraud",
+      "before": "approved",
+      "after": "two_factor_required",
+      "amount": 1500.0,
+      "narrative": "Celular roubado em assalto de moto, desbloqueado sob ameaça; ladrão faz um Pix de valor moderado para conta nova logo após o roubo."
+    },
+    {
+      "id": "tm-011",
+      "label": "fraud",
+      "before": "approved",
+      "after": "rejected",
+      "amount": 900.0,
+      "narrative": "Golpista com app de acesso remoto instalado no próprio celular da vítima (via falso suporte técnico) faz Pix de madrugada enquanto ela dorme."
+    },
+    {
+      "id": "tm-013",
+      "label": "fraud",
+      "before": "approved",
+      "after": "rejected",
+      "amount": 3400.0,
+      "narrative": "Malware de acessibilidade no aparelho do dono troca o destinatário de um pagamento legítimo a fornecedor pela conta PJ do fraudador."
+    },
+    {
+      "id": "tm-017",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 4200.0,
+      "narrative": "Falsa central convenceu a vítima a instalar app de espelhamento dias antes; agora o golpista opera remotamente o aparelho confiável à tarde."
+    },
+    {
+      "id": "tm-018",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 14500.0,
+      "narrative": "Senha de operador de empresa vazada; invasor em aparelho novo paga 'fornecedor' inexistente com CNPJ recém-aberto."
+    },
+    {
+      "id": "tm-020",
+      "label": "fraud",
+      "before": "approved",
+      "after": "two_factor_required",
+      "amount": 480.0,
+      "narrative": "Malware 'mão fantasma' em celular confiável faz Pix noturnos pequenos em série enquanto a tela parece apagada."
+    },
+    {
+      "id": "tm-038",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 2400.0,
+      "narrative": "Universitário aluga sua conta via anúncio no Telegram; recebe três Pix de estranhos e repassa à tarde para a conta do aliciador, já paga nesta semana."
+    },
+    {
+      "id": "tm-040",
+      "label": "fraud",
+      "before": "approved",
+      "after": "rejected",
+      "amount": 1200.0,
+      "narrative": "Vítima de venda falsa em marketplace paga laranja do nosso banco com conta de 3 meses e fan-in moderado de novos pagadores."
+    },
+    {
+      "id": "tm-043",
+      "label": "fraud",
+      "before": "approved",
+      "after": "rejected",
+      "amount": 500.0,
+      "narrative": "Cliente paga 'cambista' PF que intermedeia apostas ilegais; conta destino recebe de muitos clientes nossos pela primeira vez."
+    },
+    {
+      "id": "tm-044",
+      "label": "fraud",
+      "before": "approved",
+      "after": "rejected",
+      "amount": 990.0,
+      "narrative": "Conta digital aberta há 12 dias só para receber Pix de golpe; repassa em valores fracionados para destinos novos."
+    },
+    {
+      "id": "tm-045",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 3500.0,
+      "narrative": "Vítima do 'golpe do falso parente' paga conta nossa aberta há 20 dias, cujo saldo é zerado logo após cada recebimento."
+    },
+    {
+      "id": "tm-048",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 15000.0,
+      "narrative": "Conta PJ sem uso há 2 anos volta a operar: recebe valores altos de pessoas físicas desconhecidas e repassa."
+    },
+    {
+      "id": "tm-049",
+      "label": "fraud",
+      "before": "two_factor_required",
+      "after": "rejected",
+      "amount": 800.0,
+      "narrative": "Cúmplice repassa dinheiro recebido de estranho para conta com marcação de fraude de abertura no DICT, embora a conta destino tenha 1 ano."
+    }
+  ],
+  "anchors": [
+    {
+      "id": "L3",
+      "expected": "approved",
+      "got": "two_factor_required"
+    },
+    {
+      "id": "L5",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "L9",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "L12",
+      "expected": "approved",
+      "got": "two_factor_required"
+    },
+    {
+      "id": "L13",
+      "expected": "approved",
+      "got": "two_factor_required"
+    },
+    {
+      "id": "L14",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "L15",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "L16",
+      "expected": "approved",
+      "got": "two_factor_required"
+    },
+    {
+      "id": "G3",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "G4",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "G5",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "G8",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "G9",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "G10",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "G12",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "G15",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "G17",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "G18",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "G20",
+      "expected": "two_factor_required",
+      "got": "rejected"
+    },
+    {
+      "id": "G21",
+      "expected": "approved",
+      "got": "two_factor_required"
+    }
+  ],
+  "cross_validation": {
+    "relative_cost_per_fold": [
+      2.9908,
+      1.5094,
+      0.9317,
+      0.1336,
+      0.0942
+    ],
+    "relative_cost_pooled": 0.8687,
+    "baseline": {
+      "n": 158,
+      "fraud": {
+        "approved": 17,
+        "two_factor_required": 25,
+        "rejected": 35,
+        "n": 77
+      },
+      "legit": {
+        "approved": 75,
+        "two_factor_required": 6,
+        "rejected": 0,
+        "n": 81
+      },
+      "fraud_value_lost_pct": 30.5,
+      "cost_w10": 139967.0,
+      "cost_w50": 140687.0,
+      "cost_w200": 143387.0
+    },
+    "tuned_out_of_sample": {
+      "n": 158,
+      "fraud": {
+        "approved": 5,
+        "two_factor_required": 8,
+        "rejected": 64,
+        "n": 77
+      },
+      "legit": {
+        "approved": 69,
+        "two_factor_required": 8,
+        "rejected": 4,
+        "n": 81
+      },
+      "fraud_value_lost_pct": 11.0,
+      "cost_w10": 58778.0,
+      "cost_w50": 92538.0,
+      "cost_w200": 219138.0
+    }
+  },
+  "distance_from_current": 7.03
+}
