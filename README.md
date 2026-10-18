@@ -60,7 +60,7 @@ Toda rota (menos `/` e `/health_check`) exige o header `INTERNAL-TOKEN`
 | `POST /pix/transaction` | analisa um Pix e responde a decisão. `201` na primeira vez; o mesmo `id` de novo devolve `200` com a análise gravada (idempotente: não analisa nem debita duas vezes) |
 | `GET /pix/transaction/{id}` | a mesma resposta pública do POST e o `payload` que chegou |
 | `POST /manual_release` | um operador libera um Pix que foi barrado (ver [2.3](#23-liberação-manual)) |
-| `GET /manual_release/{key}` | a liberação: se já foi usada, por qual Pix e o que o motor tinha decidido sem ela |
+| `GET /manual_release/{key}` | consulta uma liberação criada. Mostra se ela já foi usada e, se foi, em qual Pix e qual era a decisão do motor que ela trocou por `approved` |
 | `GET /health_check` | a API está de pé (`204`) |
 
 ### 2.1 O que acontece num POST
