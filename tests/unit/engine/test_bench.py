@@ -1,4 +1,4 @@
-"""Os 240 cenários desafiadores (calibration/) como teste de não-regressão.
+"""Os 238 cenários desafiadores (calibration/: 240 escritos, 2 descartados na revisão) como teste de não-regressão.
 
 Os cenários foram escritos por agentes que não conheciam o motor; muitos
 golpes ali são indistinguíveis de um Pix legítimo, então o motor NÃO acerta

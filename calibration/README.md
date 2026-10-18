@@ -4,7 +4,13 @@ Bateria de cenários escrita por agentes **sem acesso ao motor** e busca dos
 pesos/política que minimizam o custo real. O DICT não é consultado: a
 resposta dele vem pronta no cenário.
 
+São **240 cenários escritos, 238 avaliados** (2 descartados na revisão):
+119 golpes e 119 legítimos.
+
 ```bash
+python calibration/report.py                            # placar por família (em memória)
+python calibration/replay_api.py                        # os 238 pela API real (banco + mock), com latência
+python calibration/report.py --api                      # placar por família do replay pela API
 python calibration/calibrate.py --baseline              # motor atual nos cenários
 python calibration/calibrate.py                         # busca + validação cruzada → results/best.json
 python calibration/calibrate.py --skip-difficulty hard  # idem, sem os casos "indistinguíveis"

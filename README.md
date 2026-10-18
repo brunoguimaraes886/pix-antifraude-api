@@ -1,6 +1,6 @@
 # Pix Antifraude — Hacka QI
 
-**Integrantes:** Bruno Guimarães Duarte, Ana
+**Integrantes:** Bruno Guimarães Duarte, Ana Luiza Fidalgo
 
 API que recebe um Pix enviado por um cliente nosso, decide se ele pode sair
 e grava tudo que chegou. Feita a partir do Base Service do Bootcamp QI Tech:
@@ -556,29 +556,91 @@ operadora de apostas; CPF `191.191.191-00` está na lista do CSNU. Destinos
 marcados no mock do DICT: ISPB `60746948` ag. `0001` conta `990666`, e ISPB
 `00360305` ag. `0001` contas `990701` a `990704` (um tipo de marcação cada).
 
-**Os testes de verdade não dependem do seed:**
+### Panorama dos testes
 
-- **Unitários** (`tests/unit/`, sem Docker): o motor recebe `Features`
-  montados em código (`features_factory.py`) e um DICT falso. Há testes das
-  regras duras (no limiar e logo abaixo), de cada linha da política, do score
-  (tetos, mitigantes, ρ), os 46 cenários e propriedades (nenhuma camada desce a
-  severidade; nenhum motivo de PLD aparece na resposta pública).
-- **Bancada de 240 cenários** (`tests/unit/engine/test_bench.py`): os cenários
-  desafiadores de `calibration/`, escritos às cegas, rodam no motor como teste
-  de **não-regressão**. Muitos golpes ali são indistinguíveis de um Pix
-  legítimo, então o teste não exige acerto: exige que o placar de hoje (63 de
-  119 golpes barrados ou com 2FA, 3 de 119 legítimos rejeitados) não piore.
-- **Integração** (`tests/integration/`, com a API de pé): como não existe rota
-  de cadastro (onboarding está fora do escopo), cada teste **cria as próprias
-  contas direto no banco** (`tests/utils/scenario.py`), com número aleatório e
-  histórico (extrato antigo, aparelho já cadastrado). Os testes não se
-  esbarram e ninguém apaga o banco. O Pix testado entra pela API.
-- **Mock do DICT:** cada teste ensina ao MockServer a resposta **só para as
-  contas que criou** (`tests/utils/mock_generator.py`): sem marcação, com
-  marcações de conta e de dono (tipo e data), erro 500, conexão derrubada e
-  resposta lenta (para testar o timeout e o fallback). É isso que o mock
-  precisa ter; o `dict-expectations.json` é só o padrão para os testes
-  manuais.
+`pytest` roda **223 testes**, todos passando, em três grupos.
+
+**1. Integração (90 testes, API de pé).** Cada teste cria as próprias contas
+direto no banco (`tests/utils/scenario.py`; não há rota de cadastro), manda o
+Pix pela API e confere resposta, banco e extrato. O DICT é o MockServer: cada
+teste ensina a resposta só para as contas que criou
+(`tests/utils/mock_generator.py`): sem marcação, com marcação, erro 500,
+conexão derrubada e resposta lenta (timeout e fallback).
+
+**2. Unitários (129 testes, sem Docker).** O motor sozinho, com `Features`
+montados em código e um DICT falso: cada regra dura no limiar e logo abaixo,
+cada linha da política, o score e os 46 cenários-âncora.
+
+**3. Os 238 cenários desafiadores.** Agentes que **não conheciam o motor**
+escreveram **240** cenários (120 golpes, 120 legítimos; `calibration/data/`).
+Uma revisão de coerência descartou 2. Sobram **238: 119 golpes e 119
+legítimos**, metade dos legítimos escritos para *parecer* golpe. Eles rodam
+de dois jeitos:
+
+- **na API de verdade** (`python calibration/replay_api.py`): cada cenário vira
+  contas, 30 dias de extrato, Pix anteriores, aparelhos, outros clientes
+  pagando o mesmo destino e respostas no MockServer, e o Pix entra pelo POST.
+  **237 de 238 decidem igual à bancada em memória**; o que difere (tm-048) é
+  um cenário que pede "conta antiga com 2 dias de histórico", e a API, que
+  conta o histórico pela abertura, o rejeita (é golpe);
+- **em memória, no pytest** (`tests/unit/engine/test_bench.py`), como teste de
+  **não-regressão**: não exige acerto, exige que o placar não piore.
+
+**Latência** (replay dos 238 pela API, um Pix por vez, Docker local, DICT de
+mentira respondendo na hora):
+
+| | p50 (típica) | p95 (pior caso) |
+|---|---|---|
+| medida no cliente (HTTP ida e volta) | **98 ms** | **197 ms** |
+| medida pela API (do pedido à decisão) | 76 ms | 155 ms |
+
+Todos são o primeiro Pix do dia da conta (calcula o resumo diário e consulta
+o DICT do pagador). Com o DICT real some o tempo dele, limitado pelo timeout
+de 0,5 s.
+
+**O que passa e não devia** (golpes, pela API). "Valor perdido" desconta a
+chance de o 2FA parar o golpe: alta contra o invasor, baixa contra o dono
+enganado ou o laranja.
+
+| Família | Golpes | Aprovados | 2FA | Rejeitados | Valor perdido |
+|---|---|---|---|---|---|
+| Invasão de conta | 28 | 14 | 5 | 9 | 21,7% |
+| Falsa central e impostores | 26 | 12 | 6 | 8 | 31,6% |
+| Compra e cobrança falsas | 15 | 8 | 4 | 3 | 66,5% |
+| Investimento, amor e tarefas | 15 | 6 | 5 | 4 | 55,7% |
+| Coação | 7 | 4 | 2 | 1 | 39,0% |
+| Laranja pagando | 19 | 6 | 3 | 10 | 55,5% |
+| Pagamento a laranja ou aposta | 9 | 6 | 1 | 2 | 81,5% |
+| **Total** | **119** | **56** | **26** | **37** | **45,3%** |
+
+**O que devia passar e não passa** (legítimos, pela API):
+
+| Legítimos | n | Aprovados | 2FA | Rejeitados |
+|---|---|---|---|---|
+| Do dia a dia | 60 | 54 | 6 | 0 |
+| Que parecem golpe | 59 | 28 | 28 | 3 |
+
+**Leitura por família:**
+
+- **Invasão de conta** é onde o motor é melhor: aparelho novo, local e valor
+  fora do padrão aparecem, e o 2FA para quem não é o dono. Passam as invasões
+  pelo próprio celular da vítima (acesso remoto) e os valores pequenos.
+- **Falsa central e impostores:** pega quando a conta é esvaziada ou o
+  destino é novo ou marcado. Passa o falso parente de valor baixo para conta
+  antiga e limpa.
+- **Compra falsa** e **investimento/amor/tarefas** são os mais fracos: o dono
+  quer pagar, o valor é plausível e o destino costuma ser antigo e limpo. A
+  defesa é o alerta e o destino ser marcado quando outras vítimas aparecerem.
+- **Coação:** o limite noturno segura o valor, mas o Pix dentro do limite
+  passa.
+- **Laranja pagando:** o repasse de dinheiro de desconhecidos e o DICT do
+  pagador rejeitam mais da metade; passa o laranja que repassa devagar.
+- **Pagamento a laranja ou aposta:** só é pego quando há marcação no DICT,
+  vários clientes pagando o mesmo destino ou a lista de apostas; a conta
+  laranja antiga e limpa passa.
+- **Legítimos:** nenhum legítimo comum é rejeitado (6 de 60 pedem 2FA). Dos
+  que parecem golpe, 3 são rejeitados e metade pede 2FA: é o custo de olhar
+  "conta segura", racha e vaquinha.
 
 ---
 
