@@ -1,1 +1,2 @@
+from controllers.manual_release_controller import ManualReleaseController
 from controllers.pix_transaction_controller import PixTransactionController

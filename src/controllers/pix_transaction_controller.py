@@ -9,6 +9,7 @@ from controllers.base_controller import BaseController
 from controllers.baseline_controller import BaselineController
 from controllers.dict_controller import DictController
 from controllers.feature_controller import FeatureController
+from controllers.manual_release_controller import ManualReleaseController
 from dtos import PixTransactionDTO
 from engine import EngineResult, Features, get_engine
 from engine.features import DICT_OK, DictFeatures
@@ -45,9 +46,10 @@ class PixTransactionController(BaseController):
         5. resumo diário         → calcula no primeiro Pix do dia da conta
         6. DICT                  → consulta, ou fallback
         7. features → motor      → a decisão
-        8. grava a análise       → status, motivos, latência, features
-        9. aprovado? movimenta   → saldo e extrato, só no approved
-       10. commit
+        8. liberação manual      → barrado por suspeita e liberado? aprova
+        9. grava a análise       → status, motivos, latência, features
+       10. aprovado? movimenta   → saldo e extrato, só no approved
+       11. commit
 
     O commit é a última linha: uma exceção em qualquer passo desfaz tudo,
     inclusive o Pix gravado no passo 3.
@@ -135,6 +137,10 @@ class PixTransactionController(BaseController):
         )
 
         result = self._evaluate(features)
+
+        released = ManualReleaseController().apply(pix, result)
+        if released is not None:
+            result = released
 
         analysis = self._save_analysis(
             pix, result.status, result.reasons, started_at, result.score, features, dict_features

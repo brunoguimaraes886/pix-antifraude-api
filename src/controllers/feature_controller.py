@@ -86,7 +86,6 @@ class FeatureController(BaseController):
             weekday=moment.weekday(),
             period=current_period(moment).kind,
             ratio_to_balance=_ratio(amount, payer.balance),
-            ratio_to_income=_ratio(amount, payer.customer.monthly_income),
             ratio_to_avg_out=_ratio(amount, baseline.avg_out_amount),
             ratio_to_p90_out=_ratio(amount, baseline.p90_out_amount),
         )
@@ -104,8 +103,6 @@ class FeatureController(BaseController):
             customer=CustomerFeatures(
                 document_type=document_type(customer.document_number),
                 age_years=_years_between(customer.birth_date, moment.date()),
-                occupation=customer.occupation,
-                monthly_income=customer.monthly_income,
             ),
             account_age_days=(moment - account.opening_date).days,
             balance=account.balance,

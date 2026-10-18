@@ -1,1 +1,2 @@
 from dtos.pix_transaction_dto import PixTransactionDTO
+from dtos.manual_release_dto import ManualReleaseDTO

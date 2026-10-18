@@ -54,7 +54,7 @@ def flow_window(start: datetime, end: datetime, out_amount: int = 0) -> dict:
 def internal_account(balance: int = 500000) -> InternalAccountFeatures:
     return InternalAccountFeatures(
         account_key="a0000000-0000-4000-8000-000000000001",
-        customer=CustomerFeatures(document_type="PF", age_years=41, occupation="analista", monthly_income=850000),
+        customer=CustomerFeatures(document_type="PF", age_years=41),
         account_age_days=600,
         balance=balance,
         daily_limit=1000000,
@@ -96,7 +96,6 @@ def clean_features(amount: int = 10000) -> Features:
             weekday=MOMENT.weekday(),
             period="day",
             ratio_to_balance=amount / 500000,
-            ratio_to_income=amount / 850000,
             ratio_to_avg_out=amount / 15000,
             ratio_to_p90_out=amount / 40000,
         ),

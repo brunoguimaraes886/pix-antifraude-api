@@ -24,3 +24,22 @@ class RequestGenerator:
             headers={"INTERNAL-TOKEN": INTERNAL_TOKEN},
         )
         return response.response_status, response.response_json
+
+    @staticmethod
+    def POST_manual_release(payload: dict):
+        response = ClientRequisition.send(
+            "POST",
+            "/manual_release",
+            payload=payload,
+            headers={"INTERNAL-TOKEN": INTERNAL_TOKEN},
+        )
+        return response.response_status, response.response_json
+
+    @staticmethod
+    def GET_manual_release(release_key: str):
+        response = ClientRequisition.send(
+            "GET",
+            f"/manual_release/{release_key}",
+            headers={"INTERNAL-TOKEN": INTERNAL_TOKEN},
+        )
+        return response.response_status, response.response_json

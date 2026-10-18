@@ -34,8 +34,8 @@ Tudo em `src/engine/`, sem nenhuma dependência de banco, HTTP ou relógio:
 
 | Bloco | O que responde |
 |---|---|
-| `transaction` | valor, data, hora local, período (`day`/`night`), valor ÷ saldo, ÷ renda, ÷ média e ÷ p90 de saída |
-| `payer` | perfil (PF/PJ, idade, profissão, renda), idade da conta, saldo, limites, bloqueio em vigor, resumo diário (`baseline`), fluxo das últimas 24h, período atual e período anterior |
+| `transaction` | valor, data, hora local, período (`day`/`night`), valor ÷ saldo, ÷ média e ÷ p90 de saída |
+| `payer` | perfil (PF/PJ, idade), idade da conta, saldo, limites, bloqueio em vigor, resumo diário (`baseline`), fluxo das últimas 24h, período atual e período anterior |
 | `destination` | conta nossa ou de outro banco, idade da conta, PF/PJ, histórico de tudo que já chegou para ela, resposta do DICT (`ok` / `fallback` / `unavailable`) e — se for conta nossa — o mesmo bloco completo do pagador |
 | `relationship` | o pagador já pagou esse destino? quanto, quantas vezes, em quantos dias; o destino já pagou o pagador? |
 | `device` | aparelho e IP já usados? quantos aparelhos em 30 dias; distância e minutos desde o último Pix com localização |

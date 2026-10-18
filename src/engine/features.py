@@ -30,8 +30,6 @@ DICT_UNAVAILABLE = "unavailable"  # não respondeu e não há análise anterior
 class CustomerFeatures:
     document_type: str              # "PF" (CPF) ou "PJ" (CNPJ)
     age_years: int                  # PF: idade da pessoa; PJ: anos desde a fundação
-    occupation: str                 # profissão (PF) ou setor (PJ)
-    monthly_income: int
 
 
 @dataclass
@@ -185,7 +183,6 @@ class TransactionFeatures:
     weekday: int                    # 0 = segunda ... 6 = domingo
     period: str                     # "day" ou "night"
     ratio_to_balance: Optional[float]
-    ratio_to_income: Optional[float]
     ratio_to_avg_out: Optional[float]
     ratio_to_p90_out: Optional[float]
 

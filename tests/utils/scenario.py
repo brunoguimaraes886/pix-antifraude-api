@@ -48,8 +48,6 @@ class Scenario:
         nightly_limit: int = 100000,
         opening_date: Optional[datetime] = None,
         birth_date: str = "1990-01-01",
-        occupation: str = "engenheira",
-        monthly_income: int = 800000,
         document_number: Optional[str] = None,
     ) -> dict:
         """Um cliente nosso com uma conta. Devolve o que o payload precisa."""
@@ -64,16 +62,14 @@ class Scenario:
         with engine().begin() as connection:
             customer_id = connection.execute(
                 text(
-                    "INSERT INTO customer (customer_key, document_number, name, birth_date, occupation, monthly_income) "
-                    "VALUES (:key, :document, :name, :birth_date, :occupation, :income) RETURNING id"
+                    "INSERT INTO customer (customer_key, document_number, name, birth_date) "
+                    "VALUES (:key, :document, :name, :birth_date) RETURNING id"
                 ),
                 {
                     "key": str(uuid4()),
                     "document": document_number,
                     "name": "Cliente de Teste",
                     "birth_date": birth_date,
-                    "occupation": occupation,
-                    "income": monthly_income,
                 },
             ).scalar()
 

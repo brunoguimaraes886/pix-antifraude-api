@@ -1,0 +1,61 @@
+{
+  "title": "PostManualRelease",
+  "type": "object",
+  "properties": {
+    "source_account": {
+      "type": "object",
+      "properties": {
+        "branch": {
+          "type": "string",
+          "pattern": "^\\d{4}$"
+        },
+        "account_number": {
+          "type": "string",
+          "pattern": "^\\d{1,20}$"
+        }
+      },
+      "required": ["branch", "account_number"],
+      "additionalProperties": false
+    },
+    "destination_account": {
+      "type": "object",
+      "properties": {
+        "participant": {
+          "type": "string",
+          "pattern": "^\\d{8}$"
+        },
+        "branch": {
+          "type": "string",
+          "pattern": "^\\d{4}$"
+        },
+        "account_number": {
+          "type": "string",
+          "pattern": "^\\d{1,20}$"
+        }
+      },
+      "required": ["participant", "branch", "account_number"],
+      "additionalProperties": false
+    },
+    "max_amount": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10000000000000
+    },
+    "expires_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "operator": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    }
+  },
+  "required": ["source_account", "destination_account", "max_amount", "operator", "reason"],
+  "additionalProperties": false
+}

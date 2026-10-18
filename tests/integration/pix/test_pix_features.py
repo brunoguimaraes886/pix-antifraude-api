@@ -95,8 +95,6 @@ class TestProfileFeatures:
     def test_payer_profile(self):
         payer = Scenario.internal_account(
             birth_date="1980-10-15",
-            occupation="médica",
-            monthly_income=2500000,
             opening_date=MOMENT - timedelta(days=100),
         )
 
@@ -107,11 +105,8 @@ class TestProfileFeatures:
         assert features["payer"]["customer"] == {
             "document_type": "PF",
             "age_years": 45,
-            "occupation": "médica",
-            "monthly_income": 2500000,
         }
         assert features["payer"]["account_age_days"] == 100
-        assert features["transaction"]["ratio_to_income"] == 0.02
         assert features["transaction"]["ratio_to_balance"] == 0.1
         assert features["transaction"]["period"] == "night"
         assert features["transaction"]["local_hour"] == 23
@@ -130,7 +125,7 @@ class TestProfileFeatures:
 
     def test_internal_destination_brings_its_whole_profile(self):
         payer = Scenario.internal_account()
-        destination = Scenario.internal_account(opening_date=MOMENT - timedelta(days=12), occupation="estudante")
+        destination = Scenario.internal_account(opening_date=MOMENT - timedelta(days=12))
         Scenario.statement(destination, "in", 90000, MOMENT - timedelta(hours=3))
         Scenario.statement(destination, "out", 85000, MOMENT - timedelta(hours=2))
 
@@ -139,7 +134,7 @@ class TestProfileFeatures:
 
         assert features["destination"]["is_internal"] is True
         assert features["destination"]["account_age_days"] == 12
-        assert destination_account["customer"]["occupation"] == "estudante"
+        assert destination_account["customer"]["document_type"] == "PF"
         assert destination_account["last_24h"]["pass_through_rate"] == round(85000 / 90000, 4)
         assert destination_account["baseline"]["history_days"] == 12
 

@@ -17,14 +17,10 @@ CREATE TABLE customer(
     name                            VARCHAR(255) NOT NULL,
     -- Nascimento (PF) ou fundação (PJ).
     birth_date                      DATE NOT NULL,
-    -- Profissão (PF) ou setor (PJ), em texto livre.
-    occupation                      VARCHAR(255) NOT NULL,
-    monthly_income                  BIGINT NOT NULL,
     created_at                      TIMESTAMPTZ NOT NULL DEFAULT(NOW()),
     UNIQUE(customer_key),
     UNIQUE(document_number),
-    CHECK (document_number ~ '^([0-9]{11}|[0-9]{14})$'),
-    CHECK (monthly_income >= 0)
+    CHECK (document_number ~ '^([0-9]{11}|[0-9]{14})$')
 );
 
 CREATE TABLE account(
@@ -198,3 +194,39 @@ CREATE TABLE analysis_reason(
 );
 
 CREATE INDEX ix_analysis_reason_analysis ON analysis_reason(analysis_id);
+
+
+-- ── Liberação manual ────────────────────────────────────────────
+-- O cliente teve um Pix legítimo barrado, falou com o banco (fora desta
+-- API) e um operador libera AQUELE Pix: mesmo pagador, mesmo destino,
+-- até um valor, até uma data. Uso único.
+--
+-- A liberação desfaz a suspeita, não o limite: limit_exceeded,
+-- dict_fraud_marker e engine_error continuam valendo, e as recusas
+-- operacionais (saldo, conta bloqueada) param o Pix antes dela.
+
+CREATE TABLE manual_release(
+    id                              SERIAL PRIMARY KEY,
+    release_key                     CHAR(36) NOT NULL,
+    source_account_id               INTEGER NOT NULL REFERENCES account(id),
+    destination_participant         CHAR(8) NOT NULL,
+    destination_branch              VARCHAR(4) NOT NULL,
+    destination_account_number      VARCHAR(20) NOT NULL,
+    max_amount                      BIGINT NOT NULL,
+    -- Comparado com o transaction_date do Pix, não com o relógio.
+    expires_at                      TIMESTAMPTZ NOT NULL,
+    -- Quem liberou e por quê (auditoria).
+    operator                        VARCHAR(100) NOT NULL,
+    reason                          VARCHAR(255) NOT NULL,
+    -- Preenchidos no uso: o Pix liberado e o que o motor tinha decidido.
+    pix_transaction_id              INTEGER REFERENCES pix_transaction(id),
+    overridden_status               VARCHAR(50),
+    overridden_reasons              JSONB,
+    used_at                         TIMESTAMPTZ,
+    created_at                      TIMESTAMPTZ NOT NULL DEFAULT(NOW()),
+    UNIQUE(release_key),
+    UNIQUE(pix_transaction_id),
+    CHECK (max_amount > 0)
+);
+
+CREATE INDEX ix_manual_release_open ON manual_release(source_account_id) WHERE pix_transaction_id IS NULL;

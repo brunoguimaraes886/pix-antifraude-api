@@ -29,3 +29,25 @@ class InvalidDateTime(QIException):
         description = f"The value {value} in {field} is not a real date."
         translation = f"A data {value} em {field} não existe."
         super().__init__(title, self.code, http_status, description, translation)
+
+
+class NotFoundAccount(QIException):
+    code = "QIT002001"
+
+    def __init__(self, branch, account_number) -> None:
+        title = "Account not Found"
+        http_status = 404
+        description = f"No account {account_number} in branch {branch}."
+        translation = f"Não existe a conta {account_number} na agência {branch}."
+        super().__init__(title, self.code, http_status, description, translation)
+
+
+class NotFoundManualRelease(QIException):
+    code = "QIT002002"
+
+    def __init__(self, release_key) -> None:
+        title = "Manual Release not Found"
+        http_status = 404
+        description = f"No manual release with key {release_key}."
+        translation = f"Nenhuma liberação manual com a key {release_key}."
+        super().__init__(title, self.code, http_status, description, translation)

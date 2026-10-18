@@ -9,12 +9,12 @@
 -- rótulo (00000000, 60701190, 00360305, 18236120, 60746948).
 -- ─────────────────────────────────────────────────────────────────
 
-INSERT INTO customer (customer_key, document_number, name, birth_date, occupation, monthly_income) VALUES
-('c0000000-0000-4000-8000-000000000001', '12345678909',    'Maria Oliveira',          '1985-04-12', 'analista de sistemas',         850000),
-('c0000000-0000-4000-8000-000000000002', '52998224725',    'João Pereira',            '1990-05-17', 'professor',                    450000),
-('c0000000-0000-4000-8000-000000000003', '39053344705',    'Lucas Souza',             '2004-02-03', 'estudante',                    80000),
-('c0000000-0000-4000-8000-000000000004', '11222333000181', 'Padaria Pão Quente LTDA', '2012-06-01', 'comércio varejista - padaria', 4500000),
-('c0000000-0000-4000-8000-000000000005', '11144477735',    'Carlos Lima',             '1958-09-21', 'aposentado',                   300000);
+INSERT INTO customer (customer_key, document_number, name, birth_date) VALUES
+('c0000000-0000-4000-8000-000000000001', '12345678909',    'Maria Oliveira',          '1985-04-12'),
+('c0000000-0000-4000-8000-000000000002', '52998224725',    'João Pereira',            '1990-05-17'),
+('c0000000-0000-4000-8000-000000000003', '39053344705',    'Lucas Souza',             '2004-02-03'),
+('c0000000-0000-4000-8000-000000000004', '11222333000181', 'Padaria Pão Quente LTDA', '2012-06-01'),
+('c0000000-0000-4000-8000-000000000005', '11144477735',    'Carlos Lima',             '1958-09-21');
 
 -- Maria: a pagadora do exemplo do enunciado (agência 0001, conta 88213).
 INSERT INTO account (account_key, customer_id, branch, account_number, opening_date, balance, daily_limit, nightly_limit)

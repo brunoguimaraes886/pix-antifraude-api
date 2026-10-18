@@ -48,3 +48,12 @@ ENGINE_ERROR = Reason("engine_error", "O motor antifraude falhou; o Pix precisa 
 LIMIT_EXCEEDED = Reason("limit_exceeded", "O Pix passa do limite do período (diurno ou noturno).")
 DICT_FRAUD_MARKER = Reason("dict_fraud_marker", "A conta ou o CPF/CNPJ de destino tem marcação de fraude no DICT.")
 DICT_UNAVAILABLE = Reason("dict_unavailable", "O DICT não respondeu e não há consulta anterior deste destino.")
+
+
+# ────────────────────────────────────────────────────────────────
+# O que uma liberação manual NÃO desfaz: o limite (a demora para
+# aumentá-lo existe contra coação), a marcação de fraude do destino no
+# DICT e o motor quebrado (sem decisão, não há o que liberar).
+# ────────────────────────────────────────────────────────────────
+
+NOT_RELEASABLE = (LIMIT_EXCEEDED, DICT_FRAUD_MARKER, ENGINE_ERROR)

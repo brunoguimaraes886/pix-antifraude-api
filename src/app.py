@@ -9,7 +9,7 @@ from middlewares import (
     register_request_logger_middleware,
     register_session_manager_middleware,
 )
-from resources import HealthCheckResource, PixTransactionResource
+from resources import HealthCheckResource, ManualReleaseResource, PixTransactionResource
 from utils.logger import setup_logging
 
 
@@ -35,6 +35,7 @@ def create_app() -> FastAPI:
     # A lista COMPLETA do que esta API atende.
     health_check_resource = HealthCheckResource()
     pix_transaction_resource = PixTransactionResource()
+    manual_release_resource = ManualReleaseResource()
 
     application.add_api_route("/", health_check_resource.on_get_home, methods=["GET"])
     application.add_api_route("/health_check", health_check_resource.on_get_health_check, methods=["GET"])
@@ -47,6 +48,17 @@ def create_app() -> FastAPI:
     application.add_api_route(
         "/pix/transaction/{pix_id}",
         pix_transaction_resource.on_get_by_id,
+        methods=["GET"],
+    )
+
+    application.add_api_route(
+        "/manual_release",
+        manual_release_resource.on_post,
+        methods=["POST"],
+    )
+    application.add_api_route(
+        "/manual_release/{release_key}",
+        manual_release_resource.on_get_by_key,
         methods=["GET"],
     )
 

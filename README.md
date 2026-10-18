@@ -42,8 +42,8 @@ destino.
 
 | Bloco | Conteúdo |
 |---|---|
-| Transação | valor; hora local; período diurno/noturno; valor ÷ saldo, ÷ renda, ÷ média e ÷ p90 de saída |
-| Pagador | PF/PJ, idade, profissão, renda; idade da conta; saldo; limites; bloqueio em vigor; resumo diário; fluxo das últimas 24h e dos períodos atual e anterior |
+| Transação | valor; hora local; período diurno/noturno; valor ÷ saldo, ÷ média e ÷ p90 de saída |
+| Pagador | PF/PJ, idade; idade da conta; saldo; limites; bloqueio em vigor; resumo diário; fluxo das últimas 24h e dos períodos atual e anterior |
 | Destino | conta nossa ou externa; idade da conta; histórico de tudo que chegou para ela (pagadores distintos, aprovados, rejeitados); DICT; perfil completo se for nossa |
 | Relação | o pagador já pagou esse destino? quanto, quantas vezes, em quantos dias |
 | Aparelho | device e IP já usados; aparelhos em 30 dias; distância e tempo desde o último Pix com localização |
@@ -95,6 +95,9 @@ diário.
    nem extrato (não há retorno da confirmação), mas conta como tentativa.
 4. Se o motor quebrar, o Pix não é aprovado às cegas: sai
    `two_factor_required` com o motivo `engine_error`.
+5. Barrado por suspeita e com **liberação manual** válida para ele? Sai
+   `approved`. A liberação não desfaz `limit_exceeded`,
+   `dict_fraud_marker` nem `engine_error` (nesses casos ela fica guardada).
 
 **DICT.** Consultado a cada Pix, com timeout de 1 s. Se não responder, vale
 a resposta da última análise com o mesmo destino (mesma conta **ou** mesmo
@@ -157,6 +160,26 @@ curl http://localhost:3000/pix/transaction/pix-000123 -H "INTERNAL-TOKEN: defaul
 O GET devolve `key`, `status` e `metadata` com `reasons`, `latency_ms` e o
 `payload` que chegou.
 
+### Liberando um Pix barrado
+
+O cliente reclama (fora da API) e um operador libera **aquele** Pix: mesmo
+pagador, mesmo destino, até `max_amount`, até `expires_at` (comparado com o
+`transaction_date` do Pix; sem ele, vale 1h a partir de agora). Uso único.
+
+```bash
+curl -X POST http://localhost:3000/manual_release   -H "INTERNAL-TOKEN: default_token"   -H "Content-Type: application/json"   -d '{
+    "source_account": { "branch": "0001", "account_number": "88213" },
+    "destination_account": { "participant": "60701190", "branch": "3675", "account_number": "10442" },
+    "max_amount": 150000,
+    "expires_at": "2026-10-17T23:59:00-03:00",
+    "operator": "ana.risco",
+    "reason": "Cliente confirmou por telefone"
+  }'
+```
+
+`GET /manual_release/{key}` mostra se já foi usada, por qual Pix e o que o
+motor tinha decidido sem ela (`overridden_status`, `overridden_reasons`).
+
 ### Contas de exemplo (seed, dados falsos)
 
 | Conta (ag. 0001) | Titular | Para testar |
@@ -194,7 +217,7 @@ com dígitos (11 = PF, 14 = PJ).
 
 | Tabela | O que guarda |
 |---|---|
-| `customer` | documento, nome, nascimento/fundação, profissão/setor, renda mensal |
+| `customer` | documento, nome, nascimento/fundação |
 | `account` | agência, conta, abertura, saldo, limite diurno e noturno |
 | `account_block` | bloqueios da conta (`ended_at` vazio = bloqueada agora) |
 | `account_baseline` | o resumo diário: médias e p90 de entrada e saída, Pix por dia (entrada e saída), dias de histórico, bloqueios e Pix rejeitados (como pagador e como destino). Uma linha por conta por dia, criada no primeiro Pix do dia |
@@ -203,6 +226,7 @@ com dígitos (11 = PF, 14 = PJ).
 | `analysis_status` | `approved`, `two_factor_required`, `rejected` |
 | `transaction_analysis` | a decisão: `key`, status, score (opcional), latência, features, resposta do DICT |
 | `analysis_reason` | os motivos (código + mensagem); mais de um por Pix |
+| `manual_release` | liberações manuais: pagador, destino, valor máximo, validade, operador e motivo; no uso, o Pix e a decisão que foi desfeita |
 
 Nenhum score é salvo por conta: o que se salva é o resumo do histórico; o
 resto (já pagou esse destino? aparelho já usado?) é consultado direto no
@@ -220,6 +244,8 @@ Mesmo formato do Base Service (`title`, `description`, `translation`, `code`).
 | `QIT000500` | erro inesperado |
 | `QIT001001` | `GET` de um Pix que nunca chegou |
 | `QIT001002` | data com formato certo que não existe no calendário (422) |
+| `QIT002001` | liberação manual para uma conta pagadora que não existe |
+| `QIT002002` | `GET` de uma liberação manual que não existe |
 
 Uma recusa do motor **não** é erro HTTP: é um `201` com `status: rejected`.
 
