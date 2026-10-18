@@ -1,0 +1,73 @@
+# Sobe a API, o banco e o mock do DICT juntos, com um comando so:
+#
+#     docker compose up
+#
+# Os testes rodam na sua maquina, contra a API que subiu aqui:
+#
+#     pip install -r requirements-dev.txt
+#     pytest
+#
+# Cada configuracao abaixo tem um valor padrao (${VARIAVEL:-padrao}). O .env
+# e opcional: se existir, o que estiver la ganha do padrao.
+
+services:
+  api:
+    build:
+      context: .
+      target: api
+    ports:
+      - "${API_PORT:-3000}:3000"
+    environment:
+      # Dentro do compose, o banco atende pelo nome "db" e o DICT pelo nome
+      # "mock". Por isso estas duas linhas nao tem padrao pra sobrescrever.
+      DATABASE_URL: postgresql+psycopg2://pix:pix@db:5432/pix_antifraude
+      DICT_API_URL: http://mock:1080/dict
+      APP_ENV: ${APP_ENV:-local}
+      SERVICE_NAME: ${SERVICE_NAME:-pix-antifraude-api}
+      INTERNAL_TOKEN: ${INTERNAL_TOKEN:-default_token}
+      DICT_API_INTERNAL_TOKEN: ${DICT_API_INTERNAL_TOKEN:-default_token}
+      # Prazo curto de proposito: o Pix precisa ser decidido em poucos
+      # segundos. Se o DICT nao responder a tempo, a API usa a ultima
+      # consulta do mesmo destino (veja src/controllers/dict_controller.py).
+      DICT_API_TIMEOUT: ${DICT_API_TIMEOUT:-1}
+    volumes:
+      - ./src:/app
+    command: uvicorn app:app --host 0.0.0.0 --port 3000 --no-server-header --reload
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request; urllib.request.urlopen(\"http://localhost:3000/health_check\")'"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    depends_on:
+      db:
+        condition: service_healthy
+      mock:
+        condition: service_started
+
+  # O DICT do Banco Central, de mentira. As respostas padrao moram em
+  # mock/dict-expectations.json e sao carregadas quando o mock sobe; os
+  # testes ensinam respostas novas pela porta 1080 (tests/utils/mock_generator.py).
+  mock:
+    image: mockserver/mockserver:mockserver-5.11.1
+    command: -logLevel WARN -serverPort 1080
+    environment:
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/dict-expectations.json
+    volumes:
+      - ./mock:/config
+    ports:
+      - "${MOCK_PORT:-1080}:1080"
+
+  db:
+    build: ./database/.
+    environment:
+      POSTGRES_USER: pix
+      POSTGRES_PASSWORD: pix
+      POSTGRES_DB: pix_antifraude
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pix -d pix_antifraude"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
