@@ -207,7 +207,7 @@ tem como acontecer, e não contam como "Pix rejeitado" no histórico):
 `unknown_account`, `account_owner_mismatch`, `unknown_destination_account`,
 `destination_owner_mismatch`, `account_blocked`, `insufficient_balance`.
 
-**Recusas do motor**: as regras duras (seção 4.2) e os sinais (seção 4.3). A
+**Recusas do motor**: as regras duras e os sinais. A
 lista completa, com condição e motivo, está no
 [dicionário](docs/dicionario-motor.md).
 
