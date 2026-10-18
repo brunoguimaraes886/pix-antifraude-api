@@ -23,8 +23,14 @@ auditável e reproduzível.
 **Sumário:** [1. Rodar e testar](#1-como-rodar-e-testar) ·
 [2. A API](#2-a-api) · [3. O que analisamos](#3-o-que-a-api-analisa-e-por-quê) ·
 [4. O motor](#4-como-o-motor-decide) ·
-[5. Dados de teste](#5-dados-de-teste) · [6. Limitações](#6-limitações) ·
-[Dicionário do motor](docs/dicionario-motor.md)
+[5. Dados de teste](#5-dados-de-teste) · [6. Limitações](#6-limitações)
+
+**Documentos de apoio:**
+- [Dicionário do motor](docs/dicionario-motor.md): cada regra, medida,
+  sinal, peso e custo do motor, com a condição exata, o valor e o porquê.
+- [O motor por dentro](docs/motor.md): para quem vai mexer no código. Mostra
+  em que arquivo mora cada parte do motor, de onde vem cada campo que ele
+  recebe, o que ele devolve, como calibrar os pesos e como trocar o motor.
 
 ---
 
@@ -412,7 +418,9 @@ anos é piso de 2FA. E como **sinal** (`dict_history`, +5 a +40 conforme o tipo
 e a idade da marcação), que soma com os outros sinais do destino.
 
 O que **cada** sinal, regra, peso e custo significa, com a condição exata e o
-porquê, está no **[dicionário do motor](docs/dicionario-motor.md)**.
+porquê, está no **[dicionário do motor](docs/dicionario-motor.md)**. Onde
+cada parte mora no código, como calibrar e como trocar o motor está em
+**[o motor por dentro](docs/motor.md)**.
 
 ---
 
@@ -501,7 +509,7 @@ src/
   repositories/  consultas ao banco · models/ tabelas · connectors/ DICT
 database/        schema e seed
 mock/            respostas padrão do DICT
-docs/            dicionario-motor.md (cada regra e sinal) e motor.md (contrato do motor)
+docs/            dicionario-motor.md (cada regra e sinal) e motor.md (o motor no código)
 tests/           unit (motor) e integration (API)
 ```
 

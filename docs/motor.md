@@ -2,10 +2,9 @@
 
 O motor é a única parte que decide. Todo o resto da API existe para
 entregar a ele, pronto, tudo que se sabe sobre um Pix, e para gravar o que
-ele respondeu. A especificação é o `4.2 - motor-pratica_claude.md` do repo
-de contexto; este documento diz onde cada parte dela mora no código. O que
-cada regra, sinal, peso e custo significa está no
-[dicionário do motor](dicionario-motor.md).
+ele respondeu. O que cada regra, sinal, peso e custo significa está no
+[dicionário do motor](dicionario-motor.md); este documento diz onde cada
+parte mora no código.
 
 ```
 POST /pix/transaction
@@ -31,17 +30,17 @@ POST /pix/transaction
 Tudo em `src/engine/`, sem abrir banco, HTTP ou relógio por conta própria.
 O "agora" é a data do próprio Pix; a consulta ao DICT chega como função.
 
-| Arquivo | O que tem | Seção do 4.2 |
+| Arquivo | O que tem | Seção do dicionário |
 |---|---|---|
-| `features.py` | `Features`: a entrada do motor, com a descrição de cada campo | 4.2 |
-| `params.py` | **todos** os pesos, limiares e custos | 14 |
-| `measures.py` | medidas derivadas: p90 combinado (Bühlmann), fatia do saldo, razão de saída com o Pix, `inflow_jump`, dormência, aparelho cadastrado, idade das marcações do DICT | 4.1 |
-| `hard_rules.py` | regras duras, em duas fases (antes e depois do DICT) | 3 |
-| `signals/*.py` | um arquivo por família; cada sinal é uma função pura `(features, medidas) → Evidence` | 5 e 6 |
-| `scoring.py` | tetos por família, piso dos mitigantes, P e ρ | 7 |
-| `policy.py` | a política de custo | 8 |
-| `response.py` | camada pública (motivos, alerta, retenção, sigilo de PLD) e interna (ameaça, causa, base, PLD) | 9 |
-| `scorecard_engine.py` | junta tudo | 2 |
+| `features.py` | `Features`: a entrada do motor, com a descrição de cada campo | — |
+| `params.py` | **todos** os pesos, limiares e custos | todas |
+| `measures.py` | medidas derivadas: p90 combinado (Bühlmann), fatia do saldo, razão de saída com o Pix, `inflow_jump`, dormência, aparelho cadastrado, idade das marcações do DICT | C |
+| `hard_rules.py` | regras duras, em duas fases (antes e depois do DICT) | B |
+| `signals/*.py` | um arquivo por família; cada sinal é uma função pura `(features, medidas) → Evidence` | E e F |
+| `scoring.py` | tetos por família, piso dos mitigantes, P e ρ | D e G |
+| `policy.py` | a política de custo | H |
+| `response.py` | camada pública (motivos, alerta, retenção, sigilo de PLD) e interna (ameaça, causa, base, PLD) | J |
+| `scorecard_engine.py` | junta tudo | — |
 | `reasons.py` | o catálogo de motivos e mensagens; quais são sensíveis a PLD e quais não são liberáveis | — |
 | `base.py`, `result.py` | a interface `FraudEngine` e o `EngineResult` | — |
 | `__init__.py` | `get_engine()`: qual motor está em uso | — |
