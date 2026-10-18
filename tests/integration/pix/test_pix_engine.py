@@ -27,6 +27,18 @@ class TestEngineRulesThroughTheApi:
         assert response["status"] == "rejected"
         assert reason_codes(response) == ["limit_exceeded"]
 
+    def test_limit_exceeded_does_not_consult_the_dict(self):
+        payer = Scenario.internal_account(nightly_limit=100000)
+        destination = Scenario.external_account()
+        DictMock.GET_account(destination)
+
+        status, response = RequestGenerator.POST_pix_transaction(
+            PayloadGenerator.pix(payer, destination, amount=150000, transaction_date=NIGHT_MOMENT)
+        )
+
+        assert response["status"] == "rejected"
+        assert DictMock.requests_for(destination) == []
+
     def test_what_left_during_the_day_does_not_eat_the_night_limit(self):
         payer = Scenario.internal_account(nightly_limit=100000)
         Scenario.statement(payer, "out", 80000, NIGHT_MOMENT.replace(hour=21))

@@ -10,9 +10,29 @@ def codes(result) -> list:
     return [reason.code for reason in result.reasons]
 
 
+class FakeDict:
+    """O DICT de mentira: devolve o que o factory deixou em destination.dict e conta as consultas."""
+
+    def __init__(self, features) -> None:
+        self.answer = features.destination.dict
+        self.calls = 0
+        features.destination.dict = None
+
+    def __call__(self):
+        self.calls = self.calls + 1
+        return self.answer
+
+
+def evaluate(features, fake_dict=None):
+    if fake_dict is None:
+        fake_dict = FakeDict(features)
+
+    return RulesEngine().evaluate(features, fake_dict)
+
+
 class TestRulesEngine:
     def test_clean_pix_is_approved_without_reasons(self):
-        result = RulesEngine().evaluate(clean_features())
+        result = evaluate(clean_features())
 
         assert result.status == APPROVED
         assert result.reasons == []
@@ -23,7 +43,7 @@ class TestRulesEngine:
         features.payer.current_period.limit = 100000
         features.payer.current_period.outflow.amount = 80000
 
-        result = RulesEngine().evaluate(features)
+        result = evaluate(features)
 
         assert result.status == REJECTED
         assert codes(result) == ["limit_exceeded"]
@@ -33,14 +53,14 @@ class TestRulesEngine:
         features.payer.current_period.limit = 100000
         features.payer.current_period.outflow.amount = 80000
 
-        assert RulesEngine().evaluate(features).status == APPROVED
+        assert evaluate(features).status == APPROVED
 
     def test_dict_marker_on_account_or_owner_rejects(self):
         for subject in ("account", "owner"):
             features = clean_features()
             features.destination.dict.response[subject]["fraud_markers"] = [MULE_MARKER]
 
-            result = RulesEngine().evaluate(features)
+            result = evaluate(features)
 
             assert result.status == REJECTED, subject
             assert codes(result) == ["dict_fraud_marker"]
@@ -50,14 +70,14 @@ class TestRulesEngine:
         features.destination.dict.status = DICT_FALLBACK
         features.destination.dict.response["account"]["fraud_markers"] = [MULE_MARKER]
 
-        assert RulesEngine().evaluate(features).status == REJECTED
+        assert evaluate(features).status == REJECTED
 
     def test_external_destination_without_dict_asks_two_factor(self):
         features = clean_features()
         features.destination.dict.status = DICT_UNAVAILABLE
         features.destination.dict.response = None
 
-        result = RulesEngine().evaluate(features)
+        result = evaluate(features)
 
         assert result.status == TWO_FACTOR_REQUIRED
         assert codes(result) == ["dict_unavailable"]
@@ -69,18 +89,29 @@ class TestRulesEngine:
         features.destination.dict.status = DICT_UNAVAILABLE
         features.destination.dict.response = None
 
-        assert RulesEngine().evaluate(features).status == APPROVED
+        assert evaluate(features).status == APPROVED
 
-    def test_most_severe_wins_and_every_reason_is_kept(self):
+    def test_limit_rejects_before_consulting_the_dict(self):
+        """Regra dura que já rejeita: o DICT nem é consultado."""
         features = clean_features(amount=200000)
         features.payer.current_period.limit = 100000
-        features.destination.dict.status = DICT_UNAVAILABLE
-        features.destination.dict.response = None
+        fake_dict = FakeDict(features)
 
-        result = RulesEngine().evaluate(features)
+        result = evaluate(features, fake_dict)
 
         assert result.status == REJECTED
-        assert codes(result) == ["limit_exceeded", "dict_unavailable"]
+        assert codes(result) == ["limit_exceeded"]
+        assert fake_dict.calls == 0
+        assert features.destination.dict is None
+
+    def test_passing_the_hard_rules_consults_the_dict_once(self):
+        features = clean_features()
+        fake_dict = FakeDict(features)
+
+        evaluate(features, fake_dict)
+
+        assert fake_dict.calls == 1
+        assert features.destination.dict is fake_dict.answer
 
 
 class TestCountFraudMarkers:

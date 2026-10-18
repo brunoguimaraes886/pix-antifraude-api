@@ -88,7 +88,9 @@ diário.
 1. Recusas operacionais primeiro. Pagador desconhecido (ou de outro
    titular) para ali; as demais se somam (bloqueada **e** sem saldo são
    dois motivos).
-2. Depois o motor: todas as regras rodam, e a decisão é a **mais severa**
+2. Depois o motor, em duas fases: primeiro as regras duras que não
+   dependem do DICT (o limite). Se já rejeitam, o DICT nem é consultado.
+   Senão, o motor consulta o DICT e roda o resto. A decisão é a **mais severa**
    (`rejected` > `two_factor_required` > `approved`). Os motivos são todos
    os que dispararam.
 3. `approved` sai sem motivos. `two_factor_required` não movimenta saldo

@@ -7,26 +7,29 @@ ele respondeu.
 ```
 POST /pix/transaction
   → recusas operacionais (conta inexistente, bloqueada, sem saldo...)
-  → resumo diário + DICT + histórico  ──►  Features
-                                             │
-                                   motor.evaluate(features)
-                                             │
-                                             ▼
-                                        EngineResult(status, reasons, score)
+  → resumo diário + histórico  ──►  Features (sem o DICT)
+                                      │
+                      motor.evaluate(features, consult_dict)
+                        1. regras duras (limite) → rejeitou? para aqui
+                        2. consult_dict() → features.destination.dict
+                        3. regras que dependem do DICT (e o score)
+                                      │
+                                      ▼
+                                 EngineResult(status, reasons, score)
   → grava a análise (status, motivos, latência, features, DICT)
   → approved? movimenta saldo e extrato
 ```
 
 ## O contrato
 
-Tudo em `src/engine/`, sem nenhuma dependência de banco, HTTP ou relógio:
+Tudo em `src/engine/`, sem abrir banco, HTTP ou relógio por conta própria. A consulta ao DICT chega como função (`consult_dict`): o motor decide se e quando chamá-la, e nos testes ela é uma função falsa.
 
 | Arquivo | O que tem |
 |---|---|
 | `features.py` | `Features`: a entrada do motor (dataclasses, com a descrição de cada campo) |
 | `result.py` | `EngineResult(status, reasons, score)` e os três status |
 | `reasons.py` | o catálogo de motivos (`Reason(code, message)`) |
-| `base.py` | `FraudEngine`: a interface — um método, `evaluate(features) -> EngineResult` |
+| `base.py` | `FraudEngine`: a interface — um método, `evaluate(features, consult_dict) -> EngineResult` |
 | `rules_engine.py` | o motor **provisório** (só vetos) |
 | `__init__.py` | `get_engine()`: qual motor está em uso |
 
@@ -36,7 +39,7 @@ Tudo em `src/engine/`, sem nenhuma dependência de banco, HTTP ou relógio:
 |---|---|
 | `transaction` | valor, data, hora local, período (`day`/`night`), valor ÷ saldo, ÷ média e ÷ p90 de saída |
 | `payer` | perfil (PF/PJ, idade), idade da conta, saldo, limites, bloqueio em vigor, resumo diário (`baseline`), fluxo das últimas 24h, período atual e período anterior |
-| `destination` | conta nossa ou de outro banco, idade da conta, PF/PJ, histórico de tudo que já chegou para ela, resposta do DICT (`ok` / `fallback` / `unavailable`) e — se for conta nossa — o mesmo bloco completo do pagador |
+| `destination` | conta nossa ou de outro banco, idade da conta, PF/PJ, histórico de tudo que já chegou para ela, resposta do DICT (`ok` / `fallback` / `unavailable`; vazia até o motor consultar) e — se for conta nossa — o mesmo bloco completo do pagador |
 | `relationship` | o pagador já pagou esse destino? quanto, quantas vezes, em quantos dias; o destino já pagou o pagador? |
 | `device` | aparelho e IP já usados? quantos aparelhos em 30 dias; distância e minutos desde o último Pix com localização |
 | `velocity` | tentativas na última hora, 24h e no período (2FA e rejeitado contam) e segundos desde a última |

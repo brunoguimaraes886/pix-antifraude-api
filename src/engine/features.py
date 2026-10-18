@@ -131,7 +131,7 @@ class DestinationFeatures:
     account_age_days: int           # externa: opening_date do payload; nossa: do banco
     account: Optional[InternalAccountFeatures]  # só quando a conta é nossa
     history: DestinationHistoryFeatures
-    dict: DictFeatures
+    dict: Optional[DictFeatures]    # preenchido pelo motor; vazio se ele parou antes do DICT
 
 
 @dataclass

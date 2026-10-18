@@ -12,6 +12,7 @@ from controllers.feature_controller import FeatureController
 from controllers.manual_release_controller import ManualReleaseController
 from dtos import PixTransactionDTO
 from engine import EngineResult, Features, get_engine
+from engine.base import DictConsult
 from engine.features import DICT_OK, DictFeatures
 from engine.reasons import (
     ACCOUNT_BLOCKED,
@@ -44,8 +45,8 @@ class PixTransactionController(BaseController):
         3. grava o Pix           → tudo que chega fica no banco
         4. conferências          → recusas operacionais, antes do motor
         5. resumo diário         → calcula no primeiro Pix do dia da conta
-        6. DICT                  → consulta, ou fallback
-        7. features → motor      → a decisão
+        6. features              → tudo que o motor vai ver, menos o DICT
+        7. motor                 → regras duras; se passar, DICT (ou fallback) e o resto
         8. liberação manual      → barrado por suspeita e liberado? aprova
         9. grava a análise       → status, motivos, latência, features
        10. aprovado? movimenta   → saldo e extrato, só no approved
@@ -130,20 +131,20 @@ class PixTransactionController(BaseController):
         if destination_account is not None:
             destination_baseline = baseline_controller.get_or_create(destination_account, moment)
 
-        dict_features = DictController().consult(pix)
-
         features = FeatureController().build(
-            pix, moment, payer, payer_baseline, destination_account, destination_baseline, dict_features
+            pix, moment, payer, payer_baseline, destination_account, destination_baseline
         )
 
-        result = self._evaluate(features)
+        # O motor decide se e quando consultar o DICT (depois das regras
+        # duras); a resposta volta em features.destination.dict.
+        result = self._evaluate(features, lambda: DictController().consult(pix))
 
         released = ManualReleaseController().apply(pix, result)
         if released is not None:
             result = released
 
         analysis = self._save_analysis(
-            pix, result.status, result.reasons, started_at, result.score, features, dict_features
+            pix, result.status, result.reasons, started_at, result.score, features, features.destination.dict
         )
 
         if result.status == AnalysisStatus.APPROVED:
@@ -209,7 +210,7 @@ class PixTransactionController(BaseController):
     # O motor
     # ────────────────────────────────────────────────────────────────
 
-    def _evaluate(self, features: Features) -> EngineResult:
+    def _evaluate(self, features: Features, consult_dict: DictConsult) -> EngineResult:
         """Chama o motor — e não deixa um motor quebrado decidir sozinho.
 
         Se o motor levantar exceção ou devolver um status que não existe, o
@@ -217,7 +218,7 @@ class PixTransactionController(BaseController):
         `engine_error`, e o erro vai pro log com a pilha inteira.
         """
         try:
-            result = get_engine().evaluate(features)
+            result = get_engine().evaluate(features, consult_dict)
         except Exception:
             self.logger.exception(f"O motor falhou no Pix {features.transaction.pix_id}")
             return EngineResult(status=AnalysisStatus.TWO_FACTOR_REQUIRED, reasons=[ENGINE_ERROR])

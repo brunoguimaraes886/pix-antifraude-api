@@ -10,7 +10,6 @@ from engine.features import (
     DestinationFeatures,
     DestinationHistoryFeatures,
     DeviceFeatures,
-    DictFeatures,
     Features,
     FlowSideFeatures,
     FlowWindowFeatures,
@@ -53,7 +52,6 @@ class FeatureController(BaseController):
         payer_baseline: AccountBaseline,
         destination_account: Optional[Account],
         destination_baseline: Optional[AccountBaseline],
-        dict_features: DictFeatures,
     ) -> Features:
         payer_features = self._internal_account(payer, payer_baseline, moment)
 
@@ -64,7 +62,7 @@ class FeatureController(BaseController):
         return Features(
             transaction=self._transaction(pix, moment, payer_features),
             payer=payer_features,
-            destination=self._destination(pix, moment, destination_account, destination_account_features, dict_features),
+            destination=self._destination(pix, moment, destination_account, destination_account_features),
             relationship=self._relationship(pix, moment, payer),
             device=self._device(pix, moment, payer),
             velocity=self._velocity(pix, moment, payer),
@@ -151,7 +149,6 @@ class FeatureController(BaseController):
         moment: datetime,
         destination_account: Optional[Account],
         destination_account_features: Optional[InternalAccountFeatures],
-        dict_features: DictFeatures,
     ) -> DestinationFeatures:
         destination = _destination_tuple(pix)
 
@@ -172,7 +169,7 @@ class FeatureController(BaseController):
             account_age_days=(moment - opening_date).days,
             account=destination_account_features,
             history=DestinationHistoryFeatures(**history),
-            dict=dict_features,
+            dict=None,
         )
 
     def _relationship(self, pix: PixTransaction, moment: datetime, payer: Account) -> RelationshipFeatures:
