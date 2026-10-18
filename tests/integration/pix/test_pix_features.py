@@ -68,7 +68,7 @@ class TestFlowFeatures:
         assert current["kind"] == "night"
         assert current["is_current"] is True
         assert current["limit"] == 100000
-        assert current["start"] == "2026-10-14T22:00:00-03:00"
+        assert current["start"] == "2026-10-14T20:00:00-03:00"
         assert current["end"] == "2026-10-14T23:00:00-03:00"
         assert current["outflow"]["amount"] == 30000
 
@@ -76,7 +76,7 @@ class TestFlowFeatures:
         assert previous["is_current"] is False
         assert previous["limit"] == 1000000
         assert previous["start"] == "2026-10-14T06:00:00-03:00"
-        assert previous["end"] == "2026-10-14T22:00:00-03:00"
+        assert previous["end"] == "2026-10-14T20:00:00-03:00"
         assert previous["outflow"]["amount"] == 20000
         assert previous["inflow"]["amount"] == 70000
 
@@ -186,7 +186,7 @@ class TestHistoryFeatures:
         assert history["approved_amount"] == 3000
 
     def test_device_velocity_and_location(self):
-        payer = Scenario.internal_account(balance=500000)
+        payer = Scenario.internal_account(balance=500000, registered_device=False)
         destination = Scenario.external_account()
         DictMock.GET_account_connection_dropped(destination)
 

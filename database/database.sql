@@ -33,7 +33,8 @@ CREATE TABLE account(
     opening_date                    TIMESTAMPTZ NOT NULL,
     -- Saldo atual. Nasce no seed e só muda com Pix aprovado.
     balance                         BIGINT NOT NULL,
-    -- Limite do período diurno (6h–22h) e do noturno (22h–6h).
+    -- Limite do período diurno (6h–20h) e do noturno (20h–6h). O noturno só
+    -- vale entre pessoas físicas distintas (Res. 142, art. 2º).
     daily_limit                     BIGINT NOT NULL,
     nightly_limit                   BIGINT NOT NULL,
     created_at                      TIMESTAMPTZ NOT NULL DEFAULT(NOW()),
@@ -59,6 +60,21 @@ CREATE TABLE account_block(
 
 CREATE INDEX ix_account_block_account ON account_block(account_id);
 
+-- Listas restritivas: sanções do CSNU (ONU), operadoras de apostas e
+-- ordens judiciais. Carregadas no seed; na vida real vêm de fora (lista do
+-- CSNU, Secretaria de Prêmios e Apostas, Judiciário).
+CREATE TABLE restricted_party(
+    id                              SERIAL PRIMARY KEY,
+    document_number                 VARCHAR(14) NOT NULL,
+    -- csnu, bets ou court_order.
+    list                            VARCHAR(20) NOT NULL,
+    reason                          VARCHAR(255) NOT NULL,
+    listed_at                       DATE NOT NULL,
+    created_at                      TIMESTAMPTZ NOT NULL DEFAULT(NOW()),
+    UNIQUE(document_number, list),
+    CHECK (list IN ('csnu', 'bets', 'court_order'))
+);
+
 
 -- ── Resumo diário do histórico (o "habitual" da conta) ──────────
 -- Uma linha por conta por dia, calculada sob demanda no primeiro Pix do
@@ -77,7 +93,11 @@ CREATE TABLE account_baseline(
     avg_daily_in_count              NUMERIC(10, 2),
     -- Dias da janela em que a conta já existia (0 a 30).
     history_days                    INTEGER NOT NULL,
-    -- Todo o histórico da conta, não só os 30 dias.
+    -- Fração dos Pix de saída da janela no período noturno (20h–6h).
+    night_out_share                 NUMERIC(5, 4),
+    -- Todo o histórico da conta, não só os 30 dias. Os Pix rejeitados
+    -- contam só os rejeitados por suspeita (não os por limite ou motivo
+    -- operacional).
     account_block_count             INTEGER NOT NULL,
     rejected_pix_out_count          INTEGER NOT NULL,
     rejected_pix_in_count           INTEGER NOT NULL,
@@ -121,6 +141,10 @@ CREATE INDEX ix_pix_transaction_destination
 CREATE INDEX ix_pix_transaction_destination_document ON pix_transaction(destination_document_number);
 CREATE INDEX ix_pix_transaction_destination_account ON pix_transaction(destination_account_id);
 CREATE INDEX ix_pix_transaction_device ON pix_transaction(source_account_id, device_id);
+CREATE INDEX ix_pix_transaction_source_destination ON pix_transaction(
+    source_account_id, destination_participant, destination_branch, destination_account_number, transaction_date
+);
+CREATE INDEX ix_pix_transaction_device_date ON pix_transaction(device_id, transaction_date);
 
 -- Só dinheiro que de fato moveu: Pix aprovado (uma linha "out" no
 -- pagador e, se o destino for nosso, uma "in" no recebedor) ou o
@@ -166,7 +190,8 @@ CREATE TABLE transaction_analysis(
     analysis_key                    CHAR(36) NOT NULL,
     pix_transaction_id              INTEGER NOT NULL REFERENCES pix_transaction(id),
     status_id                       INTEGER NOT NULL REFERENCES analysis_status(id),
-    -- Vazio quando o motor não calcula um número.
+    -- Os pontos do motor (escala de log-odds). Vazio quando o Pix parou
+    -- antes do score (recusa operacional ou regra dura sem DICT).
     score                           DOUBLE PRECISION,
     latency_ms                      INTEGER NOT NULL,
     -- Tudo que o motor recebeu. Vazio quando o Pix parou antes do motor
@@ -175,6 +200,12 @@ CREATE TABLE transaction_analysis(
     -- A resposta do DICT desta consulta. Vazio = o DICT não respondeu.
     dict_response                   JSONB,
     dict_fetched_at                 TIMESTAMPTZ,
+    -- Camada interna da decisão: sinais com pontos, P, ρ, ameaça, alertas
+    -- de PLD. Nunca sai na resposta da API.
+    decision                        JSONB,
+    -- Camada pública: alerta ao cliente (só no 2FA) e retenção recomendada.
+    alert                           VARCHAR(255),
+    hold_recommended                BOOLEAN NOT NULL DEFAULT FALSE,
     created_at                      TIMESTAMPTZ NOT NULL DEFAULT(NOW()),
     UNIQUE(analysis_key),
     UNIQUE(pix_transaction_id)
@@ -190,6 +221,8 @@ CREATE TABLE analysis_reason(
     analysis_id                     INTEGER NOT NULL REFERENCES transaction_analysis(id),
     reason_code                     VARCHAR(50) NOT NULL,
     message                         VARCHAR(255) NOT NULL,
+    -- Pontos do sinal no score. Vazio nas regras duras e operacionais.
+    points                          INTEGER,
     created_at                      TIMESTAMPTZ NOT NULL DEFAULT(NOW())
 );
 
@@ -201,8 +234,9 @@ CREATE INDEX ix_analysis_reason_analysis ON analysis_reason(analysis_id);
 -- API) e um operador libera AQUELE Pix: mesmo pagador, mesmo destino,
 -- até um valor, até uma data. Uso único.
 --
--- A liberação desfaz a suspeita, não o limite: limit_exceeded,
--- dict_fraud_marker e engine_error continuam valendo, e as recusas
+-- A liberação desfaz a suspeita, não a obrigação: limite, marcação de
+-- fraude no DICT, sanções, apostas, destino bloqueado, regras do aparelho
+-- não cadastrado e engine_error continuam valendo, e as recusas
 -- operacionais (saldo, conta bloqueada) param o Pix antes dela.
 
 CREATE TABLE manual_release(

@@ -1,10 +1,11 @@
 from datetime import datetime
-from typing import Optional
+from typing import Dict, List, Optional, Tuple
 
-from sqlalchemy import and_, distinct, func
+from sqlalchemy import and_, distinct, func, or_, select
 
 from database import Context
-from models import Account, AnalysisStatus, PixTransaction, TransactionAnalysis
+from engine.reasons import NOT_SUSPICION_CODES, OPERATIONAL_CODES
+from models import Account, AnalysisReason, AnalysisStatus, PixTransaction, TransactionAnalysis
 from utils.document_number import only_digits
 
 
@@ -13,6 +14,43 @@ def destination_filter(participant: str, branch: str, account_number: str):
         PixTransaction.destination_participant == participant,
         PixTransaction.destination_branch == branch,
         PixTransaction.destination_account_number == account_number,
+    )
+
+
+def destination_or_document_filter(destination: tuple, document_number: str):
+    """Mesmo destino = mesma conta OU mesmo CPF/CNPJ (o golpista troca de conta, não de CPF)."""
+    return or_(destination_filter(*destination), PixTransaction.destination_document_number == document_number)
+
+
+def _pix_with_reason(condition, statuses=None):
+    """Os Pix cuja análise tem algum motivo que atende `condition` (e, se pedido, um destes status)."""
+    query = select(TransactionAnalysis.pix_transaction_id).join(
+        AnalysisReason, AnalysisReason.analysis_id == TransactionAnalysis.id
+    )
+
+    if statuses is not None:
+        query = query.join(AnalysisStatus, AnalysisStatus.id == TransactionAnalysis.status_id).where(
+            AnalysisStatus.enumerator.in_(statuses)
+        )
+
+    return query.where(condition)
+
+
+def not_operational():
+    """Tira as recusas operacionais (sem saldo, conta inexistente): não dizem nada sobre fraude."""
+    return PixTransaction.id.notin_(_pix_with_reason(AnalysisReason.reason_code.in_(OPERATIONAL_CODES)))
+
+
+def suspicion(statuses: list):
+    """Pix barrado por suspeita: algum motivo que não é limite nem operacional."""
+    return PixTransaction.id.in_(_pix_with_reason(AnalysisReason.reason_code.notin_(NOT_SUSPICION_CODES), statuses))
+
+
+def approved():
+    return PixTransaction.id.in_(
+        select(TransactionAnalysis.pix_transaction_id)
+        .join(AnalysisStatus, AnalysisStatus.id == TransactionAnalysis.status_id)
+        .where(AnalysisStatus.enumerator == AnalysisStatus.APPROVED)
     )
 
 
@@ -201,12 +239,259 @@ class PixTransactionRepository:
         )
 
     def count_attempts(self, source_account_id: int, since: datetime, before: datetime, exclude_id: int) -> int:
-        """Tentativas do pagador em [since, before) — qualquer decisão conta."""
+        """Tentativas do pagador em [since, before): qualquer decisão do motor conta.
+
+        As recusas operacionais (sem saldo, conta inexistente) ficam de fora:
+        não dizem nada sobre fraude.
+        """
         return (
             self.session.query(func.count(PixTransaction.id))
             .filter(
                 PixTransaction.source_account_id == source_account_id,
                 PixTransaction.transaction_date >= since,
+                PixTransaction.transaction_date < before,
+                PixTransaction.id != exclude_id,
+                not_operational(),
+            )
+            .scalar()
+        )
+
+    # ────────────────────────────────────────────────────────────────
+    # Relação com o destino nas últimas 24h (insistência, fracionamento)
+    # ────────────────────────────────────────────────────────────────
+
+    def relationship_24h(
+        self,
+        source_account_id: int,
+        destination: tuple,
+        document_number: str,
+        since: datetime,
+        before: datetime,
+        exclude_id: int,
+    ) -> dict:
+        window = [
+            PixTransaction.source_account_id == source_account_id,
+            PixTransaction.transaction_date >= since,
+            PixTransaction.transaction_date < before,
+            PixTransaction.id != exclude_id,
+            not_operational(),
+        ]
+        same_account = destination_filter(*destination)
+
+        attempts = self.session.query(func.count(PixTransaction.id)).filter(*window, same_account).scalar()
+
+        last_attempt = (
+            self.session.query(PixTransaction.amount)
+            .filter(*window, same_account)
+            .order_by(PixTransaction.transaction_date.desc(), PixTransaction.id.desc())
+            .first()
+        )
+
+        blocked = (
+            self.session.query(func.count(PixTransaction.id))
+            .filter(*window, same_account, suspicion([AnalysisStatus.TWO_FACTOR_REQUIRED, AnalysisStatus.REJECTED]))
+            .scalar()
+        )
+
+        fraud_rejections = (
+            self.session.query(func.count(PixTransaction.id))
+            .filter(
+                *window,
+                destination_or_document_filter(destination, document_number),
+                suspicion([AnalysisStatus.REJECTED]),
+            )
+            .scalar()
+        )
+
+        return {
+            "attempts_to_destination_24h": attempts,
+            "last_attempt_amount": last_attempt[0] if last_attempt is not None else None,
+            "blocked_attempts_24h": blocked,
+            "fraud_rejections_24h": fraud_rejections,
+        }
+
+    # ────────────────────────────────────────────────────────────────
+    # O destino visto por OUTROS clientes nossos
+    # ────────────────────────────────────────────────────────────────
+
+    def new_payers(
+        self,
+        destination: tuple,
+        document_number: str,
+        source_account_id: int,
+        since: datetime,
+        before: datetime,
+        exclude_id: int,
+    ) -> int:
+        """Outros pagadores cujo PRIMEIRO Pix para este destino caiu em [since, before) — o fan-in."""
+        first_by_payer = (
+            self.session.query(
+                PixTransaction.source_account_id,
+                func.min(PixTransaction.transaction_date).label("first_at"),
+            )
+            .filter(
+                destination_or_document_filter(destination, document_number),
+                PixTransaction.source_account_id.isnot(None),
+                PixTransaction.source_account_id != source_account_id,
+                PixTransaction.transaction_date < before,
+                PixTransaction.id != exclude_id,
+                not_operational(),
+            )
+            .group_by(PixTransaction.source_account_id)
+            .subquery()
+        )
+
+        return (
+            self.session.query(func.count())
+            .select_from(first_by_payer)
+            .filter(first_by_payer.c.first_at >= since)
+            .scalar()
+        )
+
+    def fraud_rejected_payers(
+        self,
+        destination: tuple,
+        document_number: str,
+        source_account_id: int,
+        since: datetime,
+        before: datetime,
+        exclude_id: int,
+    ) -> int:
+        """Outros pagadores com Pix para este destino rejeitado por suspeita SOBRE O DESTINO.
+
+        "Sobre o destino" é o que o motor gravou em `decision`: a família
+        destino dominou o score ou uma regra do DICT disparou.
+        """
+        return (
+            self.session.query(func.count(distinct(PixTransaction.source_account_id)))
+            .join(TransactionAnalysis, TransactionAnalysis.pix_transaction_id == PixTransaction.id)
+            .join(AnalysisStatus, AnalysisStatus.id == TransactionAnalysis.status_id)
+            .filter(
+                destination_or_document_filter(destination, document_number),
+                PixTransaction.source_account_id.isnot(None),
+                PixTransaction.source_account_id != source_account_id,
+                PixTransaction.transaction_date >= since,
+                PixTransaction.transaction_date < before,
+                PixTransaction.id != exclude_id,
+                AnalysisStatus.enumerator == AnalysisStatus.REJECTED,
+                TransactionAnalysis.decision["destination_evidence"].astext == "true",
+            )
+            .scalar()
+        )
+
+    # ────────────────────────────────────────────────────────────────
+    # Aparelho cadastrado (IN BCB 491): uso aprovado em dias distintos
+    # ────────────────────────────────────────────────────────────────
+
+    def device_registration(
+        self, source_account_id: int, device_ids: List[str], since: datetime, before: datetime, exclude_id: int
+    ) -> Dict[str, Tuple[int, Optional[datetime], Optional[datetime]]]:
+        """Por aparelho: (dias distintos com Pix aprovado, primeiro aprovado, último uso).
+
+        Só a janela [since, before): aparelho sem uso há mais de 12 meses
+        deixa de ser cadastrado.
+        """
+        if not device_ids:
+            return {}
+
+        window = [
+            PixTransaction.source_account_id == source_account_id,
+            PixTransaction.device_id.in_(device_ids),
+            PixTransaction.transaction_date >= since,
+            PixTransaction.transaction_date < before,
+            PixTransaction.id != exclude_id,
+        ]
+
+        approved_rows = (
+            self.session.query(
+                PixTransaction.device_id,
+                func.count(distinct(func.date(PixTransaction.transaction_date))),
+                func.min(PixTransaction.transaction_date),
+            )
+            .filter(*window, approved())
+            .group_by(PixTransaction.device_id)
+            .all()
+        )
+        last_used_rows = (
+            self.session.query(PixTransaction.device_id, func.max(PixTransaction.transaction_date))
+            .filter(*window)
+            .group_by(PixTransaction.device_id)
+            .all()
+        )
+
+        approved_by_device = {device: (days, first) for device, days, first in approved_rows}
+        result = {}
+        for device, last_used_at in last_used_rows:
+            days, first = approved_by_device.get(device, (0, None))
+            result[device] = (days, first, last_used_at)
+
+        return result
+
+    def approved_devices_count(self, source_account_id: int, before: datetime, exclude_id: int) -> int:
+        return (
+            self.session.query(func.count(distinct(PixTransaction.device_id)))
+            .filter(
+                PixTransaction.source_account_id == source_account_id,
+                PixTransaction.transaction_date < before,
+                PixTransaction.id != exclude_id,
+                approved(),
+            )
+            .scalar()
+        )
+
+    def approved_by_device(self, source_account_id: int, since: datetime, before: datetime, exclude_id: int) -> list:
+        """(aparelho, valor) de cada Pix aprovado do pagador em [since, before)."""
+        return (
+            self.session.query(PixTransaction.device_id, PixTransaction.amount)
+            .filter(
+                PixTransaction.source_account_id == source_account_id,
+                PixTransaction.transaction_date >= since,
+                PixTransaction.transaction_date < before,
+                PixTransaction.id != exclude_id,
+                approved(),
+            )
+            .all()
+        )
+
+    def devices_with_amount_between(
+        self, source_account_id: int, minimum: int, maximum: int, since: datetime, before: datetime, exclude_id: int
+    ) -> List[str]:
+        """O aparelho de cada Pix do pagador com valor em [minimum, maximum], sem as recusas operacionais."""
+        rows = (
+            self.session.query(PixTransaction.device_id)
+            .filter(
+                PixTransaction.source_account_id == source_account_id,
+                PixTransaction.amount >= minimum,
+                PixTransaction.amount <= maximum,
+                PixTransaction.transaction_date >= since,
+                PixTransaction.transaction_date < before,
+                PixTransaction.id != exclude_id,
+                not_operational(),
+            )
+            .all()
+        )
+
+        return [row[0] for row in rows]
+
+    def other_accounts_with_device(self, device_id: str, source_account_id: int, since: datetime, before: datetime) -> int:
+        return (
+            self.session.query(func.count(distinct(PixTransaction.source_account_id)))
+            .filter(
+                PixTransaction.device_id == device_id,
+                PixTransaction.source_account_id.isnot(None),
+                PixTransaction.source_account_id != source_account_id,
+                PixTransaction.transaction_date >= since,
+                PixTransaction.transaction_date < before,
+            )
+            .scalar()
+        )
+
+    def channel_previous_uses(self, source_account_id: int, channel: str, before: datetime, exclude_id: int) -> int:
+        return (
+            self.session.query(func.count(PixTransaction.id))
+            .filter(
+                PixTransaction.source_account_id == source_account_id,
+                PixTransaction.channel == channel,
                 PixTransaction.transaction_date < before,
                 PixTransaction.id != exclude_id,
             )

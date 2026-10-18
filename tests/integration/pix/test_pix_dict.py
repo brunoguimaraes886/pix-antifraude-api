@@ -1,6 +1,7 @@
 import time
+from datetime import datetime, timedelta
 
-from tests.utils import DictMock, PayloadGenerator, RandomGenerator, RequestGenerator, Scenario
+from tests.utils import SAO_PAULO, DictMock, PayloadGenerator, RandomGenerator, RequestGenerator, Scenario
 
 MULE_MARKER = {"type": "MULE_ACCOUNT", "created_at": "2026-09-30T10:00:00-03:00"}
 
@@ -48,14 +49,16 @@ class TestDictFallback:
     """DICT fora do ar: vale a última análise do mesmo destino (conta ou CPF/CNPJ)."""
 
     def test_uses_the_last_analysis_of_the_same_account(self):
-        payer = Scenario.internal_account()
-        destination = Scenario.external_account()
+        # Conta nova: a marcação recente do DICT tem o reforço e rejeita.
+        destination = Scenario.external_account(opening_date=datetime.now(SAO_PAULO) - timedelta(days=60))
 
         DictMock.GET_account(destination, account_markers=[MULE_MARKER])
-        RequestGenerator.POST_pix_transaction(PayloadGenerator.pix(payer, destination))
+        RequestGenerator.POST_pix_transaction(PayloadGenerator.pix(Scenario.internal_account(), destination))
 
+        # Outro pagador: o mesmo pagador nem chegaria ao DICT (insistência
+        # depois de uma rejeição por suspeita rejeita antes).
         DictMock.GET_account_connection_dropped(destination)
-        payload = PayloadGenerator.pix(payer, destination)
+        payload = PayloadGenerator.pix(Scenario.internal_account(), destination)
         status, response = RequestGenerator.POST_pix_transaction(payload)
 
         features = dict_features(payload["id"])
@@ -116,7 +119,7 @@ class TestDictFallback:
 
         assert dict_features(payload["id"]) == {"status": "unavailable", "response": None, "fetched_at": None}
         assert response["status"] == "two_factor_required"
-        assert [reason["code"] for reason in response["metadata"]["reasons"]] == ["dict_unavailable"]
+        assert response["metadata"]["reasons"][0]["code"] == "dict_unavailable"
 
     def test_slow_dict_does_not_hold_the_pix(self):
         """O DICT demora 3s; a API desiste em 1s e decide sem ele."""

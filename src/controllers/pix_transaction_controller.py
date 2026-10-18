@@ -13,7 +13,7 @@ from controllers.manual_release_controller import ManualReleaseController
 from dtos import PixTransactionDTO
 from engine import EngineResult, Features, get_engine
 from engine.base import DictConsult
-from engine.features import DICT_OK, DictFeatures
+from engine.features import DICT_OK
 from engine.reasons import (
     ACCOUNT_BLOCKED,
     ACCOUNT_OWNER_MISMATCH,
@@ -46,7 +46,7 @@ class PixTransactionController(BaseController):
         4. conferências          → recusas operacionais, antes do motor
         5. resumo diário         → calcula no primeiro Pix do dia da conta
         6. features              → tudo que o motor vai ver, menos o DICT
-        7. motor                 → regras duras; se passar, DICT (ou fallback) e o resto
+        7. motor                 → regras duras; se passar, DICT (ou fallback), sinais e score
         8. liberação manual      → barrado por suspeita e liberado? aprova
         9. grava a análise       → status, motivos, latência, features
        10. aprovado? movimenta   → saldo e extrato, só no approved
@@ -143,9 +143,7 @@ class PixTransactionController(BaseController):
         if released is not None:
             result = released
 
-        analysis = self._save_analysis(
-            pix, result.status, result.reasons, started_at, result.score, features, features.destination.dict
-        )
+        analysis = self._save_analysis(pix, result.status, result.reasons, started_at, result, features)
 
         if result.status == AnalysisStatus.APPROVED:
             self._settle(pix, moment, payer, destination_account)
@@ -227,9 +225,12 @@ class PixTransactionController(BaseController):
             self.logger.error(f"O motor devolveu um resultado inválido no Pix {features.transaction.pix_id}: {result}")
             return EngineResult(status=AnalysisStatus.TWO_FACTOR_REQUIRED, reasons=[ENGINE_ERROR])
 
-        # Contrato da resposta: no approved, a lista de motivos vem vazia.
+        # Contrato da resposta: no approved, a lista de motivos vem vazia e
+        # não há alerta. O que o motor viu continua na camada interna.
         if result.status == AnalysisStatus.APPROVED:
             result.reasons = []
+            result.alert = None
+            result.hold_recommended = False
 
         return result
 
@@ -243,13 +244,13 @@ class PixTransactionController(BaseController):
         status: str,
         reasons: List[Reason],
         started_at: float,
-        score: Optional[float] = None,
+        result: Optional[EngineResult] = None,
         features: Optional[Features] = None,
-        dict_features: Optional[DictFeatures] = None,
     ) -> TransactionAnalysis:
         """Grava a decisão. A latência é medida aqui: do pedido até a decisão."""
         dict_response = None
         dict_fetched_at = None
+        dict_features = features.destination.dict if features is not None else None
 
         if dict_features is not None and dict_features.status == DICT_OK:
             dict_response = dict_features.response
@@ -264,10 +265,13 @@ class PixTransactionController(BaseController):
             status_enumerator=status,
             reasons=reasons,
             latency_ms=latency_ms,
-            score=score,
+            score=result.score if result is not None else None,
             features=features.to_dict() if features is not None else None,
             dict_response=dict_response,
             dict_fetched_at=dict_fetched_at,
+            decision=result.decision if result is not None else None,
+            alert=result.alert if result is not None else None,
+            hold_recommended=result.hold_recommended if result is not None else False,
         )
 
     def _settle(

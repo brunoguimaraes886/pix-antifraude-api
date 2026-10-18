@@ -1,91 +1,113 @@
-# O motor de decisão — como plugar
+# O motor de decisão por dentro
 
 O motor é a única parte que decide. Todo o resto da API existe para
 entregar a ele, pronto, tudo que se sabe sobre um Pix, e para gravar o que
-ele respondeu.
+ele respondeu. A especificação é o `4.2 - motor-pratica_claude.md` do repo
+de contexto; este documento diz onde cada parte dela mora no código.
 
 ```
 POST /pix/transaction
   → recusas operacionais (conta inexistente, bloqueada, sem saldo...)
   → resumo diário + histórico  ──►  Features (sem o DICT)
                                       │
-                      motor.evaluate(features, consult_dict)
-                        1. regras duras (limite) → rejeitou? para aqui
+                      ScorecardEngine.evaluate(features, consult_dict)
+                        1. medidas + regras duras sem DICT → rejeitou? para aqui
                         2. consult_dict() → features.destination.dict
-                        3. regras que dependem do DICT (e o score)
+                        3. regras duras do DICT
+                        4. sinais por família + assinaturas → pontos
+                        5. pontos → P e ρ → política (com o piso das regras duras)
+                        6. motivos, alerta, retenção, camada interna
                                       │
                                       ▼
-                                 EngineResult(status, reasons, score)
-  → grava a análise (status, motivos, latência, features, DICT)
-  → approved? movimenta saldo e extrato
+                     EngineResult(status, reasons, score, alert, hold_recommended, decision)
+  → liberação manual (se houver e o motivo for liberável)
+  → grava a análise; approved? movimenta saldo e extrato
 ```
 
-## O contrato
+## Os arquivos
 
-Tudo em `src/engine/`, sem abrir banco, HTTP ou relógio por conta própria. A consulta ao DICT chega como função (`consult_dict`): o motor decide se e quando chamá-la, e nos testes ela é uma função falsa.
+Tudo em `src/engine/`, sem abrir banco, HTTP ou relógio por conta própria.
+O "agora" é a data do próprio Pix; a consulta ao DICT chega como função.
 
-| Arquivo | O que tem |
+| Arquivo | O que tem | Seção do 4.2 |
+|---|---|---|
+| `features.py` | `Features`: a entrada do motor, com a descrição de cada campo | 4.2 |
+| `params.py` | **todos** os pesos, limiares e custos | 14 |
+| `measures.py` | medidas derivadas: p90 combinado (Bühlmann), fatia do saldo, razão de saída com o Pix, `inflow_jump`, dormência, aparelho cadastrado, idade das marcações do DICT | 4.1 |
+| `hard_rules.py` | regras duras, em duas fases (antes e depois do DICT) | 3 |
+| `signals/*.py` | um arquivo por família; cada sinal é uma função pura `(features, medidas) → Evidence` | 5 e 6 |
+| `scoring.py` | tetos por família, piso dos mitigantes, P e ρ | 7 |
+| `policy.py` | a política de custo | 8 |
+| `response.py` | camada pública (motivos, alerta, retenção, sigilo de PLD) e interna (ameaça, causa, base, PLD) | 9 |
+| `scorecard_engine.py` | junta tudo | 2 |
+| `reasons.py` | o catálogo de motivos e mensagens; quais são sensíveis a PLD e quais não são liberáveis | — |
+| `base.py`, `result.py` | a interface `FraudEngine` e o `EngineResult` | — |
+| `__init__.py` | `get_engine()`: qual motor está em uso | — |
+
+## O que a API monta para o motor
+
+Os campos que o motor usa e de onde vêm (`src/controllers/feature_controller.py`):
+
+| Campo | Origem |
 |---|---|
-| `features.py` | `Features`: a entrada do motor (dataclasses, com a descrição de cada campo) |
-| `result.py` | `EngineResult(status, reasons, score)` e os três status |
-| `reasons.py` | o catálogo de motivos (`Reason(code, message)`) |
-| `base.py` | `FraudEngine`: a interface — um método, `evaluate(features, consult_dict) -> EngineResult` |
-| `rules_engine.py` | o motor **provisório** (só vetos) |
-| `__init__.py` | `get_engine()`: qual motor está em uso |
+| `payer.restricted_list`, `destination.restricted_list` | tabela `restricted_party` |
+| `payer.unregistered_amount_today` | Pix aprovados hoje de aparelhos que não são cadastrados |
+| `payer.unregistered_near_limit_24h` | Pix de R$ 180–200 de aparelho não cadastrado em 24h |
+| `payer.baseline.night_out_share` | `account_baseline`: fração das saídas de 30 dias no período noturno |
+| `relationship.same_owner` | CPF/CNPJ do destino = do pagador |
+| `relationship.attempts_to_destination_24h`, `last_attempt_amount`, `blocked_attempts_24h`, `fraud_rejections_24h` | `pix_transaction` + análises das últimas 24h, sem recusas operacionais |
+| `relationship.matching_recent_inflow` | extrato: entrada de contraparte nova, ±5% do valor, em 24h |
+| `relationship.previous_in_amount`, `first_in_at` | extrato: o que o destino já pagou ao pagador |
+| `destination.history.new_payers_7d` | outros clientes nossos cujo primeiro Pix para o destino (conta ou CPF/CNPJ) foi em 7 dias |
+| `destination.history.fraud_rejected_payers_90d` | outros clientes com Pix para o destino rejeitado por suspeita sobre o destino (`decision.destination_evidence`) em 90 dias |
+| `device.approved_days`, `first_approved_at`, `last_used_at`, `approved_devices_count` | `pix_transaction` aprovados por aparelho (aparelho cadastrado e cold start) |
+| `device.other_accounts_last_30d`, `channel_previous_uses` | `pix_transaction` |
 
-### Entrada: `Features`
+"Rejeitado por suspeita" = rejeitado com algum motivo que não é limite nem
+operacional. É a mesma regra dos contadores do resumo diário.
 
-| Bloco | O que responde |
-|---|---|
-| `transaction` | valor, data, hora local, período (`day`/`night`), valor ÷ saldo, ÷ média e ÷ p90 de saída |
-| `payer` | perfil (PF/PJ, idade), idade da conta, saldo, limites, bloqueio em vigor, resumo diário (`baseline`), fluxo das últimas 24h, período atual e período anterior |
-| `destination` | conta nossa ou de outro banco, idade da conta, PF/PJ, histórico de tudo que já chegou para ela, resposta do DICT (`ok` / `fallback` / `unavailable`; vazia até o motor consultar) e — se for conta nossa — o mesmo bloco completo do pagador |
-| `relationship` | o pagador já pagou esse destino? quanto, quantas vezes, em quantos dias; o destino já pagou o pagador? |
-| `device` | aparelho e IP já usados? quantos aparelhos em 30 dias; distância e minutos desde o último Pix com localização |
-| `velocity` | tentativas na última hora, 24h e no período (2FA e rejeitado contam) e segundos desde a última |
+## Saída: `EngineResult`
 
-Cada janela de fluxo (`last_24h`, `current_period`, `previous_period`) traz:
-entrada e saída (valor, quantidade, contrapartes distintas, **novas** — nunca
-vistas antes da janela — e **repetidas** — 2+ vezes na janela), saldo no
-início, **taxa de passagem** (saída ÷ entrada) e **razão de saída**
-(saída ÷ (saldo no início + entrada)). Os períodos trazem também o `limit`
-(diurno = `daily_limit`, noturno = `nightly_limit`).
+- `status`: `approved`, `two_factor_required` ou `rejected`.
+- `reasons`: regras duras na ordem em que dispararam e depois os sinais, do
+  maior para o menor, com os pontos. Vão para `analysis_reason`. A API zera
+  a lista no `approved` (contrato da resposta).
+- `score`: os pontos do Pix (`transaction_analysis.score`).
+- `alert`, `hold_recommended`: a parte pública do alerta.
+- `decision`: a camada interna (`transaction_analysis.decision`).
 
-Convenções: centavos (int), datas com fuso, proporções em float e `None`
-quando não há base para a conta (sem histórico, divisão por zero) — "não
-sei" é diferente de 0.
-
-O `Features` inteiro fica gravado em `transaction_analysis.features`.
-`Features.from_dict(...)` reconstrói o objeto a partir desse JSON: dá pra
-reproduzir qualquer decisão antiga no motor novo.
-
-### Saída: `EngineResult`
-
-- `status`: `approved`, `two_factor_required` ou `rejected`
-- `reasons`: lista de `Reason` (vazia no `approved` — a API garante)
-- `score`: opcional; vai para `transaction_analysis.score`
+A resposta pública é montada no DTO a partir de `analysis_reason`
+(`engine.response.public_reasons`): regras duras e os 3 sinais de maior
+peso; os sensíveis a PLD viram `risk_policy`. A camada interna nunca sai.
 
 Se o motor levantar exceção ou devolver um status inválido, a API não
-aprova às cegas: responde `two_factor_required` com o motivo `engine_error`
-e escreve o erro no log.
+aprova às cegas: responde `two_factor_required` com `engine_error`.
+
+## Como calibrar
+
+1. Os números estão todos em `params.py` (prior, c₂ = R$ 3, cortes de 10% e
+   50%, ρ por família, tetos) e nos sinais (`signals/*.py`, os pontos de
+   cada faixa).
+2. Mudou um número? Rode `pytest tests/unit`: os cenários L e G
+   (`tests/unit/engine/test_scenarios.py`) mostram que decisão mudou.
+3. Para ver pontos, P e ρ de todos os cenários de uma vez:
+
+```bash
+python -c "import sys; sys.path.insert(0, 'src')
+from tests.unit.engine.test_scenarios import SCENARIOS
+from tests.unit.engine.engine_runner import evaluate
+for name, build, _ in SCENARIOS:
+    r = evaluate(build()); d = r.decision
+    print(name, r.score, round(d.get('probability', 0) * 100, 2), d.get('rho'), r.status)"
+```
+
+4. Em produção, cada fraude confirmada (MED) e cada falso positivo
+   recalculam o LR de cada sinal e os pontos viram `10 · log2(LR)`.
 
 ## Como trocar o motor
 
-1. Escreva uma classe que herda de `FraudEngine` (ou acrescente regras na
-   lista do `RulesEngine`).
-2. Motivo novo? Acrescente um `Reason` em `reasons.py`.
+1. Escreva uma classe que herda de `FraudEngine`.
+2. Motivo novo? Acrescente em `reasons.py` (sinais em `SIGNALS`).
 3. Troque a linha do `get_engine()` em `src/engine/__init__.py`.
 
 Nada fora de `src/engine/` precisa mudar.
-
-## Como testar o motor sozinho
-
-Os testes do motor são unitários e não precisam de Docker:
-
-```bash
-pytest tests/unit
-```
-
-`tests/unit/engine/features_factory.py` monta um `Features` de cliente
-comum (`clean_features()`); cada teste altera só o campo da regra que
-testa. Veja `tests/unit/engine/test_rules_engine.py`.

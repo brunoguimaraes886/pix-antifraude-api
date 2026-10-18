@@ -41,7 +41,7 @@ class TestEngineRulesThroughTheApi:
 
     def test_what_left_during_the_day_does_not_eat_the_night_limit(self):
         payer = Scenario.internal_account(nightly_limit=100000)
-        Scenario.statement(payer, "out", 80000, NIGHT_MOMENT.replace(hour=21))
+        Scenario.statement(payer, "out", 80000, NIGHT_MOMENT.replace(hour=19))
 
         status, response = RequestGenerator.POST_pix_transaction(
             PayloadGenerator.pix(payer, Scenario.external_account(), amount=30000, transaction_date=NIGHT_MOMENT)
@@ -79,17 +79,17 @@ class TestEngineRulesThroughTheApi:
 
     def test_dict_fraud_marker_rejects(self):
         payer = Scenario.internal_account()
-        destination = Scenario.external_account()
+        destination = Scenario.external_account(opening_date=DAY_MOMENT - timedelta(days=60))
         DictMock.GET_account(destination, account_markers=[MULE_MARKER])
 
         status, response = RequestGenerator.POST_pix_transaction(PayloadGenerator.pix(payer, destination))
 
         assert response["status"] == "rejected"
-        assert reason_codes(response) == ["dict_fraud_marker"]
+        assert reason_codes(response)[0] == "dict_fraud_marker"
 
     def test_dict_marker_on_the_owner_also_rejects(self):
         payer = Scenario.internal_account()
-        destination = Scenario.external_account()
+        destination = Scenario.external_account(opening_date=DAY_MOMENT - timedelta(days=60))
         DictMock.GET_account(destination, owner_markers=[MULE_MARKER])
 
         status, response = RequestGenerator.POST_pix_transaction(PayloadGenerator.pix(payer, destination))

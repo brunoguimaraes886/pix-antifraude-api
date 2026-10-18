@@ -12,7 +12,7 @@ NIGHT_LENGTH = timedelta(hours=24) - DAY_LENGTH
 
 @dataclass(frozen=True)
 class Period:
-    """Um trecho do relógio: o diurno (6h–22h) ou o noturno (22h–6h)."""
+    """Um trecho do relógio: o diurno (6h–20h) ou o noturno (20h–6h)."""
 
     kind: str
     start: datetime
@@ -22,12 +22,12 @@ class Period:
 def current_period(moment: datetime) -> Period:
     """O período em que o momento cai, no fuso do próprio momento.
 
-    O fuso importa: 23h em São Paulo é noite, e é a mesma hora que 2h em
+    O fuso importa: 21h em São Paulo é noite, e é a mesma hora que meia-noite em
     Londres. Por isso as fronteiras são montadas com o `tzinfo` que veio
     na transação, e não com o relógio do servidor.
 
     A noite atravessa a meia-noite: um Pix às 3h pertence à noite que
-    começou às 22h do dia ANTERIOR.
+    começou às 20h do dia ANTERIOR.
     """
     if moment.tzinfo is None:
         raise ValueError("O momento precisa ter fuso (tzinfo).")

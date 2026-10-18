@@ -83,12 +83,15 @@ class TestManualRelease:
         assert used["status"] == "used"
         assert used["used_by"]["pix_id"] == released_pix["id"]
         assert used["used_by"]["overridden_status"] == "two_factor_required"
-        assert [reason["code"] for reason in used["used_by"]["overridden_reasons"]] == ["dict_unavailable"]
+        assert used["used_by"]["overridden_reasons"][0]["code"] == "dict_unavailable"
 
-        _, again = RequestGenerator.POST_pix_transaction(
-            PayloadGenerator.pix(payer, destination, amount=30000, transaction_date=DAY_MOMENT + timedelta(minutes=10))
-        )
-        assert again["status"] == "two_factor_required"
+        # Uso único: o próximo Pix não usa a liberação. O destino agora é
+        # conhecido (o Pix liberado entrou no histórico), então sai aprovado
+        # pelo próprio motor, sem passar pela liberação.
+        again_pix = PayloadGenerator.pix(payer, destination, amount=30000, transaction_date=DAY_MOMENT + timedelta(minutes=10))
+        _, again = RequestGenerator.POST_pix_transaction(again_pix)
+        assert again["status"] == "approved"
+        assert "manual_release" not in Scenario.decision(again_pix["id"])
 
     def test_does_not_cover_a_bigger_amount(self):
         payer = Scenario.internal_account()
@@ -133,7 +136,8 @@ class TestManualRelease:
 
     def test_does_not_skip_a_dict_fraud_marker(self):
         payer = Scenario.internal_account()
-        destination = Scenario.external_account()
+        # Marcação recente + conta nova (o reforço): fundada suspeita pelo DICT.
+        destination = Scenario.external_account(opening_date=DAY_MOMENT - timedelta(days=60))
         DictMock.GET_account(destination, account_markers=[MULE_MARKER])
         RequestGenerator.POST_manual_release(release_payload(payer, destination, expires_at=DAY_MOMENT + timedelta(hours=1)))
 

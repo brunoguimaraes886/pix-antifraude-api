@@ -14,6 +14,7 @@ class AnalysisReason(Base):
     analysis_id = Column(Integer, ForeignKey(TransactionAnalysis.id), nullable=False)
     reason_code = Column(String(50), nullable=False)
     message = Column(String(255), nullable=False)
+    points = Column(Integer, nullable=True)
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
 
     analysis = relationship("TransactionAnalysis", foreign_keys=[analysis_id], back_populates="reasons")

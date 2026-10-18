@@ -14,7 +14,7 @@ class DictConnector(RestConnector):
           "owner":   {"fraud_markers": []}
         }
 
-    O prazo é curto (DICT_API_TIMEOUT, 1 segundo por padrão): o Pix precisa
+    O prazo é curto (DICT_API_TIMEOUT, 0,5 segundo por padrão): o Pix precisa
     ser decidido em poucos segundos. O que fazer quando o DICT não responde
     é decisão do DictController, não daqui.
     """

@@ -105,7 +105,7 @@ class TestAccountBaseline:
     def test_blocks_and_rejected_pix_are_counted(self):
         """Pix rejeitado pelo motor conta; recusa operacional (saldo) não conta."""
         payer = Scenario.internal_account(balance=500000, opening_date=MOMENT - timedelta(days=400))
-        mule = Scenario.internal_account()
+        mule = Scenario.internal_account(opening_date=MOMENT - timedelta(days=60))
         DictMock.GET_account(mule, account_markers=[MULE_MARKER])
 
         Scenario.block(payer, MOMENT - timedelta(days=100), MOMENT - timedelta(days=99))

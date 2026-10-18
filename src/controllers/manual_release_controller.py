@@ -4,7 +4,7 @@ from typing import Optional
 from controllers.base_controller import BaseController
 from dtos import ManualReleaseDTO
 from engine import EngineResult
-from engine.reasons import NOT_RELEASABLE
+from engine.reasons import NOT_RELEASABLE_CODES
 from engine.result import APPROVED
 from errors import InvalidDateTime, NotFoundAccount, NotFoundManualRelease
 from models import PixTransaction
@@ -21,8 +21,10 @@ class ManualReleaseController(BaseController):
     resultado dele: "este pagador pode pagar este destino, até tanto, até
     tal hora", uma vez.
 
-    A liberação desfaz a SUSPEITA, não o limite: se o motor barrou por um
-    motivo de `NOT_RELEASABLE`, ela não é usada e continua disponível.
+    A liberação desfaz a SUSPEITA, não a obrigação: se o motor barrou por um
+    motivo de `NOT_RELEASABLE` (limite, DICT, sanções, apostas, destino
+    bloqueado, aparelho não cadastrado), ela não é usada e continua
+    disponível.
     """
 
     def __init__(self) -> None:
@@ -75,7 +77,7 @@ class ManualReleaseController(BaseController):
         if result.status == APPROVED:
             return None
 
-        if any(reason in NOT_RELEASABLE for reason in result.reasons):
+        if any(reason.code in NOT_RELEASABLE_CODES for reason in result.reasons):
             return None
 
         release = self.manual_release_repository.find_usable(pix)
@@ -85,7 +87,14 @@ class ManualReleaseController(BaseController):
         self.manual_release_repository.use(release, pix, result.status, result.reasons, datetime.now(timezone.utc))
         self.logger.info(f"Pix {pix.pix_id}: {result.status} desfeito pela liberação {release.release_key}")
 
-        return EngineResult(status=APPROVED, score=result.score)
+        decision = dict(result.decision or {})
+        decision["manual_release"] = {
+            "release_key": release.release_key,
+            "overridden_status": result.status,
+            "overridden_reasons": [reason.code for reason in result.reasons],
+        }
+
+        return EngineResult(status=APPROVED, score=result.score, decision=decision)
 
     @staticmethod
     def _parse_datetime(raw_value: str) -> datetime:

@@ -8,3 +8,4 @@ from models.analysis_status import AnalysisStatus
 from models.transaction_analysis import TransactionAnalysis
 from models.analysis_reason import AnalysisReason
 from models.manual_release import ManualRelease
+from models.restricted_party import RestrictedParty

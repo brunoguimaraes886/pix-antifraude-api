@@ -147,3 +147,40 @@ INSERT INTO account_statement (account_id, direction, amount, counterparty_parti
 SELECT a.id, 'out', 2000 + (g * 733) % 6000, '60701190', '3001', '400100', '12345678000195',
        date_trunc('day', NOW()) - (g * INTERVAL '4 days') + INTERVAL '11 hours'
 FROM account a, generate_series(1, 8) g WHERE a.account_number = '30003';
+
+
+-- ── Listas restritivas ──────────────────────────────────────────
+-- Exemplos: uma operadora de apostas (betting_destination) e um CPF na
+-- lista de sanções do CSNU (sanctioned_party). Na vida real vêm da
+-- Secretaria de Prêmios e Apostas e da lista consolidada da ONU.
+
+INSERT INTO restricted_party (document_number, list, reason, listed_at) VALUES
+('11444777000161', 'bets', 'Operadora de apostas de quota fixa (exemplo)', '2025-01-01'),
+('19119119100',    'csnu', 'Lista consolidada do CSNU (exemplo)',          '2024-06-01');
+
+
+-- ── Aparelhos cadastrados ───────────────────────────────────────
+-- Pela IN BCB 491, o aparelho é "cadastrado" com Pix aprovado em 3 dias
+-- distintos, o primeiro há 7 dias ou mais. Sem este histórico todo cliente
+-- do seed começaria com aparelho não cadastrado (piso de 2FA acima de
+-- R$ 200). Três Pix pequenos, aprovados, há 8, 9 e 10 dias.
+
+INSERT INTO pix_transaction (pix_id, amount, transaction_date, source_account_id, destination_participant,
+                             destination_branch, destination_account_number, destination_opening_date,
+                             destination_document_number, device_id, channel, ip, latitude, longitude, payload)
+SELECT 'seed-' || d.account_number || '-' || g, 1000,
+       date_trunc('day', NOW()) - (g * INTERVAL '1 day') + INTERVAL '12 hours',
+       a.id, '60701190', '3001', '400100', '2015-01-01T00:00:00-03:00', '12345678000195',
+       d.device_id, 'app', '198.51.100.23', -23.56, -46.65, '{"seed": true}'::jsonb
+FROM (VALUES ('88213', 'dvc-9f2c71a8'),
+             ('10001', 'dvc-joao-1'),
+             ('66666', 'dvc-lucas-1'),
+             ('20002', 'dvc-padaria-1'),
+             ('30003', 'dvc-carlos-1')) AS d(account_number, device_id)
+JOIN account a ON a.account_number = d.account_number,
+     generate_series(8, 10) g;
+
+INSERT INTO transaction_analysis (analysis_key, pix_transaction_id, status_id, latency_ms)
+SELECT gen_random_uuid()::text, p.id, s.id, 0
+FROM pix_transaction p, analysis_status s
+WHERE p.pix_id LIKE 'seed-%' AND s.enumerator = 'approved';

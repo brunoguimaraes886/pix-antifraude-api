@@ -34,5 +34,6 @@ class TestPixGet:
         assert set(response.keys()) == {"key", "status", "metadata"}
         assert len(response["key"]) == 36
         assert response["status"] in ("approved", "two_factor_required", "rejected")
-        assert set(response["metadata"].keys()) == {"reasons", "latency_ms"}
+        assert set(response["metadata"].keys()) <= {"reasons", "alert", "hold_recommended", "latency_ms"}
+        assert {"reasons", "hold_recommended", "latency_ms"} <= set(response["metadata"].keys())
         assert isinstance(response["metadata"]["latency_ms"], int)

@@ -29,7 +29,7 @@ services:
       # Prazo curto de proposito: o Pix precisa ser decidido em poucos
       # segundos. Se o DICT nao responder a tempo, a API usa a ultima
       # consulta do mesmo destino (veja src/controllers/dict_controller.py).
-      DICT_API_TIMEOUT: ${DICT_API_TIMEOUT:-1}
+      DICT_API_TIMEOUT: ${DICT_API_TIMEOUT:-0.5}
     volumes:
       - ./src:/app
     command: uvicorn app:app --host 0.0.0.0 --port 3000 --no-server-header --reload

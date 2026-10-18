@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
-from typing import Optional
+from typing import List, Optional
 
 from constants import BASELINE_WINDOW_DAYS
 from controllers.base_controller import BaseController
-from engine.reasons import OPERATIONAL_REASONS
+from engine.reasons import NOT_SUSPICION_CODES
 from models import Account, AccountBaseline, AccountStatement
 from repositories import (
     AccountBaselineRepository,
@@ -11,7 +11,7 @@ from repositories import (
     AccountStatementRepository,
     TransactionAnalysisRepository,
 )
-from utils.periods import local_day_start
+from utils.periods import NIGHT, current_period, local_day_start
 
 
 class BaselineController(BaseController):
@@ -53,7 +53,10 @@ class BaselineController(BaseController):
         )
 
         history_days = self._history_days(account, window_end)
-        operational_codes = [reason.code for reason in OPERATIONAL_REASONS]
+        not_suspicion_codes = list(NOT_SUSPICION_CODES)
+        out_times = self.account_statement_repository.occurred_at_list(
+            account.id, AccountStatement.OUT, window_start, window_end
+        )
 
         values = {
             "avg_out_amount": _round(out_stats["avg"]),
@@ -63,12 +66,13 @@ class BaselineController(BaseController):
             "avg_daily_out_count": _per_day(out_stats["count"], history_days),
             "avg_daily_in_count": _per_day(in_stats["count"], history_days),
             "history_days": history_days,
+            "night_out_share": _night_share(out_times, moment),
             "account_block_count": self.account_block_repository.count(account.id),
             "rejected_pix_out_count": self.transaction_analysis_repository.count_rejected_as_payer(
-                account.id, operational_codes
+                account.id, not_suspicion_codes
             ),
             "rejected_pix_in_count": self.transaction_analysis_repository.count_rejected_as_destination(
-                account.id, operational_codes
+                account.id, not_suspicion_codes
             ),
         }
 
@@ -91,6 +95,16 @@ def _round(value) -> Optional[int]:
         return None
 
     return int(round(float(value)))
+
+
+def _night_share(out_times: List[datetime], moment: datetime) -> Optional[float]:
+    """Fração dos Pix de saída que caíram no período noturno, no fuso do Pix analisado."""
+    if not out_times:
+        return None
+
+    night = [when for when in out_times if current_period(when.astimezone(moment.tzinfo)).kind == NIGHT]
+
+    return round(len(night) / len(out_times), 4)
 
 
 def _per_day(count: int, history_days: int) -> Optional[float]:

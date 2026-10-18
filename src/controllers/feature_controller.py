@@ -4,6 +4,7 @@ from typing import Iterable, List, Optional, Set
 
 from constants import OUR_ISPB
 from controllers.base_controller import BaseController
+from engine import params
 from engine.features import (
     BaselineFeatures,
     CustomerFeatures,
@@ -19,11 +20,17 @@ from engine.features import (
     TransactionFeatures,
     VelocityFeatures,
 )
+from engine.measures import device_is_registered
 from models import Account, AccountBaseline, AccountStatement, PixTransaction
-from repositories import AccountBlockRepository, AccountStatementRepository, PixTransactionRepository
+from repositories import (
+    AccountBlockRepository,
+    AccountStatementRepository,
+    PixTransactionRepository,
+    RestrictedPartyRepository,
+)
 from utils.document_number import document_type
 from utils.geo import distance_km
-from utils.periods import DAY, Period, current_period, previous_period
+from utils.periods import DAY, Period, current_period, local_day_start, previous_period
 
 
 class FeatureController(BaseController):
@@ -43,6 +50,7 @@ class FeatureController(BaseController):
         self.account_block_repository = AccountBlockRepository(self.context)
         self.account_statement_repository = AccountStatementRepository(self.context)
         self.pix_transaction_repository = PixTransactionRepository(self.context)
+        self.restricted_party_repository = RestrictedPartyRepository(self.context)
 
     def build(
         self,
@@ -54,6 +62,9 @@ class FeatureController(BaseController):
         destination_baseline: Optional[AccountBaseline],
     ) -> Features:
         payer_features = self._internal_account(payer, payer_baseline, moment)
+        payer_features.unregistered_amount_today, payer_features.unregistered_near_limit_24h = (
+            self._unregistered_device_usage(pix, moment, payer)
+        )
 
         destination_account_features = None
         if destination_account is not None:
@@ -111,6 +122,7 @@ class FeatureController(BaseController):
             last_24h=last_24h,
             current_period=current,
             previous_period=previous,
+            restricted_list=self.restricted_party_repository.list_of(customer.document_number),
         )
 
     def _flows(self, account: Account, moment: datetime):
@@ -158,8 +170,19 @@ class FeatureController(BaseController):
         if destination_account is not None:
             opening_date = destination_account.opening_date
 
-        history = self.pix_transaction_repository.destination_history(
-            destination, moment, moment - timedelta(hours=24), pix.id
+        repository = self.pix_transaction_repository
+        document = pix.destination_document_number
+        history = repository.destination_history(destination, moment, moment - timedelta(hours=24), pix.id)
+        history["new_payers_7d"] = repository.new_payers(
+            destination, document, pix.source_account_id, moment - timedelta(days=params.FAN_IN_DAYS), moment, pix.id
+        )
+        history["fraud_rejected_payers_90d"] = repository.fraud_rejected_payers(
+            destination,
+            document,
+            pix.source_account_id,
+            moment - timedelta(days=params.DESTINATION_REJECTIONS_DAYS),
+            moment,
+            pix.id,
         )
 
         return DestinationFeatures(
@@ -170,6 +193,7 @@ class FeatureController(BaseController):
             account=destination_account_features,
             history=DestinationHistoryFeatures(**history),
             dict=None,
+            restricted_list=self.restricted_party_repository.list_of(document),
         )
 
     def _relationship(self, pix: PixTransaction, moment: datetime, payer: Account) -> RelationshipFeatures:
@@ -179,8 +203,49 @@ class FeatureController(BaseController):
             payer.id, destination, moment, moment - timedelta(days=30)
         )
         attempts = self.pix_transaction_repository.count_attempts_to_destination(payer.id, destination, moment, pix.id)
+        last_24h = self.pix_transaction_repository.relationship_24h(
+            payer.id,
+            destination,
+            pix.destination_document_number,
+            moment - timedelta(hours=params.WINDOW_24H_HOURS),
+            moment,
+            pix.id,
+        )
 
-        return RelationshipFeatures(previous_attempts=attempts, **stats)
+        return RelationshipFeatures(
+            previous_attempts=attempts,
+            same_owner=pix.destination_document_number == payer.customer.document_number,
+            matching_recent_inflow=self._matching_recent_inflow(pix, moment, payer),
+            **stats,
+            **last_24h,
+        )
+
+    def _matching_recent_inflow(self, pix: PixTransaction, moment: datetime, payer: Account) -> bool:
+        """Nas últimas 24h entrou, de uma contraparte NOVA e diferente do destino, um valor a ±5% deste Pix.
+
+        É o golpe do "Pix errado": o golpista manda um Pix e pede a
+        "devolução" para outra conta.
+        """
+        since = moment - timedelta(hours=params.WINDOW_24H_HOURS)
+        tolerance = pix.amount * params.MATCHING_INFLOW_TOLERANCE
+        destination = _destination_tuple(pix)
+
+        candidates = [
+            row
+            for row in self.account_statement_repository.list_since(payer.id, since)
+            if row.direction == AccountStatement.IN
+            and row.occurred_at < moment
+            and abs(row.amount - pix.amount) <= tolerance
+            and row.counterparty() != destination
+        ]
+        if not candidates:
+            return False
+
+        known = self.account_statement_repository.counterparties_seen_before(
+            payer.id, since, {row.counterparty() for row in candidates}
+        )
+
+        return any(row.counterparty() not in known for row in candidates)
 
     # ────────────────────────────────────────────────────────────────
     # De onde saiu o Pix
@@ -201,6 +266,12 @@ class FeatureController(BaseController):
                 distance = round(distance_km(last_located.latitude, last_located.longitude, pix.latitude, pix.longitude), 3)
                 minutes_since = round((moment - last_located.transaction_date).total_seconds() / 60, 2)
 
+        repository = self.pix_transaction_repository
+        registration = repository.device_registration(
+            payer.id, [pix.device_id], moment - timedelta(days=params.DEVICE_EXPIRY_DAYS), moment, pix.id
+        )
+        approved_days, first_approved_at, last_used_at = registration.get(pix.device_id, (0, None, None))
+
         return DeviceFeatures(
             device_id=pix.device_id,
             channel=pix.channel,
@@ -209,8 +280,47 @@ class FeatureController(BaseController):
             longitude=pix.longitude,
             distance_from_last_km=distance,
             minutes_since_last_location=minutes_since,
+            approved_devices_count=repository.approved_devices_count(payer.id, moment, pix.id),
+            approved_days=approved_days,
+            first_approved_at=first_approved_at,
+            last_used_at=last_used_at,
+            other_accounts_last_30d=repository.other_accounts_with_device(
+                pix.device_id, payer.id, moment - timedelta(days=params.SHARED_DEVICE_DAYS), moment
+            ),
+            channel_previous_uses=repository.channel_previous_uses(payer.id, pix.channel, moment, pix.id),
             **stats,
         )
+
+    def _unregistered_device_usage(self, pix: PixTransaction, moment: datetime, payer: Account) -> tuple:
+        """O que já saiu de aparelhos NÃO cadastrados: (aprovado hoje, Pix de R$ 180–200 em 24h).
+
+        Soma todos os aparelhos não cadastrados da conta, não só o deste Pix:
+        o limite de R$ 1.000 por dia do BC é da conta (IN 491, art. 9º).
+        """
+        repository = self.pix_transaction_repository
+        approved_today = repository.approved_by_device(payer.id, local_day_start(moment), moment, pix.id)
+        near_limit = repository.devices_with_amount_between(
+            payer.id,
+            params.NEAR_LIMIT_MIN,
+            params.NEW_DEVICE_MAX_PIX,
+            moment - timedelta(hours=params.WINDOW_24H_HOURS),
+            moment,
+            pix.id,
+        )
+
+        devices = {device for device, _ in approved_today} | set(near_limit)
+        registration = repository.device_registration(
+            payer.id, list(devices), moment - timedelta(days=params.DEVICE_EXPIRY_DAYS), moment, pix.id
+        )
+
+        def unregistered(device: str) -> bool:
+            approved_days, first_approved_at, last_used_at = registration.get(device, (0, None, None))
+            return not device_is_registered(approved_days, first_approved_at, last_used_at, moment)
+
+        amount_today = sum(amount for device, amount in approved_today if unregistered(device))
+        near_limit_count = len([device for device in near_limit if unregistered(device)])
+
+        return amount_today, near_limit_count
 
     def _velocity(self, pix: PixTransaction, moment: datetime, payer: Account) -> VelocityFeatures:
         """Tentativas, não só Pix aprovados: 2FA e rejeitado também contam."""
@@ -305,6 +415,7 @@ def _baseline_features(baseline: AccountBaseline) -> BaselineFeatures:
         account_block_count=baseline.account_block_count,
         rejected_pix_out_count=baseline.rejected_pix_out_count,
         rejected_pix_in_count=baseline.rejected_pix_in_count,
+        night_out_share=_float(baseline.night_out_share),
     )
 
 

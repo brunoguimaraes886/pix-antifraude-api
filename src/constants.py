@@ -18,7 +18,7 @@ INTERNAL_TOKEN = os.environ.get("INTERNAL_TOKEN")
 # tempo é substituído pela última consulta do mesmo destino.
 DICT_API_URL = os.environ.get("DICT_API_URL", "http://localhost:1080/dict")
 DICT_API_INTERNAL_TOKEN = os.environ.get("DICT_API_INTERNAL_TOKEN", "default_token")
-DICT_API_TIMEOUT = float(os.environ.get("DICT_API_TIMEOUT", "1"))
+DICT_API_TIMEOUT = float(os.environ.get("DICT_API_TIMEOUT", "0.5"))
 
 # ────────────────────────────────────────────────────────────────
 # Regras fixas do negócio
@@ -31,10 +31,12 @@ OUR_ISPB = "88888888"
 # Janela do resumo diário do histórico (account_baseline).
 BASELINE_WINDOW_DAYS = 30
 
-# Períodos do dia, no fuso da própria transação: diurno das 6h às 22h,
-# noturno das 22h às 6h. Cada um tem o seu limite na conta.
+# Períodos do dia, no fuso da própria transação: diurno das 6h às 20h,
+# noturno das 20h às 6h (o padrão do BC, IN 512, art. 3º; a opção de 22h
+# é pedido do cliente e a API não guarda configuração por conta). Cada
+# período tem o seu limite na conta.
 DAY_PERIOD_START_HOUR = 6
-NIGHT_PERIOD_START_HOUR = 22
+NIGHT_PERIOD_START_HOUR = 20
 
 # Rotas públicas: não exigem o header INTERNAL-TOKEN.
 BYPASS_ENDPOINTS = [

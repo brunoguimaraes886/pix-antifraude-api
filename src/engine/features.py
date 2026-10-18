@@ -45,8 +45,9 @@ class BaselineFeatures:
     avg_daily_out_count: Optional[float]
     avg_daily_in_count: Optional[float]
     account_block_count: int        # bloqueios da própria conta, todo o histórico
-    rejected_pix_out_count: int     # Pix rejeitados em que a conta pagava
-    rejected_pix_in_count: int      # Pix rejeitados em que a conta recebia
+    rejected_pix_out_count: int     # Pix rejeitados por suspeita em que a conta pagava
+    rejected_pix_in_count: int      # Pix rejeitados por suspeita em que a conta recebia
+    night_out_share: Optional[float] = None  # fração dos Pix de saída no período noturno
 
 
 @dataclass
@@ -77,7 +78,7 @@ class FlowWindowFeatures:
 class PeriodFeatures(FlowWindowFeatures):
     """Uma janela que é um período do relógio (diurno ou noturno)."""
 
-    kind: str                       # "day" (6h–22h) ou "night" (22h–6h)
+    kind: str                       # "day" (6h–20h) ou "night" (20h–6h)
     is_current: bool                # True: o período em que o Pix caiu (até o Pix)
     limit: int                      # daily_limit no diurno, nightly_limit no noturno
 
@@ -97,6 +98,10 @@ class InternalAccountFeatures:
     last_24h: FlowWindowFeatures
     current_period: PeriodFeatures
     previous_period: PeriodFeatures
+    restricted_list: Optional[str] = None   # "csnu", "bets", "court_order" ou None
+    # Só no pagador (no destino ficam 0): o limite do aparelho não cadastrado.
+    unregistered_amount_today: int = 0      # aprovado hoje de aparelhos não cadastrados
+    unregistered_near_limit_24h: int = 0    # Pix de R$ 180–200 de aparelho não cadastrado em 24h
 
 
 @dataclass
@@ -114,6 +119,12 @@ class DestinationHistoryFeatures:
     last_24h_count: int
     last_24h_distinct_payers: int
     last_24h_approved_amount: int
+    # Outros pagadores nossos cujo primeiro Pix para este destino (conta ou
+    # CPF/CNPJ) foi nos últimos 7 dias: o fan-in.
+    new_payers_7d: int = 0
+    # Outros pagadores com Pix para este destino rejeitado por suspeita
+    # sobre o destino nos últimos 90 dias (conta ou CPF/CNPJ).
+    fraud_rejected_payers_90d: int = 0
 
 
 @dataclass
@@ -132,6 +143,7 @@ class DestinationFeatures:
     account: Optional[InternalAccountFeatures]  # só quando a conta é nossa
     history: DestinationHistoryFeatures
     dict: Optional[DictFeatures]    # preenchido pelo motor; vazio se ele parou antes do DICT
+    restricted_list: Optional[str] = None   # "csnu", "bets", "court_order" ou None
 
 
 @dataclass
@@ -146,6 +158,17 @@ class RelationshipFeatures:
     out_days_last_30d: int          # dias distintos com Pix para este destino
     previous_in_count: int          # o destino já pagou o pagador
     previous_attempts: int          # tentativas para este destino, qualquer decisão
+    same_owner: bool = False        # destino com o mesmo CPF/CNPJ do pagador
+    previous_in_amount: int = 0     # quanto o destino já pagou ao pagador
+    first_in_at: Optional[datetime] = None
+    # Últimas 24h, para este destino, sem as recusas operacionais:
+    attempts_to_destination_24h: int = 0
+    last_attempt_amount: Optional[int] = None
+    blocked_attempts_24h: int = 0   # 2FA ou rejeitado por motivo do motor que não é só limite
+    fraud_rejections_24h: int = 0   # rejeitado por suspeita (por conta ou CPF/CNPJ do destino)
+    # Nas últimas 24h entrou, de uma contraparte nova e diferente do destino,
+    # um valor a ±5% deste Pix (o golpe do "Pix errado").
+    matching_recent_inflow: bool = False
 
 
 @dataclass
@@ -162,6 +185,12 @@ class DeviceFeatures:
     longitude: Optional[float]
     distance_from_last_km: Optional[float]      # do último Pix com localização
     minutes_since_last_location: Optional[float]
+    approved_devices_count: int = 0             # aparelhos distintos com Pix aprovado nesta conta
+    approved_days: int = 0                      # dias distintos com Pix aprovado deste aparelho
+    first_approved_at: Optional[datetime] = None
+    last_used_at: Optional[datetime] = None     # último Pix deste aparelho nesta conta
+    other_accounts_last_30d: int = 0            # outras contas nossas que usaram este aparelho
+    channel_previous_uses: int = 0              # Pix anteriores da conta pelo mesmo canal
 
 
 @dataclass

@@ -9,7 +9,7 @@ class Account(Base):
     """Conta corrente de um cliente nosso.
 
     `balance` nasce no seed e só muda com Pix aprovado. `daily_limit` vale
-    para o período diurno (6h–22h) e `nightly_limit` para o noturno.
+    para o período diurno (6h–20h) e `nightly_limit` para o noturno.
     """
 
     __tablename__ = "account"

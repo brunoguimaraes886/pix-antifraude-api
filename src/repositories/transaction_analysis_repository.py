@@ -27,6 +27,9 @@ class TransactionAnalysisRepository:
         features: Optional[dict] = None,
         dict_response: Optional[dict] = None,
         dict_fetched_at: Optional[datetime] = None,
+        decision: Optional[dict] = None,
+        alert: Optional[str] = None,
+        hold_recommended: bool = False,
     ) -> TransactionAnalysis:
         analysis = TransactionAnalysis()
         analysis.analysis_key = str(uuid4())
@@ -37,11 +40,15 @@ class TransactionAnalysisRepository:
         analysis.features = features
         analysis.dict_response = dict_response
         analysis.dict_fetched_at = dict_fetched_at
+        analysis.decision = decision
+        analysis.alert = alert
+        analysis.hold_recommended = hold_recommended
 
         for reason in reasons:
             analysis_reason = AnalysisReason()
             analysis_reason.reason_code = reason.code
             analysis_reason.message = reason.message
+            analysis_reason.points = reason.points
             analysis.reasons.append(analysis_reason)
 
         self.session.add(analysis)
@@ -69,27 +76,29 @@ class TransactionAnalysisRepository:
             .first()
         )
 
-    def count_rejected_as_payer(self, account_id: int, excluded_codes: List[str]) -> int:
-        return self._count_rejected(PixTransaction.source_account_id == account_id, excluded_codes)
+    def count_rejected_as_payer(self, account_id: int, not_suspicion_codes: List[str]) -> int:
+        return self._count_rejected(PixTransaction.source_account_id == account_id, not_suspicion_codes)
 
-    def count_rejected_as_destination(self, account_id: int, excluded_codes: List[str]) -> int:
-        return self._count_rejected(PixTransaction.destination_account_id == account_id, excluded_codes)
+    def count_rejected_as_destination(self, account_id: int, not_suspicion_codes: List[str]) -> int:
+        return self._count_rejected(PixTransaction.destination_account_id == account_id, not_suspicion_codes)
 
-    def _count_rejected(self, account_condition, excluded_codes: List[str]) -> int:
-        """Pix rejeitados — tirando os rejeitados por motivo operacional.
+    def _count_rejected(self, account_condition, not_suspicion_codes: List[str]) -> int:
+        """Pix rejeitados POR SUSPEITA: algum motivo que não é limite nem operacional.
 
-        Saldo insuficiente ou conta inexistente não é sinal de fraude: não
-        pode pesar como "Pix bloqueado" no habitual da conta.
+        Saldo insuficiente, conta inexistente ou limite estourado não são
+        sinal de fraude: não podem pesar como "Pix bloqueado" no habitual da
+        conta. Basta um motivo de suspeita para contar ("todos os motivos são
+        de limite ou operacionais" é o que exclui).
         """
-        has_excluded_reason = exists().where(
+        has_suspicion_reason = exists().where(
             AnalysisReason.analysis_id == TransactionAnalysis.id,
-            AnalysisReason.reason_code.in_(excluded_codes),
+            AnalysisReason.reason_code.notin_(not_suspicion_codes),
         )
 
         return (
             self.session.query(func.count(TransactionAnalysis.id))
             .join(PixTransaction, PixTransaction.id == TransactionAnalysis.pix_transaction_id)
             .join(AnalysisStatus, AnalysisStatus.id == TransactionAnalysis.status_id)
-            .filter(account_condition, AnalysisStatus.enumerator == AnalysisStatus.REJECTED, ~has_excluded_reason)
+            .filter(account_condition, AnalysisStatus.enumerator == AnalysisStatus.REJECTED, has_suspicion_reason)
             .scalar()
         )

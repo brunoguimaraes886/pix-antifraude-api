@@ -65,5 +65,7 @@ class ManualReleaseRepository:
         """Gasta a liberação, guardando o que o motor tinha decidido sem ela."""
         release.pix_transaction = pix
         release.overridden_status = status
-        release.overridden_reasons = [{"code": reason.code, "message": reason.message} for reason in reasons]
+        release.overridden_reasons = [
+            {"code": reason.code, "message": reason.message, "points": reason.points} for reason in reasons
+        ]
         release.used_at = used_at

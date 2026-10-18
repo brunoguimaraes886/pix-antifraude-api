@@ -133,15 +133,19 @@ class AccountStatementRepository:
             .scalar()
         )
 
-        in_count = (
-            self.session.query(func.count(AccountStatement.id))
+        in_count, in_amount, in_first = (
+            self.session.query(
+                func.count(AccountStatement.id),
+                func.coalesce(func.sum(AccountStatement.amount), 0),
+                func.min(AccountStatement.occurred_at),
+            )
             .filter(
                 AccountStatement.account_id == account_id,
                 AccountStatement.direction == AccountStatement.IN,
                 same_counterparty,
                 AccountStatement.occurred_at < before,
             )
-            .scalar()
+            .one()
         )
 
         return {
@@ -152,4 +156,21 @@ class AccountStatementRepository:
             "last_out_at": out_last,
             "out_days_last_30d": out_days_last_30d,
             "previous_in_count": in_count,
+            "previous_in_amount": int(in_amount),
+            "first_in_at": in_first,
         }
+
+    def occurred_at_list(self, account_id: int, direction: str, start: datetime, end: datetime) -> List[datetime]:
+        """Quando aconteceu cada movimento de um sentido em [start, end)."""
+        rows = (
+            self.session.query(AccountStatement.occurred_at)
+            .filter(
+                AccountStatement.account_id == account_id,
+                AccountStatement.direction == direction,
+                AccountStatement.occurred_at >= start,
+                AccountStatement.occurred_at < end,
+            )
+            .all()
+        )
+
+        return [row[0] for row in rows]

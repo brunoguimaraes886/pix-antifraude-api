@@ -1,4 +1,4 @@
-from sqlalchemy import CHAR, Column, DateTime, Float, ForeignKey, Integer, UniqueConstraint, func
+from sqlalchemy import Boolean, CHAR, Column, DateTime, Float, ForeignKey, Integer, String, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import relationship
 
@@ -27,6 +27,9 @@ class TransactionAnalysis(Base):
     features = Column(JSONB(none_as_null=True), nullable=True)
     dict_response = Column(JSONB(none_as_null=True), nullable=True)
     dict_fetched_at = Column(DateTime(timezone=True), nullable=True)
+    decision = Column(JSONB(none_as_null=True), nullable=True)
+    alert = Column(String(255), nullable=True)
+    hold_recommended = Column(Boolean, nullable=False, default=False, server_default="false")
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
 
     __table_args__ = (

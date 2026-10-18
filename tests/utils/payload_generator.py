@@ -15,7 +15,7 @@ class PayloadGenerator:
         amount: int = 10000,
         transaction_date: Union[datetime, str, None] = None,
         pix_id: Optional[str] = None,
-        device_id: str = "dvc-test-1",
+        device_id: Optional[str] = None,
         channel: str = "app",
         ip: str = "198.51.100.23",
         geolocation: Optional[dict] = DEFAULT_GEOLOCATION,
@@ -33,6 +33,10 @@ class PayloadGenerator:
 
         if pix_id is None:
             pix_id = RandomGenerator.pix_id()
+
+        # Sem aparelho, o da própria conta (cadastrado pelo Scenario).
+        if device_id is None:
+            device_id = source.get("device_id", "dvc-test-1")
 
         payload = {
             "id": pix_id,

@@ -15,15 +15,25 @@ SEVERITY = {APPROVED: 0, TWO_FACTOR_REQUIRED: 1, REJECTED: 2}
 
 @dataclass
 class EngineResult:
-    """O que o motor devolve: a decisão, os motivos e, se houver, um score.
+    """O que o motor devolve.
 
-    No `approved` a lista de motivos vem vazia (é o contrato da resposta).
-    O score é opcional: o motor não precisa calcular um número.
+    - `status` e `reasons`: a decisão e por quê. No `approved` a lista de
+      motivos vem vazia (é o contrato da resposta). Os motivos são os
+      internos, com pontos; a resposta pública é montada a partir deles
+      (src/engine/response.py), escondendo o que é sensível a PLD.
+    - `score`: os pontos do Pix (escala de log-odds), quando o motor chegou
+      a calcular.
+    - `alert` e `hold_recommended`: a parte pública da camada de alerta.
+    - `decision`: a camada interna (sinais, P, ρ, ameaça, PLD). Nunca sai
+      na resposta da API.
     """
 
     status: str
     reasons: List[Reason] = field(default_factory=list)
     score: Optional[float] = None
+    alert: Optional[str] = None
+    hold_recommended: bool = False
+    decision: Optional[dict] = None
 
 
 def most_severe(statuses: List[str]) -> str:

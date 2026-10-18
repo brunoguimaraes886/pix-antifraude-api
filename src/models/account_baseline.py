@@ -25,6 +25,7 @@ class AccountBaseline(Base):
     avg_daily_out_count = Column(Numeric(10, 2), nullable=True)
     avg_daily_in_count = Column(Numeric(10, 2), nullable=True)
     history_days = Column(Integer, nullable=False)
+    night_out_share = Column(Numeric(5, 4), nullable=True)
     account_block_count = Column(Integer, nullable=False)
     rejected_pix_out_count = Column(Integer, nullable=False)
     rejected_pix_in_count = Column(Integer, nullable=False)
