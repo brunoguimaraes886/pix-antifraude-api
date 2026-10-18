@@ -34,7 +34,6 @@ HardRule = Callable[[Features, Measures], Outcome]
 
 CSNU = "csnu"
 BETS = "bets"
-PF = "PF"
 
 
 # ── Antes do DICT ────────────────────────────────────────────────
@@ -56,16 +55,13 @@ def betting_destination(f: Features, m: Measures) -> Outcome:
 
 
 def effective_limit(f: Features, m: Measures) -> int:
-    """O limite noturno do BC vale só entre pessoas físicas distintas (Res. 142, art. 2º;
-    IN 512, art. 3º, §§ 7º e 8º). Nos outros casos, mesmo à noite, vale o diurno."""
-    night_limit_applies = (
-        m.is_night
-        and f.payer.customer.document_type == PF
-        and f.destination.document_type == PF
-        and not m.same_owner
-    )
+    """O limite do período em que o Pix caiu: noturno (20h–6h) ou diurno.
 
-    return f.payer.nightly_limit if night_limit_applies else f.payer.daily_limit
+    Decidido: o noturno vale sempre à noite, qualquer que seja o destino (PF,
+    PJ ou conta do próprio titular). Mais fechado que o mínimo do BC, que
+    aplica o noturno entre pessoas físicas, e fecha a "conta segura" à noite.
+    """
+    return f.payer.nightly_limit if m.is_night else f.payer.daily_limit
 
 
 def limit_exceeded(f: Features, m: Measures) -> Outcome:

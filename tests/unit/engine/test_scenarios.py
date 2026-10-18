@@ -363,7 +363,7 @@ SCENARIOS = [
     ("L15", l15_portability, TWO_FACTOR_REQUIRED),
     ("L16", l16_gift_to_friend_new_account, APPROVED),
     ("L17", l17_retiree_first_pix, APPROVED),
-    ("L18", l18_restaurant_at_night, APPROVED),
+    ("L18", l18_restaurant_at_night, REJECTED),  # o limite noturno vale também para PJ
     ("L19", l19_new_account_first_rent, APPROVED),
     ("G1", g1_fake_call_center, REJECTED),
     ("G2", g2_fake_call_center_clean_destination, TWO_FACTOR_REQUIRED),
@@ -424,11 +424,11 @@ class TestWhatEachScenarioShows:
             assert "conta segura" in result.alert
             assert result.hold_recommended is True
 
-    def test_l18_night_limit_is_only_between_people(self):
+    def test_l18_night_limit_also_applies_to_a_company(self):
         result = evaluate(l18_restaurant_at_night())
 
-        assert "limit_exceeded" not in codes(result)
-        assert result.decision["effective_limit"] == 1000000
+        assert codes(result) == ["limit_exceeded"]
+        assert result.decision["effective_limit"] == 100000
 
     def test_g1_is_founded_suspicion_of_scam(self):
         result = evaluate(g1_fake_call_center())

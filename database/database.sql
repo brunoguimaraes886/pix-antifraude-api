@@ -33,8 +33,8 @@ CREATE TABLE account(
     opening_date                    TIMESTAMPTZ NOT NULL,
     -- Saldo atual. Nasce no seed e só muda com Pix aprovado.
     balance                         BIGINT NOT NULL,
-    -- Limite do período diurno (6h–20h) e do noturno (20h–6h). O noturno só
-    -- vale entre pessoas físicas distintas (Res. 142, art. 2º).
+    -- Limite do período diurno (6h–20h) e do noturno (20h–6h). O noturno vale
+    -- à noite para qualquer destino (PF, PJ ou conta própria).
     daily_limit                     BIGINT NOT NULL,
     nightly_limit                   BIGINT NOT NULL,
     created_at                      TIMESTAMPTZ NOT NULL DEFAULT(NOW()),

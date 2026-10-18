@@ -74,15 +74,24 @@ class TestHardRules:
         features = at_night(clean_features(amount=150000))
         assert codes(evaluate(features))[0] == "limit_exceeded"
 
-    def test_night_limit_does_not_apply_to_a_company_or_own_account(self):
+    def test_night_limit_also_applies_to_a_company_and_to_own_account(self):
         to_company = at_night(clean_features(amount=150000))
         to_company.destination.document_type = "PJ"
 
         own = at_night(clean_features(amount=150000))
         own.relationship.same_owner = True
 
-        assert "limit_exceeded" not in codes(evaluate(to_company))
-        assert "limit_exceeded" not in codes(evaluate(own))
+        from_company = at_night(clean_features(amount=150000))
+        from_company.payer.customer.document_type = "PJ"
+
+        for features in (to_company, own, from_company):
+            assert codes(evaluate(features)) == ["limit_exceeded"]
+
+    def test_day_limit_during_the_day(self):
+        features = clean_features(amount=150000)
+        features.destination.document_type = "PJ"
+
+        assert "limit_exceeded" not in codes(evaluate(features))
 
     @pytest.mark.parametrize("side", ["payer", "destination"])
     def test_sanctioned_party_on_either_side(self, side):

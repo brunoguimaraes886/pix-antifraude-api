@@ -60,7 +60,7 @@ contra ela: ρ é a fração da fraude que o 2FA barraria.
 |---|---|---|
 | `sanctioned_party` | `rejected` | pagador ou destino na lista do CSNU (`restricted_party`) |
 | `betting_destination` | `rejected` | destino é operadora de apostas |
-| `limit_exceeded` | `rejected` | o que já saiu no período + este Pix > limite. O noturno (20h–6h) só vale entre pessoas físicas distintas; nos outros casos vale o diurno |
+| `limit_exceeded` | `rejected` | o que já saiu no período + este Pix > limite. À noite (20h–6h) vale sempre o limite noturno, para qualquer destino (PF, PJ ou conta própria) |
 | `repeat_after_fraud_rejection` | `rejected` | o mesmo destino (conta ou CPF/CNPJ) já foi rejeitado por suspeita para este cliente em 24h |
 | `destination_account_blocked` | `rejected` | destino nosso com bloqueio em vigor |
 | `dict_fraud_marker` | `rejected` | marcação de laranja/golpista no DICT em 12 meses **e** um reforço: conta destino < 90 dias, ≥ 2 pagadores novos em 7 dias ou rejeição por suspeita com outro cliente |
