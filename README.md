@@ -230,6 +230,7 @@ estão no [dicionário](docs/dicionario-motor.md).
 | `repeat_after_fraud_rejection` | `rejected` | Pix para este destino recusado por suspeita nas últimas 24h |
 | `destination_account_blocked` | `rejected` | conta de destino (nossa) bloqueada |
 | `dict_fraud_marker` | `rejected` | marcação recente de laranja/golpista no DICT, com reforço |
+| `payer_dict_fraud_marker` | `rejected` | o pagador tem marcação recente de laranja/golpista no DICT, com reforço (sai como `risk_policy`) |
 | `dict_marker` | piso 2FA | marcação no DICT que não virou rejeição |
 | `dict_unavailable` | piso 2FA | DICT fora do ar, sem consulta recente, e destino novo de outro banco |
 | `new_device_limit` | piso 2FA | aparelho não cadastrado acima de R$ 200 no Pix ou R$ 1.000 no dia |
@@ -253,7 +254,7 @@ estão no [dicionário](docs/dicionario-motor.md).
 | Código | Quando |
 |---|---|
 | `engine_error` | o motor falhou: `two_factor_required`, nunca aprova às cegas |
-| `risk_policy` | substitui na resposta pública os motivos sensíveis a PLD (`payer_pass_through`, `payer_inflow_jump`, `payer_dormant_awakened`, `new_source_account`, `mule_cashout`, `split_payments`, `new_device_structuring`), porque a lei proíbe avisar o cliente de suspeita de lavagem |
+| `risk_policy` | substitui na resposta pública os motivos sensíveis a PLD (`payer_pass_through`, `payer_inflow_jump`, `payer_dormant_awakened`, `new_source_account`, `payer_dict_fraud_marker`, `mule_cashout`, `split_payments`, `new_device_structuring`), porque a lei proíbe avisar o cliente de suspeita de lavagem |
 
 Os sinais de destino de risco (`destination_fan_in`, `fresh_mule` etc.) saem
 com a mesma mensagem genérica ("A conta de destino tem sinais de risco"). O
