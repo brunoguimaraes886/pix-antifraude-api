@@ -39,6 +39,37 @@
     "priority": 10,
     "httpRequest": {
       "method": "GET",
+      "path": "/dict/accounts/88888888/0001/66666"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "type": "JSON",
+        "json": {
+          "account": {
+            "fraud_markers": []
+          },
+          "owner": {
+            "fraud_markers": [
+              {
+                "type": "MULE_ACCOUNT",
+                "created_at": "2026-09-01T10:00:00-03:00"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  {
+    "priority": 10,
+    "httpRequest": {
+      "method": "GET",
       "path": "/dict/accounts/00360305/0001/990701"
     },
     "httpResponse": {

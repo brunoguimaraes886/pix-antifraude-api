@@ -1,8 +1,9 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import List, Optional
 
-from constants import BASELINE_WINDOW_DAYS
+from constants import BASELINE_WINDOW_DAYS, OUR_ISPB
 from controllers.base_controller import BaseController
+from controllers.dict_controller import DictController
 from engine.reasons import NOT_SUSPICION_CODES
 from models import Account, AccountBaseline, AccountStatement
 from repositories import (
@@ -24,6 +25,11 @@ class BaselineController(BaseController):
     A janela são os 30 dias ANTES do dia — o próprio dia fica de fora. É
     isso que deixa o resumo valer o dia inteiro: um Pix às 23h compara com
     o mesmo habitual que um Pix às 8h.
+
+    O DICT da própria conta (o pagador é laranja?) também mora aqui: uma
+    consulta por dia, no primeiro Pix enviado. Consultar a cada Pix dobraria
+    as chamadas ao DICT por uma marcação que quase nunca muda no mesmo dia.
+    Se o DICT não responder, o próximo Pix do dia tenta de novo.
     """
 
     def __init__(self) -> None:
@@ -33,7 +39,24 @@ class BaselineController(BaseController):
         self.account_statement_repository = AccountStatementRepository(self.context)
         self.transaction_analysis_repository = TransactionAnalysisRepository(self.context)
 
-    def get_or_create(self, account: Account, moment: datetime) -> AccountBaseline:
+    def get_or_create(self, account: Account, moment: datetime, with_dict: bool = False) -> AccountBaseline:
+        """O resumo do dia. `with_dict`: só para o pagador — garante o DICT da conta no resumo."""
+        baseline = self._get_or_create(account, moment)
+
+        if with_dict and baseline.dict_response is None:
+            self._fetch_dict(account, baseline)
+
+        return baseline
+
+    def _fetch_dict(self, account: Account, baseline: AccountBaseline) -> None:
+        response = DictController().fetch_account(
+            OUR_ISPB, account.branch, account.account_number, account.customer.document_number
+        )
+        if response is not None:
+            baseline.dict_response = response
+            baseline.dict_fetched_at = datetime.now(timezone.utc)
+
+    def _get_or_create(self, account: Account, moment: datetime) -> AccountBaseline:
         baseline_date = moment.date()
 
         baseline = self.account_baseline_repository.get(account.id, baseline_date)

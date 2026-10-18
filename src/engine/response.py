@@ -15,7 +15,7 @@ from typing import Iterable, List, Optional, Set
 from engine import params
 from engine.evidence import Evidence
 from engine.reasons import PLD_SENSITIVE, RISK_POLICY, Reason
-from engine.result import REJECTED, TWO_FACTOR_REQUIRED
+from engine.result import TWO_FACTOR_REQUIRED
 from engine.scoring import Score
 
 PUBLIC_SIGNALS = 3          # sinais de maior peso na resposta pública (além das regras duras)

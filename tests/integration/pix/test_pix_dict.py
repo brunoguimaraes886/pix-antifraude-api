@@ -135,3 +135,45 @@ class TestDictFallback:
         assert status == 201
         assert elapsed < 2.5
         assert dict_features(payload["id"])["status"] == "unavailable"
+
+
+class TestPayerDict:
+    """O DICT da conta que envia: uma consulta por dia, guardada no resumo diário."""
+
+    def test_marked_payer_with_a_new_account_is_rejected(self):
+        payer = Scenario.internal_account(opening_date=datetime.now(SAO_PAULO) - timedelta(days=12))
+        DictMock.GET_account(payer, owner_markers=[MULE_MARKER])
+
+        payload = PayloadGenerator.pix(payer, Scenario.external_account())
+        status, response = RequestGenerator.POST_pix_transaction(payload)
+
+        assert response["status"] == "rejected"
+        # Sigilo: o cliente não fica sabendo da suspeita de lavagem.
+        assert [reason["code"] for reason in response["metadata"]["reasons"]] == ["risk_policy"]
+
+        hard_rules = Scenario.decision(payload["id"])["hard_rules"]
+        assert {"code": "payer_dict_fraud_marker", "status": "rejected"} in hard_rules
+        assert Scenario.analysis(payload["id"])["features"]["payer"]["dict"]["status"] == "ok"
+
+    def test_payer_dict_is_consulted_once_a_day(self):
+        payer = Scenario.internal_account()
+        DictMock.GET_account(payer)
+
+        for _ in range(2):
+            RequestGenerator.POST_pix_transaction(PayloadGenerator.pix(payer, Scenario.external_account()))
+
+        assert len(DictMock.requests_for(payer)) == 1
+        assert Scenario.baselines(payer)[-1]["dict_fetched_at"] is not None
+
+    def test_payer_dict_down_is_retried_on_the_next_pix(self):
+        payer = Scenario.internal_account()
+        DictMock.GET_account_server_error(payer)
+
+        first = PayloadGenerator.pix(payer, Scenario.external_account())
+        RequestGenerator.POST_pix_transaction(first)
+        assert Scenario.analysis(first["id"])["features"]["payer"]["dict"]["status"] == "unavailable"
+
+        DictMock.GET_account(payer)
+        second = PayloadGenerator.pix(payer, Scenario.external_account())
+        RequestGenerator.POST_pix_transaction(second)
+        assert Scenario.analysis(second["id"])["features"]["payer"]["dict"]["status"] == "ok"

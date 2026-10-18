@@ -125,7 +125,7 @@ class PixTransactionController(BaseController):
             return self._commit(analysis), True
 
         baseline_controller = BaselineController()
-        payer_baseline = baseline_controller.get_or_create(payer, moment)
+        payer_baseline = baseline_controller.get_or_create(payer, moment, with_dict=True)
 
         destination_baseline = None
         if destination_account is not None:

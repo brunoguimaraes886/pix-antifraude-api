@@ -59,6 +59,7 @@ rejeita, o DICT nem é consultado) e depois dele.
 | `destination_account_blocked` | destino nosso com bloqueio em vigor | `rejected` | Conta bloqueada não recebe. É também como a marcação de um cliente nosso por fraude vira efeito (art. 89, § 2º) |
 | `new_device_limit` | aparelho não cadastrado **e** (Pix > R$ 200 **ou** o que saiu hoje de aparelhos não cadastrados + este Pix > R$ 1.000) | piso 2FA | Regra do BC (IN 491/2024, art. 9º), somando **todos** os aparelhos não cadastrados da conta. O cadastro, pela norma, é confirmar a identidade (art. 4º): é o nosso 2FA |
 | `new_device_structuring` | aparelho não cadastrado, R$ 180 ≤ Pix ≤ R$ 200 **e** outro Pix nessa faixa de aparelho não cadastrado em 24h, qualquer destino | piso 2FA | Fracionamento para escapar da regra acima, mesmo trocando de destino. Liga `pld_alert` |
+| `payer_dict_fraud_marker` | o **pagador** (conta ou CPF/CNPJ) tem marcação `MULE_ACCOUNT` ou `SCAMMER_ACCOUNT` com ≤ 12 meses **e** um reforço: conta pagadora < 90 dias ou `payer_pass_through` disparando (repasse agora de entradas de desconhecidos) | `rejected` | O mesmo critério de fundada suspeita de `dict_fraud_marker`, do outro lado: a laranja também paga. Roda antes do DICT do destino porque o DICT do pagador já veio no resumo diário (uma consulta por dia, não por Pix). Sem reforço a marcação não muda a decisão (pode ser antiga ou errada), só liga `pld_alert`. `APPLICATION_FRAUD` e `OTHER` no pagador não contam: quem tem o CPF marcado por fraude de abertura costuma ser a vítima. Sensível a PLD (vira `risk_policy`) e não liberável |
 
 ### B.2 Depois do DICT
 
@@ -122,6 +123,8 @@ decidem nada sozinhos; os sinais leem deles.
 | `dormant` | 30 dias de histórico, ≤ 0,1 Pix por dia (entrada + saída) e conta ≥ 180 dias | Conta parada (Carta Circular 4.001, IV-e) |
 | `speed_kmh` | distância do último Pix com localização ÷ tempo desde ele | Viagem impossível |
 | `dict_markers` | lista (tipo, idade em dias) das marcações de conta e de dono. Sem data = recente | Leitura defensiva: formato que vem de fora não derruba a decisão |
+| `payer_dict_markers` | o mesmo, do DICT do pagador (resumo diário) | Base de `payer_dict_fraud_marker` |
+| `payer_dict_marked` | pagador com marcação `MULE_ACCOUNT`/`SCAMMER_ACCOUNT` com ≤ 5 anos | Liga `pld_alert` mesmo sem rejeitar |
 
 | Parâmetro | Valor | Por quê |
 |---|---|---|
@@ -383,6 +386,7 @@ Fora do motor, no controller, **depois** da decisão.
   regra que o banco é obrigado a cumprir. Se o Pix foi barrado por um destes
   motivos, a liberação é ignorada e continua disponível
   (`NOT_RELEASABLE` em `reasons.py`): `limit_exceeded`, `dict_fraud_marker`,
+  `payer_dict_fraud_marker`,
   `sanctioned_party`, `betting_destination`, `destination_account_blocked`,
   `new_device_limit`, `new_device_structuring` (o limite do aparelho é do BC;
   o caminho é cadastrar o aparelho) e `engine_error`.
@@ -402,5 +406,5 @@ Fora do motor, no controller, **depois** da decisão.
 | `threat` | interna | `identidade`, `golpe` ou `laranja` (G) |
 | `situation_type` | interna | causa no vocabulário do DICT para a notificação de infração: `ACCOUNT_TAKEOVER`, `COERCION` ou `SCAM` |
 | `basis` | interna | `own_evidence` ou `third_party_mark` (rejeição só por marcação de outro banco não abre notificação nova) |
-| `pld_alert` | interna | `payer_mule` ≥ 20 pontos, ou `mule_cashout`, `split_payments` ou `new_device_structuring`. Não muda a decisão: marca o Pix para a equipe de PLD |
+| `pld_alert` | interna | `payer_mule` ≥ 20 pontos, `mule_cashout`, `split_payments`, `new_device_structuring` ou pagador com marcação de laranja/golpista no DICT. Não muda a decisão: marca o Pix para a equipe de PLD |
 | `sanctions_freeze` | interna | `true` em `sanctioned_party` (indisponibilidade de ativos e comunicação ao BC, MJSP e COAF ficam fora do escopo) |

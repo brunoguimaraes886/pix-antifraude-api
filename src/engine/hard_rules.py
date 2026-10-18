@@ -23,11 +23,13 @@ from engine.reasons import (
     LIMIT_EXCEEDED,
     NEW_DEVICE_LIMIT,
     NEW_DEVICE_STRUCTURING,
+    PAYER_DICT_FRAUD_MARKER,
     REPEAT_AFTER_FRAUD_REJECTION,
     SANCTIONED_PARTY,
     Reason,
 )
 from engine.result import REJECTED, TWO_FACTOR_REQUIRED
+from engine.signals.payer_mule import payer_pass_through_points
 
 Outcome = Optional[Tuple[str, Reason]]
 HardRule = Callable[[Features, Measures], Outcome]
@@ -108,6 +110,30 @@ def new_device_structuring(f: Features, m: Measures) -> Outcome:
     return None
 
 
+def payer_dict_fraud_marker(f: Features, m: Measures) -> Outcome:
+    """O pagador é laranja: marcação de laranja ou golpista no DICT em 12 meses (na conta ou no CPF/CNPJ)
+    E um reforço — conta nova ou repasse agora de entradas de desconhecidos.
+
+    O mesmo critério de fundada suspeita do destino (`dict_fraud_marker`),
+    do outro lado. Sem reforço a marcação não muda a decisão (pode ser antiga
+    ou errada): só liga o alerta interno de PLD. O DICT do pagador vem do
+    resumo diário (uma consulta por dia), por isso esta regra roda antes da
+    consulta do destino.
+    """
+    recent = any(t in params.DICT_HARD_TYPES and age <= params.DICT_HARD_DAYS for t, age in m.payer_dict_markers)
+    if not recent:
+        return None
+
+    reinforced = (
+        f.payer.account_age_days < params.DICT_REINFORCEMENT_ACCOUNT_DAYS
+        or payer_pass_through_points(f, m) > 0
+    )
+
+    if reinforced:
+        return REJECTED, PAYER_DICT_FRAUD_MARKER
+    return None
+
+
 PRE_DICT_RULES: List[HardRule] = [
     sanctioned_party,
     betting_destination,
@@ -116,6 +142,7 @@ PRE_DICT_RULES: List[HardRule] = [
     destination_account_blocked,
     new_device_limit,
     new_device_structuring,
+    payer_dict_fraud_marker,
 ]
 
 

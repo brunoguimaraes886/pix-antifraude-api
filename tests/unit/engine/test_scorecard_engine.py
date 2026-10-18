@@ -22,6 +22,7 @@ from tests.unit.engine.features_factory import (
     inflow_24h,
     marker,
     new_destination,
+    payer_dict,
     payer_profile,
     settle,
     unregistered_device,
@@ -225,6 +226,45 @@ class TestHardRules:
 
         assert "dict_marker" not in codes(result)
         assert "dict_history" in codes(result)
+
+    def test_payer_dict_marker_rejects_with_a_new_account(self):
+        features = payer_dict(clean_features(), owner=[marker("MULE_ACCOUNT", 60)])
+        features.payer.account_age_days = 12
+        fake_dict = FakeDict(features)
+
+        result = evaluate(features, fake_dict)
+
+        assert result.status == REJECTED
+        assert codes(result) == ["payer_dict_fraud_marker"]
+        assert fake_dict.calls == 0
+
+    def test_payer_dict_marker_rejects_when_passing_money_through(self):
+        features = inflow_24h(clean_features(amount=90000), amount=100000, new_counterparties=3)
+        features = payer_dict(features, account=[marker("SCAMMER_ACCOUNT", 5)])
+
+        assert codes(evaluate(features))[0] == "payer_dict_fraud_marker"
+
+    def test_payer_dict_marker_alone_only_alerts_pld(self):
+        features = payer_dict(clean_features(), account=[marker("MULE_ACCOUNT", 30)])
+
+        result = evaluate(features)
+
+        assert result.status == APPROVED
+        assert result.decision["pld_alert"] is True
+        assert result.decision["measures"]["payer_dict_marked"] is True
+
+    @pytest.mark.parametrize("marker_type,days_ago", [("MULE_ACCOUNT", 400), ("APPLICATION_FRAUD", 10), ("OTHER", 10)])
+    def test_payer_old_or_weak_marker_does_not_reject(self, marker_type, days_ago):
+        features = payer_dict(clean_features(), owner=[marker(marker_type, days_ago)])
+        features.payer.account_age_days = 12
+
+        assert "payer_dict_fraud_marker" not in codes(evaluate(features))
+
+    def test_payer_dict_marker_is_not_shown_to_the_client(self):
+        features = payer_dict(clean_features(), owner=[marker("MULE_ACCOUNT", 60)])
+        features.payer.account_age_days = 12
+
+        assert [reason.code for reason in public_reasons(evaluate(features).reasons)] == ["risk_policy"]
 
     def test_messy_dict_answer_does_not_break_the_engine(self):
         for response in (None, {}, {"account": None}, {"account": {"fraud_markers": "x"}}, {"owner": {"fraud_markers": [1]}}):

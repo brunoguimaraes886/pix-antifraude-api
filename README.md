@@ -87,7 +87,7 @@ POST /pix/transaction
   2. trava as contas           → saldo e limite lidos sem corrida
   3. grava o Pix               → tudo que chega fica no banco, inclusive o rejeitado
   4. recusas operacionais      → conta inexistente, titular errado, bloqueada, sem saldo
-  5. resumo diário             → o "habitual" da conta (30 dias), calculado 1x por dia
+  5. resumo diário             → o "habitual" da conta (30 dias) e o DICT do pagador, 1x por dia
   6. features                  → pagador, destino, relação, aparelho, ritmo
  MOTOR
   7. regras duras sem DICT     → limite, sanções, apostas, insistência... rejeitou? para aqui (lista na seção 4.2)
@@ -101,6 +101,11 @@ POST /pix/transaction
 
 - **DICT depois das regras duras:** é a única consulta externa e a mais lenta.
   Se o limite já rejeita, não há por que esperar o BC.
+- **DICT do pagador:** o pagador também pode ser a laranja. A conta dele é
+  consultada no DICT **uma vez por dia**, junto com o resumo diário (no
+  primeiro Pix do dia), e a resposta fica guardada no resumo. Consultar a cada
+  Pix dobraria as chamadas ao BC por uma marcação que quase nunca muda no
+  mesmo dia. Se o DICT não responder, o próximo Pix do dia tenta de novo.
 - **DICT fora do ar:** a API espera no máximo 0,5 s. Sem resposta, usa a
   resposta guardada da última análise com o mesmo destino (conta **ou**
   CPF/CNPJ). Se essa resposta tem mais de 24h, ou não existe, o motor fica
@@ -195,6 +200,7 @@ disponível):
 |---|---|
 | `limit_exceeded` | o limite é do cliente; o caminho é ele aumentar o limite |
 | `dict_fraud_marker` | o destino tem marcação de fraude recente no DICT |
+| `payer_dict_fraud_marker` | o próprio pagador tem marcação de laranja/golpista no DICT e está agindo como laranja |
 | `sanctioned_party`, `betting_destination` | a lei proíbe o Pix (sanção da ONU, apostas) |
 | `destination_account_blocked` | conta bloqueada não recebe |
 | `new_device_limit`, `new_device_structuring` | limite do BC para aparelho não cadastrado; o caminho é cadastrar o aparelho |
@@ -296,7 +302,7 @@ Com isso, o que a API monta para o motor (`Features`, em
 | Bloco | O que olhamos | Por quê | Base |
 |---|---|---|---|
 | **Transação** | valor, hora local, período (diurno 6h–20h, noturno 20h–6h), valor ÷ saldo, valor ÷ p90 de saída | "zerar a conta" e valor fora do habitual são a cara da falsa central e da invasão | perfil e horário (art. 39-B); noturno (IN 512) |
-| **Pagador** | idade da conta, saldo, limites, bloqueios, resumo de 30 dias (médias, p90, Pix por dia, fração noturna), fluxo de 24h | define o "habitual" e mostra se o pagador está repassando dinheiro de outros | perfil (art. 89); Carta Circular 4.001 |
+| **Pagador** | idade da conta, saldo, limites, bloqueios, resumo de 30 dias (médias, p90, Pix por dia, fração noturna), fluxo de 24h, DICT da conta (1x por dia) | define o "habitual" e mostra se o pagador está repassando dinheiro de outros | perfil (art. 89); Carta Circular 4.001 |
 | **Destino** | idade da conta, DICT, quantos clientes nossos pagaram ele pela 1ª vez em 7 dias (fan-in), rejeições por suspeita com outros clientes; se for nosso, o perfil completo | a laranja é o elo que se repete entre vítimas | idade da conta (art. 39-B); DICT (art. 89) |
 | **Relação** | já pagou esse destino? quanto, quantas vezes, há quanto tempo; valores crescendo; o destino já pagou o pagador; mesmo titular | quase toda fraude vai para destino novo; recorrência alivia | recorrência (art. 39-B) |
 | **Aparelho** | aparelho cadastrado (Pix aprovado em ≥ 3 dias, o 1º há ≥ 7), IP, canal, outras contas no mesmo aparelho, distância e velocidade desde o último Pix | invasão de conta quase sempre usa aparelho novo | IN 491; IN 512, § 15 |
@@ -351,6 +357,7 @@ Não passam pelo score. As principais:
 | `repeat_after_fraud_rejection` | `rejected` | o mesmo destino já foi rejeitado por suspeita para este cliente em 24h ("tenta um valor menor" é roteiro de golpe) |
 | `dict_fraud_marker` | `rejected` | marcação de laranja/golpista no DICT em 12 meses **e** um reforço (conta destino < 90 dias, vários pagadores novos ou rejeição com outro cliente) |
 | `dict_marker` | piso 2FA | marcação válida que não chegou a rejeitar |
+| `payer_dict_fraud_marker` | `rejected` | o **pagador** tem marcação de laranja/golpista no DICT em 12 meses **e** um reforço (conta pagadora < 90 dias ou repassando agora entradas de desconhecidos). Sem reforço, só liga o alerta interno de PLD |
 | `new_device_limit` | piso 2FA | aparelho não cadastrado acima de R$ 200 no Pix ou R$ 1.000 no dia (IN 491) |
 | `dict_unavailable` | piso 2FA | destino de outro banco, sem DICT e nunca pago antes |
 
@@ -516,7 +523,11 @@ Rodados no motor real (cenários dos testes unitários):
 laranja/golpista com reforço rejeita (R$ 100 para conta marcada há 8 meses e
 aberta há 60 dias → `rejected`); sem reforço, a mesma marcação numa conta de 3
 anos é piso de 2FA. E como **sinal** (`dict_history`, +5 a +40 conforme o tipo
-e a idade da marcação), que soma com os outros sinais do destino.
+e a idade da marcação), que soma com os outros sinais do destino. O DICT do
+**pagador** entra só como regra dura (`payer_dict_fraud_marker`, mesmo
+critério de reforço) e no alerta de PLD: uma marcação sozinha no pagador
+pode ser antiga ou errada, e nos cenários de teste pesar no score só barrava
+legítimos.
 
 O que **cada** sinal, regra, peso e custo significa, com a condição exata e o
 porquê, está no **[dicionário do motor](docs/dicionario-motor.md)**. Onde
@@ -535,7 +546,7 @@ contas, aparelhos, listas restritivas e destinos marcados no DICT, só para
 |---|---|---|
 | `88213` | Maria, 123.456.789-09, aparelho `dvc-9f2c71a8` | a pagadora do enunciado |
 | `10001` | João, 529.982.247-25, `dvc-joao-1` | cliente comum |
-| `66666` | Lucas, 390.533.447-05, `dvc-lucas-1` | cara de laranja (conta de 12 dias, entra e sai) |
+| `66666` | Lucas, 390.533.447-05, `dvc-lucas-1` | laranja: conta de 12 dias, entra e sai, CPF marcado como laranja no mock do DICT (Pix dele → `rejected`) |
 | `20002` | Padaria (PJ), 11.222.333/0001-81, `dvc-padaria-1` | PJ com muitos Pix pequenos |
 | `30003` | Carlos, 111.444.777-35 | conta bloqueada |
 
@@ -551,6 +562,11 @@ marcados no mock do DICT: ISPB `60746948` ag. `0001` conta `990666`, e ISPB
   regras duras (no limiar e logo abaixo), de cada linha da política, do score
   (tetos, mitigantes, ρ), os 46 cenários e propriedades (nenhuma camada desce a
   severidade; nenhum motivo de PLD aparece na resposta pública).
+- **Bancada de 240 cenários** (`tests/unit/engine/test_bench.py`): os cenários
+  desafiadores de `calibration/`, escritos às cegas, rodam no motor como teste
+  de **não-regressão**. Muitos golpes ali são indistinguíveis de um Pix
+  legítimo, então o teste não exige acerto: exige que o placar de hoje (63 de
+  119 golpes barrados ou com 2FA, 3 de 119 legítimos rejeitados) não piore.
 - **Integração** (`tests/integration/`, com a API de pé): como não existe rota
   de cadastro (onboarding está fora do escopo), cada teste **cria as próprias
   contas direto no banco** (`tests/utils/scenario.py`), com número aleatório e
@@ -589,7 +605,8 @@ marcados no mock do DICT: ISPB `60746948` ag. `0001` conta `990666`, e ISPB
   o aparelho só fica cadastrado por uso (3 dias), não pela confirmação.
 - **Visão só da nossa base.** Fan-in e rejeições do destino contam só os
   nossos clientes; de outros bancos, só o que o DICT diz. O DICT do
-  **pagador** não é consultado.
+  **pagador** é lido uma vez por dia: uma marcação feita no meio do dia só
+  vale a partir do dia seguinte.
 - **Fora do escopo:** Pix recebido (bloqueio cautelar na entrada), fila de
   PLD e comunicação ao COAF, notificação de infração no DICT, configuração por
   conta (noturno às 22h, destinatário cadastrado) e os sinais que o payload

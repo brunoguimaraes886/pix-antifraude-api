@@ -6,11 +6,14 @@ from constants import OUR_ISPB
 from controllers.base_controller import BaseController
 from engine import params
 from engine.features import (
+    DICT_OK,
+    DICT_UNAVAILABLE,
     BaselineFeatures,
     CustomerFeatures,
     DestinationFeatures,
     DestinationHistoryFeatures,
     DeviceFeatures,
+    DictFeatures,
     Features,
     FlowSideFeatures,
     FlowWindowFeatures,
@@ -62,6 +65,7 @@ class FeatureController(BaseController):
         destination_baseline: Optional[AccountBaseline],
     ) -> Features:
         payer_features = self._internal_account(payer, payer_baseline, moment)
+        payer_features.dict = _payer_dict(payer_baseline)
         payer_features.unregistered_amount_today, payer_features.unregistered_near_limit_24h = (
             self._unregistered_device_usage(pix, moment, payer)
         )
@@ -417,6 +421,14 @@ def _baseline_features(baseline: AccountBaseline) -> BaselineFeatures:
         rejected_pix_in_count=baseline.rejected_pix_in_count,
         night_out_share=_float(baseline.night_out_share),
     )
+
+
+def _payer_dict(baseline: AccountBaseline) -> DictFeatures:
+    """O DICT do pagador, do resumo do dia. Vazio = o DICT não respondeu hoje."""
+    if baseline.dict_response is None:
+        return DictFeatures(status=DICT_UNAVAILABLE, response=None, fetched_at=None)
+
+    return DictFeatures(status=DICT_OK, response=baseline.dict_response, fetched_at=baseline.dict_fetched_at)
 
 
 def _destination_tuple(pix: PixTransaction) -> tuple:

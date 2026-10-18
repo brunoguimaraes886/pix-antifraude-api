@@ -1,0 +1,112 @@
+{
+  "lc-014": [
+    {
+      "type": "APPLICATION_FRAUD",
+      "on": "owner",
+      "days_ago": 1100
+    }
+  ],
+  "lc-038": [
+    {
+      "type": "APPLICATION_FRAUD",
+      "on": "owner",
+      "days_ago": 260
+    }
+  ],
+  "lh-022": [
+    {
+      "type": "OTHER",
+      "on": "account",
+      "days_ago": 740
+    }
+  ],
+  "lh-024": [
+    {
+      "type": "APPLICATION_FRAUD",
+      "on": "owner",
+      "days_ago": 700
+    }
+  ],
+  "lh-041": [
+    {
+      "type": "APPLICATION_FRAUD",
+      "on": "owner",
+      "days_ago": 400
+    }
+  ],
+  "lh-060": [
+    {
+      "type": "MULE_ACCOUNT",
+      "on": "account",
+      "days_ago": 210
+    }
+  ],
+  "se-036": [
+    {
+      "type": "APPLICATION_FRAUD",
+      "on": "owner",
+      "days_ago": 540
+    }
+  ],
+  "se-049": [
+    {
+      "type": "MULE_ACCOUNT",
+      "on": "account",
+      "days_ago": 1
+    }
+  ],
+  "tm-022": [
+    {
+      "type": "APPLICATION_FRAUD",
+      "on": "owner",
+      "days_ago": 300
+    }
+  ],
+  "tm-031": [
+    {
+      "type": "MULE_ACCOUNT",
+      "on": "owner",
+      "days_ago": 60
+    }
+  ],
+  "tm-032": [
+    {
+      "type": "MULE_ACCOUNT",
+      "on": "account",
+      "days_ago": 6
+    },
+    {
+      "type": "MULE_ACCOUNT",
+      "on": "owner",
+      "days_ago": 35
+    }
+  ],
+  "tm-035": [
+    {
+      "type": "APPLICATION_FRAUD",
+      "on": "owner",
+      "days_ago": 120
+    }
+  ],
+  "tm-037": [
+    {
+      "type": "MULE_ACCOUNT",
+      "on": "account",
+      "days_ago": 150
+    }
+  ],
+  "tm-041": [
+    {
+      "type": "MULE_ACCOUNT",
+      "on": "account",
+      "days_ago": 3
+    }
+  ],
+  "tm-044": [
+    {
+      "type": "MULE_ACCOUNT",
+      "on": "owner",
+      "days_ago": 90
+    }
+  ]
+}

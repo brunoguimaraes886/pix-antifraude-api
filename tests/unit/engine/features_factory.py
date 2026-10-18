@@ -311,6 +311,16 @@ def dict_answer(f: Features, account: list = None, owner: list = None) -> Featur
     return f
 
 
+def payer_dict(f: Features, account: list = None, owner: list = None) -> Features:
+    """O DICT da conta que envia (vem do resumo diário)."""
+    f.payer.dict = DictFeatures(
+        status=DICT_OK,
+        response={"account": {"fraud_markers": account or []}, "owner": {"fraud_markers": owner or []}},
+        fetched_at=MOMENT,
+    )
+    return f
+
+
 def marker(marker_type: str, days_ago: int) -> dict:
     return {"type": marker_type, "created_at": (MOMENT - timedelta(days=days_ago)).isoformat()}
 

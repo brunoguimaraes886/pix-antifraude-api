@@ -17,6 +17,7 @@ python calibration/calibrate.py --skip-difficulty hard  # idem, sem os casos "in
 | `schema.md` | o formato dos cenários: a única coisa que os agentes geradores leram |
 | `data/gen_*.json` | 240 cenários: 60 golpes de engenharia social, 60 de invasão/laranja, 60 legítimos comuns, 60 legítimos que parecem suspeitos |
 | `data/review*.json` | revisão de coerência por outros 2 agentes cegos: 2 descartados, 3 corrigidos |
+| `data/payer_dict.json` | o DICT do **pagador**, anotado depois por outro agente cego (só leu o schema e os cenários): 15 cenários com marcação |
 | `scenario.py` | cenário → `Features` |
 | `cost.py` | o juiz: custo real de cada decisão (separado dos custos internos do motor, que a busca ajusta) |
 | `calibrate.py` | roda o motor de verdade até os sinais, re-soma com cada configuração e busca a melhor |
@@ -51,6 +52,30 @@ legítimos iguais.
 (partes de 0,09 a 2,99). A direção: destino ×3, prior ×4 e política de custo
 esperado puro. Rejeita muito mais golpe, mas quebra 20 dos 45 cenários
 âncora e passa a rejeitar legítimos. É indício, não resultado.
+
+## DICT do pagador
+
+O motor passou a ler o DICT da conta que envia (uma consulta por dia, no
+resumo diário). Para medir, outro agente cego anotou o que o DICT mostraria
+de cada pagador: 6 de 120 legítimos com alguma marcação (fraude de abertura
+antiga, marcação resolvida ou errada), 6 de 20 pagadores-laranja marcados e
+3 vítimas com marcação plausível.
+
+| | antes | regra `payer_dict_fraud_marker` |
+|---|---|---|
+| golpes aprovados | 57 | **56** |
+| golpes rejeitados | 35 | **36** |
+| legítimos rejeitados | 3 | 3 |
+| custo (peso 10 / 50 / 200) | 302.756 / 342.832 / 493.117 | **301.766 / 341.842 / 492.127** |
+
+Melhora pequena e só para um lado: os pagadores-laranja marcados quase todos
+já eram rejeitados pelo repasse. Testado e descartado: a marcação como sinal
+de score (+20/+40). Ela barrava um legítimo com marcação errada (ambulante
+que recebe de muita gente de madrugada) e piorava o custo. Por isso a
+marcação sozinha só liga o alerta de PLD.
+
+`tests/unit/engine/test_bench.py` roda esta bancada no pytest como teste de
+não-regressão (o placar não pode piorar).
 
 ## O que fazer com isso
 

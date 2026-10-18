@@ -38,7 +38,9 @@ estranho).
     "nightly_limit": 1000.0,           // limite noturno configurado
     "past_account_blocks": 0,          // vezes que a conta foi bloqueada no passado
     "past_rejected_pix": 0,            // Pix dele já rejeitados por suspeita no passado
-    "restricted": null                 // null | "csnu" (lista de sanções da ONU)
+    "restricted": null,                // null | "csnu" (lista de sanções da ONU)
+    "dict": {"markers": []}            // marcações do pagador no DICT (mesmo formato do destino).
+                                       // Anotado depois, à parte, em data/payer_dict.json
   },
 
   "flow_24h": {                        // movimentação do pagador nas últimas 24h ANTES deste Pix

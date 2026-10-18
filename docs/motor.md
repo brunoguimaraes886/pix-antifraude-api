@@ -55,6 +55,7 @@ Os campos que o motor usa e de onde vêm (`src/controllers/feature_controller.py
 | `payer.unregistered_amount_today` | Pix aprovados hoje de aparelhos que não são cadastrados |
 | `payer.unregistered_near_limit_24h` | Pix de R$ 180–200 de aparelho não cadastrado em 24h |
 | `payer.baseline.night_out_share` | `account_baseline`: fração das saídas de 30 dias no período noturno |
+| `payer.dict` | `account_baseline.dict_response`: o DICT da conta pagadora, consultado uma vez por dia no primeiro Pix (vazio = o DICT não respondeu; o próximo Pix tenta de novo) |
 | `relationship.same_owner` | CPF/CNPJ do destino = do pagador |
 | `relationship.attempts_to_destination_24h`, `last_attempt_amount`, `blocked_attempts_24h`, `fraud_rejections_24h` | `pix_transaction` + análises das últimas 24h, sem recusas operacionais |
 | `relationship.matching_recent_inflow` | extrato: entrada de contraparte nova, ±5% do valor, em 24h |

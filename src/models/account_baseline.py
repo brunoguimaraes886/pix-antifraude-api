@@ -1,4 +1,5 @@
 from sqlalchemy import BigInteger, Column, Date, DateTime, ForeignKey, Integer, Numeric, UniqueConstraint, func
+from sqlalchemy.dialects.postgresql import JSONB
 
 from models.base import Base
 from models.account import Account
@@ -10,7 +11,8 @@ class AccountBaseline(Base):
     Uma linha por conta por dia, gravada no primeiro Pix do dia da conta
     (src/controllers/baseline_controller.py). Os Pix seguintes do dia só
     leem. Nenhum score é salvo aqui — são dados que o motor compara com a
-    transação nova.
+    transação nova. Do pagador, guarda também o DICT da própria conta,
+    consultado uma vez por dia.
     """
 
     __tablename__ = "account_baseline"
@@ -29,6 +31,8 @@ class AccountBaseline(Base):
     account_block_count = Column(Integer, nullable=False)
     rejected_pix_out_count = Column(Integer, nullable=False)
     rejected_pix_in_count = Column(Integer, nullable=False)
+    dict_response = Column(JSONB, nullable=True)
+    dict_fetched_at = Column(DateTime(timezone=True), nullable=True)
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
 
     __table_args__ = (UniqueConstraint("account_id", "baseline_date"),)

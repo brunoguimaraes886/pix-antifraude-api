@@ -101,6 +101,10 @@ CREATE TABLE account_baseline(
     account_block_count             INTEGER NOT NULL,
     rejected_pix_out_count          INTEGER NOT NULL,
     rejected_pix_in_count           INTEGER NOT NULL,
+    -- O DICT da própria conta (pagador), uma consulta por dia. Vazio = não
+    -- consultado ainda ou o DICT não respondeu (o próximo Pix tenta de novo).
+    dict_response                   JSONB,
+    dict_fetched_at                 TIMESTAMPTZ,
     created_at                      TIMESTAMPTZ NOT NULL DEFAULT(NOW()),
     UNIQUE(account_id, baseline_date)
 );

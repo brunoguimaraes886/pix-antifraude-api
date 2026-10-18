@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 from typing import List, Optional, Tuple
 
 from engine import params
-from engine.features import DICT_FALLBACK, DICT_OK, Features, InternalAccountFeatures
+from engine.features import DICT_FALLBACK, DICT_OK, DictFeatures, Features, InternalAccountFeatures
 
 PJ = "PJ"
 
@@ -52,6 +52,14 @@ class Measures:
     speed_kmh: Optional[float]
     dict_recent: bool                   # DICT respondeu agora ou fallback de até 24h
     dict_markers: List[Tuple[str, float]] = field(default_factory=list)  # (tipo, idade em dias)
+    payer_dict_markers: List[Tuple[str, float]] = field(default_factory=list)  # as do próprio pagador
+
+    @property
+    def payer_dict_marked(self) -> bool:
+        """O pagador tem marcação de laranja ou golpista ainda válida (5 anos) no DICT."""
+        return any(
+            t in params.DICT_HARD_TYPES and age <= params.DICT_VALID_DAYS for t, age in self.payer_dict_markers
+        )
 
 
 def measure(f: Features) -> Measures:
@@ -150,7 +158,8 @@ def measure(f: Features) -> Measures:
         cold_start=is_cold_start(f),
         speed_kmh=_speed(f.device.distance_from_last_km, f.device.minutes_since_last_location),
         dict_recent=dict_is_recent(f),
-        dict_markers=dict_markers(f),
+        dict_markers=dict_markers(f.destination.dict, moment),
+        payer_dict_markers=dict_markers(payer.dict, moment),
     )
 
 
@@ -257,19 +266,17 @@ def dict_is_recent(f: Features) -> bool:
     return False
 
 
-def dict_markers(f: Features) -> List[Tuple[str, float]]:
-    """(tipo, idade em dias) de cada marcação da conta e do dono.
+def dict_markers(consult: Optional[DictFeatures], moment: datetime) -> List[Tuple[str, float]]:
+    """(tipo, idade em dias) de cada marcação da conta e do dono — do destino ou do pagador.
 
     Lê com cuidado: o formato vem de fora, e um campo faltando não pode
     derrubar a decisão. Marcação sem data conta como recente. Um fallback
     velho ainda conta (não esquecemos uma marcação), mas não tira o Pix do
     "sem DICT recente".
     """
-    consult = f.destination.dict
     if consult is None or not isinstance(consult.response, dict):
         return []
 
-    moment = f.transaction.transaction_date
     markers = []
 
     for subject in ("account", "owner"):

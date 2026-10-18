@@ -27,6 +27,13 @@ DICT_UNAVAILABLE = "unavailable"  # não respondeu e não há análise anterior
 
 
 @dataclass
+class DictFeatures:
+    status: str                     # DICT_OK, DICT_FALLBACK ou DICT_UNAVAILABLE
+    response: Optional[dict]        # a resposta do DICT como veio (ou a do fallback)
+    fetched_at: Optional[datetime]  # quando essa resposta foi consultada
+
+
+@dataclass
 class CustomerFeatures:
     document_type: str              # "PF" (CPF) ou "PJ" (CNPJ)
     age_years: int                  # PF: idade da pessoa; PJ: anos desde a fundação
@@ -102,6 +109,9 @@ class InternalAccountFeatures:
     # Só no pagador (no destino ficam 0): o limite do aparelho não cadastrado.
     unregistered_amount_today: int = 0      # aprovado hoje de aparelhos não cadastrados
     unregistered_near_limit_24h: int = 0    # Pix de R$ 180–200 de aparelho não cadastrado em 24h
+    # Só no pagador: o DICT da própria conta, consultado uma vez por dia
+    # (no resumo diário). None = não consultado; status unavailable = sem resposta hoje.
+    dict: Optional[DictFeatures] = None
 
 
 @dataclass
@@ -125,13 +135,6 @@ class DestinationHistoryFeatures:
     # Outros pagadores com Pix para este destino rejeitado por suspeita
     # sobre o destino nos últimos 90 dias (conta ou CPF/CNPJ).
     fraud_rejected_payers_90d: int = 0
-
-
-@dataclass
-class DictFeatures:
-    status: str                     # DICT_OK, DICT_FALLBACK ou DICT_UNAVAILABLE
-    response: Optional[dict]        # a resposta do DICT como veio (ou a do fallback)
-    fetched_at: Optional[datetime]  # quando essa resposta foi consultada
 
 
 @dataclass

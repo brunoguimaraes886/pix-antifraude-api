@@ -55,11 +55,17 @@ def load_scenarios(skip_difficulty: tuple = ()) -> List[dict]:
     if review_path.exists():
         vetoed = {item["id"] for item in json.loads(review_path.read_text(encoding="utf-8")) if item.get("drop")}
 
+    # O DICT do pagador foi anotado depois, por outro agente cego, num arquivo à parte.
+    payer_dict_path = ROOT / "data" / "payer_dict.json"
+    payer_dict = json.loads(payer_dict_path.read_text(encoding="utf-8")) if payer_dict_path.exists() else {}
+
     scenarios = []
     for path in sorted((ROOT / "data").glob("gen_*.json")):
         for item in json.loads(path.read_text(encoding="utf-8")):
             if item["id"] not in vetoed and item.get("difficulty") not in skip_difficulty:
                 item["_source"] = path.stem
+                if item["id"] in payer_dict:
+                    item.setdefault("payer", {})["dict"] = {"markers": payer_dict[item["id"]]}
                 scenarios.append(item)
     return scenarios
 

@@ -64,6 +64,9 @@ REPEAT_AFTER_FRAUD_REJECTION = Reason(
 )
 DESTINATION_ACCOUNT_BLOCKED = Reason("destination_account_blocked", "A conta de destino está bloqueada.")
 DICT_FRAUD_MARKER = Reason("dict_fraud_marker", "A conta ou o CPF/CNPJ de destino tem marcação de fraude no DICT.")
+PAYER_DICT_FRAUD_MARKER = Reason(
+    "payer_dict_fraud_marker", "A conta pagadora ou o CPF/CNPJ dela tem marcação de fraude no DICT."
+)
 DICT_MARKER = Reason("dict_marker", "O destino tem registro de suspeita de fraude no Banco Central.")
 NEW_DEVICE_LIMIT = Reason(
     "new_device_limit", "Aparelho não cadastrado: acima de R$ 200 por Pix ou R$ 1.000 no dia, é preciso confirmar."
@@ -156,6 +159,7 @@ PLD_SENSITIVE = (
     "payer_inflow_jump",
     "payer_dormant_awakened",
     "new_source_account",
+    "payer_dict_fraud_marker",
     "mule_cashout",
     "split_payments",
     "new_device_structuring",
@@ -179,6 +183,7 @@ NOT_SUSPICION_CODES = OPERATIONAL_CODES + (LIMIT_EXCEEDED.code,)
 NOT_RELEASABLE = (
     LIMIT_EXCEEDED,
     DICT_FRAUD_MARKER,
+    PAYER_DICT_FRAUD_MARKER,
     ENGINE_ERROR,
     SANCTIONED_PARTY,
     BETTING_DESTINATION,

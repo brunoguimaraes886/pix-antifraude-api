@@ -118,7 +118,7 @@ def _decision(
         "threat": threat,
         "situation_type": response.situation_type(threat, evidences) if status == REJECTED else None,
         "basis": basis,
-        "pld_alert": response.pld_alert(points, codes),
+        "pld_alert": response.pld_alert(points, codes) or measures.payer_dict_marked,
         "sanctions_freeze": "sanctioned_party" in hard_codes,
         "destination_evidence": response.destination_evidence(points, hard_codes),
         "effective_limit": hard_rules.effective_limit(features, measures),
@@ -138,6 +138,7 @@ def _decision(
             "dict_recent": measures.dict_recent,
             "fan_in": measures.fan_in,
             "new_payees_period": measures.new_payees_period,
+            "payer_dict_marked": measures.payer_dict_marked,
         },
     }
 

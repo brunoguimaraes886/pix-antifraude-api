@@ -140,6 +140,20 @@ def _days_ago(moment: datetime, days) -> Optional[datetime]:
     return None if days is None else moment - timedelta(days=float(days))
 
 
+def _dict(data: Optional[dict], moment: datetime) -> DictFeatures:
+    """O bloco "dict" do cenário → a resposta do DICT no formato do mock."""
+    data = data or {}
+    if not data.get("available", True):
+        return DictFeatures(status=DICT_UNAVAILABLE, response=None, fetched_at=None)
+
+    response = {"account": {"fraud_markers": []}, "owner": {"fraud_markers": []}}
+    for item in data.get("markers") or []:
+        subject = "owner" if item.get("on") == "owner" else "account"
+        created = moment - timedelta(days=float(item.get("days_ago", 0)))
+        response[subject]["fraud_markers"].append({"type": item.get("type", "OTHER"), "created_at": created.isoformat()})
+    return DictFeatures(status=DICT_OK, response=response, fetched_at=moment)
+
+
 def to_features(scenario: dict) -> Features:
     pix = scenario.get("pix") or {}
     payer = scenario.get("payer") or {}
@@ -202,16 +216,8 @@ def to_features(scenario: dict) -> Features:
         dest_out = _side(dest_out_amount, 1 if dest_out_amount else 0, 0)
         destination_account = _account(data, moment, is_night, "destination", dest_in, dest_out, dest_out)
 
-    dict_data = destination.get("dict") or {}
-    if dict_data.get("available", True):
-        response = {"account": {"fraud_markers": []}, "owner": {"fraud_markers": []}}
-        for item in dict_data.get("markers") or []:
-            subject = "owner" if item.get("on") == "owner" else "account"
-            created = moment - timedelta(days=float(item.get("days_ago", 0)))
-            response[subject]["fraud_markers"].append({"type": item.get("type", "OTHER"), "created_at": created.isoformat()})
-        dict_features = DictFeatures(status=DICT_OK, response=response, fetched_at=moment)
-    else:
-        dict_features = DictFeatures(status=DICT_UNAVAILABLE, response=None, fetched_at=None)
+    dict_features = _dict(destination.get("dict"), moment)
+    payer_account.dict = _dict(payer.get("dict"), moment)
 
     previous = int(relationship.get("previous_payments") or 0)
     destination_features = DestinationFeatures(
@@ -288,4 +294,3 @@ def to_features(scenario: dict) -> Features:
             seconds_since_last_attempt=velocity.get("seconds_since_last_attempt", 36000.0),
         ),
     )
-
