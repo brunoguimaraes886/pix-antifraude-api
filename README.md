@@ -65,12 +65,19 @@ Toda rota (menos `/` e `/health_check`) exige o header `INTERNAL-TOKEN`
 
 ### 2.1 O que acontece num POST
 
-O controller cuida de tudo que é banco e HTTP; o motor (`src/engine/`) só
-recebe as features e devolve a decisão.
+Cada camada tem um papel:
+
+| Camada | Papel no POST |
+|---|---|
+| **resource** (`src/resources/`) | HTTP: valida o JSON contra o schema, chama o controller e responde `201` ou `200` |
+| **controllers** (`src/controllers/`) | orquestram o Pix: o `PixTransactionController` conduz o fluxo abaixo e usa os controllers do resumo diário, das features, do DICT e da liberação manual |
+| **repositories** (`src/repositories/`) | todas as consultas e gravações no banco |
+| **connector** (`src/connectors/`) | a chamada HTTP ao DICT |
+| **motor** (`src/engine/`) | decide. Não abre banco nem faz HTTP: recebe as features e uma função para consultar o DICT, que ele só chama depois das regras duras |
 
 ```
 POST /pix/transaction
- CONTROLLER
+ CONTROLLERS
   1. id já visto?              → devolve a análise gravada
   2. trava as contas           → saldo e limite lidos sem corrida
   3. grava o Pix               → tudo que chega fica no banco, inclusive o rejeitado
@@ -79,9 +86,9 @@ POST /pix/transaction
   6. features                  → pagador, destino, relação, aparelho, ritmo
  MOTOR
   7. regras duras sem DICT     → limite, sanções, apostas, insistência... rejeitou? para aqui
-  8. DICT (ou fallback)        → regras duras do DICT
+  8. DICT (ou fallback)        → o motor chama a consulta; regras duras do DICT
   9. sinais → pontos → P e ρ   → política de custo → decisão
- CONTROLLER
+ CONTROLLERS
  10. liberação manual          → barrado por suspeita e liberado? aprova
  11. grava a análise           → status, motivos com pontos, features, DICT, camada interna
  12. approved?                 → debita, credita (se o destino é nosso) e lança no extrato
