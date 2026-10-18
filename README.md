@@ -4,16 +4,15 @@
 
 API que recebe um Pix enviado por um cliente nosso, decide se ele pode sair
 e grava tudo que chegou. Feita a partir do Base Service do Bootcamp QI Tech:
-Python + FastAPI, PostgreSQL e Docker, nas mesmas camadas
-(resource → controller → repository).
+Python + FastAPI, PostgreSQL e Docker.
 
 Cada Pix sai com um de três status:
 
-| Status | Quando | O que significa para o BC |
-|---|---|---|
-| `approved` | risco baixo para o valor | — |
-| `two_factor_required` | há **suspeita**: vale confirmar com o cliente (e, no golpe, alertar e reter) | suspeita |
-| `rejected` | **fundada suspeita** de fraude, ou uma obrigação legal | o BC manda rejeitar (Regulamento do Pix, art. 38, II) |
+| Status                | Quando                                                                       | O que significa para o BC                             |
+| --------------------- | ---------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `approved`            | risco baixo para o valor                                                     | —                                                     |
+| `two_factor_required` | há **suspeita**: vale confirmar com o cliente (e, no golpe, alertar e reter) | suspeita                                              |
+| `rejected`            | **fundada suspeita** de fraude, ou uma obrigação legal                       | o BC manda rejeitar (Regulamento do Pix, art. 38, II) |
 
 A ideia central: **uma transação sozinha diz pouco**. A API compara o Pix com
 o que o pagador e o destino já fizeram antes, consulta o DICT e entrega isso
@@ -61,25 +60,25 @@ quando nasce: `docker compose rm -sfv db && docker compose up --build`.
 Toda rota (menos `/` e `/health_check`) exige o header `INTERNAL-TOKEN`
 (padrão do Base Service; no compose, `default_token`).
 
-| Rota | O que faz |
-|---|---|
-| `POST /pix/transaction` | analisa um Pix e responde a decisão. `201` na primeira vez; o mesmo `id` de novo devolve `200` com a análise gravada (idempotente: não analisa nem debita duas vezes) |
-| `GET /pix/transaction/{id}` | a mesma resposta pública do POST e o `payload` que chegou |
-| `POST /manual_release` | um operador libera um Pix que foi barrado (ver [2.3](#23-liberação-manual)) |
-| `GET /manual_release/{key}` | consulta uma liberação criada. Mostra se ela já foi usada e, se foi, em qual Pix e qual era a decisão do motor que ela trocou por `approved` |
-| `GET /health_check` | a API está de pé (`204`) |
+| Rota                        | O que faz                                                                                                                                                             |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /pix/transaction`     | analisa um Pix e responde a decisão. `201` na primeira vez; o mesmo `id` de novo devolve `200` com a análise gravada (idempotente: não analisa nem debita duas vezes) |
+| `GET /pix/transaction/{id}` | a mesma resposta pública do POST e o `payload` que chegou                                                                                                             |
+| `POST /manual_release`      | um operador libera um Pix que foi barrado (ver [2.3](#23-liberação-manual))                                                                                           |
+| `GET /manual_release/{key}` | consulta uma liberação criada. Mostra se ela já foi usada e, se foi, em qual Pix e qual era a decisão do motor que ela trocou por `approved`                          |
+| `GET /health_check`         | a API está de pé (`204`)                                                                                                                                              |
 
 ### 2.1 O que acontece num POST
 
 Cada camada tem um papel:
 
-| Camada | Papel no POST |
-|---|---|
-| **resource** (`src/resources/`) | HTTP: valida o JSON contra o schema, chama o controller e responde `201` ou `200` |
-| **controllers** (`src/controllers/`) | orquestram o Pix: o `PixTransactionController` conduz o fluxo abaixo e usa os controllers do resumo diário, das features, do DICT e da liberação manual |
-| **repositories** (`src/repositories/`) | todas as consultas e gravações no banco |
-| **connector** (`src/connectors/`) | a chamada HTTP ao DICT |
-| **motor** (`src/engine/`) | decide. Não abre banco nem faz HTTP: recebe as features e uma função para consultar o DICT, que ele só chama depois das regras duras |
+| Camada                                 | Papel no POST                                                                                                                                           |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **resource** (`src/resources/`)        | HTTP: valida o JSON contra o schema, chama o controller e responde `201` ou `200`                                                                       |
+| **controllers** (`src/controllers/`)   | orquestram o Pix: o `PixTransactionController` conduz o fluxo abaixo e usa os controllers do resumo diário, das features, do DICT e da liberação manual |
+| **repositories** (`src/repositories/`) | todas as consultas e gravações no banco                                                                                                                 |
+| **connector** (`src/connectors/`)      | a chamada HTTP ao DICT                                                                                                                                  |
+| **motor** (`src/engine/`)              | decide. Não abre banco nem faz HTTP: recebe as features e uma função para consultar o DICT, que ele só chama depois das regras duras                    |
 
 ```
 POST /pix/transaction
@@ -91,7 +90,7 @@ POST /pix/transaction
   5. resumo diário             → o "habitual" da conta (30 dias), calculado 1x por dia
   6. features                  → pagador, destino, relação, aparelho, ritmo
  MOTOR
-  7. regras duras sem DICT     → limite, sanções, apostas, insistência... rejeitou? para aqui
+  7. regras duras sem DICT     → limite, sanções, apostas, insistência... rejeitou? para aqui (lista na seção 4.2)
   8. DICT (ou fallback)        → o motor chama a consulta; regras duras do DICT
   9. sinais → pontos → P e ρ   → política de custo → decisão
  CONTROLLERS
@@ -102,10 +101,13 @@ POST /pix/transaction
 
 - **DICT depois das regras duras:** é a única consulta externa e a mais lenta.
   Se o limite já rejeita, não há por que esperar o BC.
-- **DICT fora do ar:** timeout de 0,5 s. Sem resposta, vale a da última
-  análise com o mesmo destino (conta **ou** CPF/CNPJ). Fallback com mais de
-  24h ou inexistente = "sem DICT": para destino de outro banco nunca pago,
-  isso vira piso de `two_factor_required`. O motor nunca trava esperando.
+- **DICT fora do ar:** a API espera no máximo 0,5 s. Sem resposta, usa a
+  resposta guardada da última análise com o mesmo destino (conta **ou**
+  CPF/CNPJ). Se essa resposta tem mais de 24h, ou não existe, o motor fica
+  sem saber se o destino tem marcação de fraude. Nesse caso, se o destino é
+  de outro banco e o cliente nunca o pagou, o Pix não pode ser aprovado
+  direto: sai no mínimo como `two_factor_required` (ou `rejected`, se o resto
+  da análise já rejeitar). Assim o Pix nunca fica travado esperando o BC.
 - **Motor quebrou?** O Pix não é aprovado às cegas: `two_factor_required`
   com o motivo `engine_error`.
 
@@ -339,23 +341,32 @@ para quem começa sem dados rotulados. Três correções para o que ele erra:
 diz se a evidência é mais de "não é o dono" (2FA resolve) ou de "golpe /
 laranja" (2FA não resolve).
 
-**Como os valores foram quantificados.** Os pesos atuais são **premissas de
-especialista**, não foram ajustados com dados reais (não temos rótulos de
-fraude). O que usamos:
+**Como os valores foram quantificados.** Os pesos atuais foram definidos
+pela equipe a partir das fontes abaixo, e não ajustados com dados reais (não
+temos rótulos de fraude). É o que se chama de pesos "de especialista": o
+julgamento de quem montou o motor, apoiado em números públicos. O que usamos:
 
-1. **Pesquisa externa** (relatórios de mercado e regulação, compilados no
-   repositório de contexto) para ordenar os sinais e ancorar os LR quando há
-   número público. Exemplos: pagamento a beneficiário novo concentra 67% da
-   fraude em 7% dos pagamentos (NICE, LR ≈ 9,6); aparelho ou login novo é 16×
-   mais associado a fraude não autorizada (FICO); 47% das contas laranja
-   encerradas no Reino Unido tinham < 1 ano (FCA).
+1. **Pesquisa externa** para ordenar os sinais e ancorar os LR quando há
+   número público:
+   - pagamento a beneficiário novo concentra 67% da fraude em 7% dos
+     pagamentos, LR ≈ 9,6 ([NICE Actimize](https://www.sec.gov/Archives/edgar/data/1003935/000117891325002698/exhibit_99-4.htm));
+   - aparelho ou login novo é 16× mais associado a fraude não autorizada do
+     que a golpe ([FICO](https://www.digitaltransactions.net/fico-attacks-push-payment-fraud-with-the-latest-version-of-its-falcon-fraud-manager/));
+     70% das fraudes são comportamento totalmente novo para o cliente, contra
+     ~20% dos pagamentos legítimos ([FICO](https://marketplace.fico.com/blogs/rise-e-payments-fraud-demands-new-analytics));
+   - 47% das contas laranja encerradas no Reino Unido tinham menos de 1 ano
+     ([FCA](https://www.fca.org.uk/publications/multi-firm-reviews/money-mules-activity-cashing-out-findings));
+   - pesos de especialista somados sobre perfis do cliente chegam a ~75% da
+     detecção de um modelo treinado com dados, o que valida o caminho para quem
+     começa sem rótulos ([Zoldi/FICO](https://crc.business-school.ed.ac.uk/sites/crc/files/2023-10/Big-Data-Developments-in-Transaction-Analytics-Scott-Zoldi.pdf)).
 2. **Pontos abaixo dos números de fornecedor**, porque as nossas medidas são
    mais grosseiras: "primeira vez para o destino" vale +15 (LR 2,8), não
    os ~33 que o LR da NICE daria.
-3. **Indícios do BC e da Carta Circular 4.001** para os sinais sem número
-   público (passagem, conta dormente, incompatibilidade de volume).
-4. **Prior** de 1:10.000 a partir dos dados abertos do MED (4 a 9
-   contestações aceitas por 100 mil Pix, que subestimam a fraude real).
+3. **Indícios do BC e da [Carta Circular 4.001](https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Carta%20Circular&numero=4001)**
+   para os sinais sem número público (passagem, conta dormente,
+   incompatibilidade de volume).
+4. **Prior** de 1:10.000 a partir dos [dados abertos do MED](https://dadosabertos.bcb.gov.br/dataset/pix/resource/7eb5efdd-d4dd-47da-a74a-d93ce68ea185)
+   (4 a 9 contestações aceitas por 100 mil Pix, que subestimam a fraude real).
 5. **Conferência em 46 cenários** escritos por nós (19 legítimos difíceis e
    27 golpes, em `tests/unit/engine/test_scenarios.py`). Eles conferem se as
    decisões fazem sentido; os pesos **não** foram mexidos para acertar os
