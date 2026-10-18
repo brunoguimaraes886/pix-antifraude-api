@@ -325,6 +325,30 @@ P = 1 / (1 + 10.000 · 2^(−pontos/10))     prior: 1 fraude a cada 10.000 Pix
 |---|---|---|---|---|---|---|---|
 | P | 0,01% | 0,16% | 0,64% | 2,5% | 9,3% | 29% | 62% |
 
+**De onde vem a fórmula.** É o **teorema de Bayes na forma de chances
+(odds)**: a chance de fraude depois de ver os sinais é a chance inicial vezes
+o LR de cada sinal.
+
+```
+odds(fraude | sinais) = odds(fraude) · LR₁ · LR₂ · …        Bayes, supondo sinais independentes (naive Bayes)
+log2 odds(fraude | sinais) = log2(1/10.000) + Σ log2(LRᵢ)   em log, multiplicar vira somar
+P = odds / (1 + odds)                                        de chance para probabilidade (função logística)
+```
+
+- Os pontos são esse log2 multiplicado por 10, ou seja, `10 · log2(LR)`. É a
+  convenção dos *scorecards* de crédito (*points to double the odds*, PDO =
+  10). Ela serve para trabalhar com números inteiros e legíveis. A Stripe
+  explica os sinais do Radar do mesmo jeito, como "fator 3,5×", que é um LR
+  ([Stripe](https://docs.stripe.com/radar/rules/reference)).
+- A chance inicial (*prior*) é 1:10.000 (item 4 da lista abaixo). Com 0
+  pontos, P = 0,01%. **P nunca chega a 100%:** cada +10 pontos dobra a chance,
+  e dobrar algo já provável muda pouco o percentual. Os casos certos de fraude
+  ficam com as regras duras (4.2), não com o P.
+- O P é uma **estimativa de especialista, não calibrada**. Ele ordena bem os
+  casos, mas "9%" só vira "9 em cada 100 são fraude" depois de calibrar com
+  fraudes confirmadas. Trocar o prior desloca a escala inteira sem mudar a
+  ordem dos casos.
+
 É um *scorecard* (um naive Bayes montado por especialista), o caminho usual
 para quem começa sem dados rotulados. Três correções para o que ele erra:
 
@@ -387,9 +411,32 @@ custo(2FA)      = c₂ + P · V · (1 − ρ)         atrito + fraude que o 2FA 
 custo(rejeitar) = (1 − P) · (c_r + α · V)      cliente bom barrado
 ```
 
-Com c₂ = R$ 3 (atrito de pedir confirmação a um cliente bom), c_r = R$ 20 e
-α = 10% (SAC, retrabalho, risco de perder o cliente), a conta vira cinco
-regras:
+**De onde vem a fórmula.** É **teoria da decisão (risco mínimo de Bayes)**:
+para cada ação, soma-se o custo de cada erro vezes a chance de ele acontecer,
+e escolhe-se a ação mais barata. É o padrão em fraude sensível a custo:
+[Bahnsen et al.](https://orbilu.uni.lu/handle/10993/10602) e
+[Höppner et al.](https://arxiv.org/abs/2005.02488) mostram que o limiar certo
+cai conforme o valor sobe (marcar quando `P ≥ custo do alerta / valor`). A
+terceira ação (2FA), com a eficácia ρ do desafio dentro do custo, segue
+[Khadka & Das (2026)](https://arxiv.org/html/2605.02979v1). O ρ separa golpe
+de invasão: na invasão o golpista não passa na biometria (ρ alto); no golpe a
+vítima passa (ρ baixo). A PSD2 europeia aplica a mesma lógica por faixas de
+valor ([RTS, art. 18](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32018R0389)).
+
+**De onde vêm os valores.** São **premissas nossas**, sem fonte pública de
+custo por banco:
+
+- **c₂ = R$ 3** (atrito de pedir confirmação a um cliente bom, incluindo quem
+  desiste do Pix): escolhido para que o 2FA atinja 3–5% dos Pix legítimos, o
+  orçamento usual de desafio no mercado.
+- **c_r = R$ 20** (custo fixo de barrar um bom: contato no SAC, retrabalho) e
+  **α = 10%** (parte proporcional ao valor: barrar um Pix grande irrita mais e
+  aumenta o risco de perder o cliente). Os dois só entram na derivação dos
+  cortes abaixo.
+- Ficam em `src/engine/params.py` e se recalibram pela taxa real de 2FA e de
+  reclamações.
+
+Com esses valores, a conta vira cinco regras:
 
 | Situação | Decisão |
 |---|---|
