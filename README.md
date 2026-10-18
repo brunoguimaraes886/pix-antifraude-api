@@ -156,11 +156,18 @@ curl -X POST http://localhost:3000/pix/transaction \
 
 ### 2.3 Liberação manual
 
-O cliente reclama de um Pix barrado (fora da API) e um operador libera
-**aquele** Pix: mesmo pagador, mesmo destino, até `max_amount`, até
-`expires_at` (1h por padrão), uso único. O controller aplica a liberação
-**depois** do motor, que continua puro, e grava os motivos que foram
-desfeitos.
+Serve para o falso positivo: o motor barrou um Pix legítimo e o cliente
+reclamou.
+
+1. O cliente fala com o banco (fora da API) e prova que o Pix é dele e que
+   ele sabe para quem está pagando.
+2. Um operador cria uma **liberação** (`POST /manual_release`): "este
+   pagador pode pagar este destino, até este valor (`max_amount`), até esta
+   hora (`expires_at`, 1h por padrão)".
+3. O cliente manda o Pix de novo. O motor analisa normalmente e, se barrar,
+   o controller encontra a liberação e troca a decisão para `approved`.
+4. A liberação vale **uma vez só**. Fica gravado quem liberou, por quê e o que
+   o motor tinha decidido sem ela.
 
 ```bash
 curl -X POST http://localhost:3000/manual_release \
