@@ -1,9 +1,9 @@
-# Pix Antifraude — Hacka QI
+# Pix Antifraude
 
-**Integrantes:** Bruno Guimarães Duarte, Ana Luiza Fidalgo
+**Autoria** Bruno Guimarães Duarte
 
 API que recebe um Pix enviado por um cliente nosso, decide se ele pode sair
-e grava tudo que chegou. Feita a partir do Base Service do Bootcamp QI Tech:
+e grava tudo que chegou. Feita a partir de um Base Service:
 Python + FastAPI, PostgreSQL e Docker.
 
 Cada Pix sai com um de três status:
